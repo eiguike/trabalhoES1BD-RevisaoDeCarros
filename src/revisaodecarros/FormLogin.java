@@ -128,7 +128,7 @@ public class FormLogin extends javax.swing.JFrame {
         }else{
             if(caixaTextoLogin.getText().compareTo("Marcello") == 0){
                 System.out.println("Entrei como mecânico...");
-                new FormPrincipalMecanico().setVisible(true);
+                new FormAdicionarPecas().setVisible(true);
                 this.dispose();                
             }else{
                 System.out.println("Nem entrei...");
