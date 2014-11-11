@@ -4,6 +4,7 @@
  */
 package revisaodecarros;
 
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -12,10 +13,17 @@ import javax.swing.JOptionPane;
  */
 public class FormAdicionarPecas extends javax.swing.JFrame {
 
+    public FormPrincipalMecanico formPrincipal;
     /**
      * Creates new form FormAdicionarPecas
      */
     public FormAdicionarPecas() {
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        initComponents();
+    }
+    public FormAdicionarPecas(FormPrincipalMecanico form) {
+        formPrincipal = form;
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         initComponents();
     }
 
@@ -42,7 +50,15 @@ public class FormAdicionarPecas extends javax.swing.JFrame {
         dataHora = new javax.swing.JLabel();
         lbdataHora = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Ações", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 10))); // NOI18N
 
@@ -194,10 +210,26 @@ public class FormAdicionarPecas extends javax.swing.JFrame {
             "Sair",
             JOptionPane.YES_NO_OPTION);
         if(n==0){
-            new FormPrincipalMecanico().setVisible(true);
+            formPrincipal.setVisible(true);
             this.dispose();
         }        
     }//GEN-LAST:event_jbSairSemSalvarActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+
+    }//GEN-LAST:event_formWindowClosed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        int n = JOptionPane.showConfirmDialog(
+            this,
+            "Você tem certeza que gostaria de sair sem salvar?",
+            "Sair",
+            JOptionPane.YES_NO_OPTION);
+        if(n==0){
+            formPrincipal.setVisible(true);
+            this.dispose();
+        } 
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments
