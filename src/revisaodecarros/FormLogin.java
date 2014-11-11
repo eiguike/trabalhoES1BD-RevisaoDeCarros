@@ -127,11 +127,11 @@ public class FormLogin extends javax.swing.JFrame {
             this.dispose();
         }else{
             if(caixaTextoLogin.getText().compareTo("Marcello") == 0){
-                System.out.println("Entrei como mecânico...");
-                new FormAdicionarPecas().setVisible(true);
+                System.out.println(caixaTextoLogin.getText());
+                new FormPrincipalMecanico(caixaTextoLogin.getText()).setVisible(true);
                 this.dispose();                
             }else{
-                System.out.println("Nem entrei...");
+    
             }
         }
     }//GEN-LAST:event_jButton1ActionPerformed

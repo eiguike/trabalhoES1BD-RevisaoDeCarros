@@ -5,18 +5,27 @@
  */
 package revisaodecarros;
 
+import javax.swing.JFrame;
+
 /**
  *
  * @author floss
  */
 public class FormProcurarCarro extends javax.swing.JFrame {
 
+    public FormPrincipalMecanico formPrincipal;
     /**
      * Creates new form FormProcurarCarro
      */
     public FormProcurarCarro() {
         initComponents();
     }
+    public FormProcurarCarro(FormPrincipalMecanico formCarro) {
+        formPrincipal = formCarro;
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        initComponents();
+        
+    }    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -179,7 +188,7 @@ public class FormProcurarCarro extends javax.swing.JFrame {
                         .addComponent(jLabel11)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 150, Short.MAX_VALUE)))
+                        .addGap(0, 95, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -202,7 +211,12 @@ public class FormProcurarCarro extends javax.swing.JFrame {
 
         jButton3.setText("jButton3");
 
-        jButton4.setText("jButton4");
+        jButton4.setText("Sair");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -211,15 +225,10 @@ public class FormProcurarCarro extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton3))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton1)
-                            .addComponent(jButton2)
-                            .addComponent(jButton4))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -265,6 +274,11 @@ public class FormProcurarCarro extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        formPrincipal.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments

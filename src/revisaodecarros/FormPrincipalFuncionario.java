@@ -4,6 +4,7 @@
  */
 package revisaodecarros;
 
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -16,6 +17,7 @@ public class FormPrincipalFuncionario extends javax.swing.JFrame {
      * Creates new form FormPrincipalFuncionario
      */
     public FormPrincipalFuncionario() {
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         initComponents();
     }
 
