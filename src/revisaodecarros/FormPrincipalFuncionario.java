@@ -20,6 +20,11 @@ public class FormPrincipalFuncionario extends javax.swing.JFrame {
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         initComponents();
     }
+    public FormPrincipalFuncionario(String login){
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        initComponents();
+        txtUser.setText(login);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -41,6 +46,11 @@ public class FormPrincipalFuncionario extends javax.swing.JFrame {
         buttonControle = new javax.swing.JButton();
         buttonPesquisa = new javax.swing.JButton();
         buttonHistorico = new javax.swing.JButton();
+        panelInfo = new javax.swing.JPanel();
+        lblUser = new javax.swing.JLabel();
+        txtUser = new javax.swing.JLabel();
+        lblDate = new javax.swing.JLabel();
+        txtDate = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -83,10 +93,10 @@ public class FormPrincipalFuncionario extends javax.swing.JFrame {
             panelRevisaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelRevisaoLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(panelRevisaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(panelAtual)
-                    .addComponent(labelAtual))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelRevisaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(labelAtual, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(panelAtual, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(scrRevisao, javax.swing.GroupLayout.PREFERRED_SIZE, 396, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -158,7 +168,7 @@ public class FormPrincipalFuncionario extends javax.swing.JFrame {
                 .addComponent(buttonPesquisa)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buttonHistorico)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 257, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(buttonSair)
                 .addContainerGap())
         );
@@ -166,25 +176,63 @@ public class FormPrincipalFuncionario extends javax.swing.JFrame {
         buttonRevisao.getAccessibleContext().setAccessibleName("buttonRevisao");
         buttonHistorico.getAccessibleContext().setAccessibleName("buttonHistorico");
 
+        panelInfo.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+
+        lblUser.setText("Usuário:");
+
+        lblDate.setText("Hora/Data:");
+
+        javax.swing.GroupLayout panelInfoLayout = new javax.swing.GroupLayout(panelInfo);
+        panelInfo.setLayout(panelInfoLayout);
+        panelInfoLayout.setHorizontalGroup(
+            panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelInfoLayout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addComponent(lblUser)
+                .addGap(12, 12, 12)
+                .addComponent(txtUser)
+                .addGap(18, 18, 18)
+                .addComponent(lblDate)
+                .addGap(6, 6, 6)
+                .addComponent(txtDate))
+        );
+        panelInfoLayout.setVerticalGroup(
+            panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelInfoLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lblUser)
+                        .addComponent(txtUser))
+                    .addComponent(lblDate)
+                    .addComponent(txtDate))
+                .addContainerGap())
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(panelRevisao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelAcao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(panelRevisao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(panelAcao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(panelInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(panelAcao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(panelRevisao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(panelAcao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelRevisao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(panelInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         panelRevisao.getAccessibleContext().setAccessibleName("panelRevisao");
@@ -207,22 +255,22 @@ public class FormPrincipalFuncionario extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonSairActionPerformed
 
     private void buttonRevisaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRevisaoActionPerformed
-        new FormAgendaRevisao(this).setVisible(true);
+        new FormAgendaRevisao(this, txtUser.getText()).setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_buttonRevisaoActionPerformed
 
     private void buttonPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPesquisaActionPerformed
-        new FormPesquisa(this).setVisible(true);
+        new FormPesquisa(this, txtUser.getText()).setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_buttonPesquisaActionPerformed
 
     private void buttonHistoricoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonHistoricoActionPerformed
-        new FormHistorico(this).setVisible(true);
+        new FormHistorico(this, txtUser.getText()).setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_buttonHistoricoActionPerformed
 
     private void buttonControleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonControleActionPerformed
-        new FormControleCliente(this).setVisible(true);
+        new FormControleCliente(this, txtUser.getText()).setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_buttonControleActionPerformed
 
@@ -267,10 +315,15 @@ public class FormPrincipalFuncionario extends javax.swing.JFrame {
     private javax.swing.JButton buttonRevisao;
     private javax.swing.JButton buttonSair;
     private javax.swing.JLabel labelAtual;
+    private javax.swing.JLabel lblDate;
+    private javax.swing.JLabel lblUser;
     private javax.swing.JPanel panelAcao;
     private javax.swing.JLabel panelAtual;
+    private javax.swing.JPanel panelInfo;
     private javax.swing.JPanel panelRevisao;
     private javax.swing.JScrollPane scrRevisao;
     private javax.swing.JTable tableRevisao;
+    private javax.swing.JLabel txtDate;
+    private javax.swing.JLabel txtUser;
     // End of variables declaration//GEN-END:variables
 }

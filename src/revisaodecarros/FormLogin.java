@@ -123,7 +123,7 @@ public class FormLogin extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         if(caixaTextoLogin.getText().compareTo("Henrique") == 0){
             System.out.println("Entrei como funcionário...");
-            new FormPrincipalFuncionario().setVisible(true);
+            new FormPrincipalFuncionario(caixaTextoLogin.getText()).setVisible(true);
             this.dispose();
         }else{
             if(caixaTextoLogin.getText().compareTo("Marcello") == 0){

@@ -20,11 +20,12 @@ public class FormHistorico extends javax.swing.JFrame {
         initComponents();
     }
     
-    public FormHistorico(FormPrincipalFuncionario formFunc)
+    public FormHistorico(FormPrincipalFuncionario formFunc, String login)
     {
         formPrincipal = formFunc;
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         initComponents();
+        txtUser.setText(login);
     }
 
     /**
@@ -36,12 +37,17 @@ public class FormHistorico extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        panelAcao2 = new javax.swing.JPanel();
+        panelAcao = new javax.swing.JPanel();
         buttonSair2 = new javax.swing.JButton();
+        panelInfo = new javax.swing.JPanel();
+        lblUser = new javax.swing.JLabel();
+        txtUser = new javax.swing.JLabel();
+        lblDate = new javax.swing.JLabel();
+        txtDate = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        panelAcao2.setBorder(javax.swing.BorderFactory.createTitledBorder("Ações"));
+        panelAcao.setBorder(javax.swing.BorderFactory.createTitledBorder("Ações"));
 
         buttonSair2.setText("Sair");
         buttonSair2.setMargin(new java.awt.Insets(2, 10, 2, 10));
@@ -51,20 +57,53 @@ public class FormHistorico extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout panelAcao2Layout = new javax.swing.GroupLayout(panelAcao2);
-        panelAcao2.setLayout(panelAcao2Layout);
-        panelAcao2Layout.setHorizontalGroup(
-            panelAcao2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelAcao2Layout.createSequentialGroup()
+        javax.swing.GroupLayout panelAcaoLayout = new javax.swing.GroupLayout(panelAcao);
+        panelAcao.setLayout(panelAcaoLayout);
+        panelAcaoLayout.setHorizontalGroup(
+            panelAcaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelAcaoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(buttonSair2, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
                 .addContainerGap())
         );
-        panelAcao2Layout.setVerticalGroup(
-            panelAcao2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelAcao2Layout.createSequentialGroup()
+        panelAcaoLayout.setVerticalGroup(
+            panelAcaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelAcaoLayout.createSequentialGroup()
                 .addContainerGap(378, Short.MAX_VALUE)
                 .addComponent(buttonSair2)
+                .addContainerGap())
+        );
+
+        panelInfo.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+
+        lblUser.setText("Usuário:");
+
+        lblDate.setText("Hora/Data:");
+
+        javax.swing.GroupLayout panelInfoLayout = new javax.swing.GroupLayout(panelInfo);
+        panelInfo.setLayout(panelInfoLayout);
+        panelInfoLayout.setHorizontalGroup(
+            panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelInfoLayout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addComponent(lblUser)
+                .addGap(12, 12, 12)
+                .addComponent(txtUser)
+                .addGap(18, 18, 18)
+                .addComponent(lblDate)
+                .addGap(6, 6, 6)
+                .addComponent(txtDate))
+        );
+        panelInfoLayout.setVerticalGroup(
+            panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelInfoLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lblUser)
+                        .addComponent(txtUser))
+                    .addComponent(lblDate)
+                    .addComponent(txtDate))
                 .addContainerGap())
         );
 
@@ -72,16 +111,22 @@ public class FormHistorico extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(243, Short.MAX_VALUE)
-                .addComponent(panelAcao2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 559, Short.MAX_VALUE)
+                        .addComponent(panelAcao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(panelInfo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(panelAcao2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(panelAcao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(panelInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -137,11 +182,12 @@ public class FormHistorico extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton buttonSair;
-    private javax.swing.JButton buttonSair1;
     private javax.swing.JButton buttonSair2;
+    private javax.swing.JLabel lblDate;
+    private javax.swing.JLabel lblUser;
     private javax.swing.JPanel panelAcao;
-    private javax.swing.JPanel panelAcao1;
-    private javax.swing.JPanel panelAcao2;
+    private javax.swing.JPanel panelInfo;
+    private javax.swing.JLabel txtDate;
+    private javax.swing.JLabel txtUser;
     // End of variables declaration//GEN-END:variables
 }

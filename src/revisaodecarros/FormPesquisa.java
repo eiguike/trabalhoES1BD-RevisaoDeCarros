@@ -20,11 +20,12 @@ public class FormPesquisa extends javax.swing.JFrame {
         initComponents();
     }
     
-    public FormPesquisa(FormPrincipalFuncionario formFunc)
+    public FormPesquisa(FormPrincipalFuncionario formFunc, String login)
     {
         formPrincipal = formFunc;
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         initComponents();
+        txtUser.setText(login);
     }
 
     /**
@@ -38,6 +39,11 @@ public class FormPesquisa extends javax.swing.JFrame {
 
         panelAcao = new javax.swing.JPanel();
         buttonSair = new javax.swing.JButton();
+        panelInfo = new javax.swing.JPanel();
+        lblUser = new javax.swing.JLabel();
+        txtUser = new javax.swing.JLabel();
+        lblDate = new javax.swing.JLabel();
+        txtDate = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -57,7 +63,7 @@ public class FormPesquisa extends javax.swing.JFrame {
             panelAcaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelAcaoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(buttonSair, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
+                .addComponent(buttonSair, javax.swing.GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE)
                 .addContainerGap())
         );
         panelAcaoLayout.setVerticalGroup(
@@ -68,21 +74,60 @@ public class FormPesquisa extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        panelInfo.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+
+        lblUser.setText("Usuário:");
+
+        lblDate.setText("Hora/Data:");
+
+        javax.swing.GroupLayout panelInfoLayout = new javax.swing.GroupLayout(panelInfo);
+        panelInfo.setLayout(panelInfoLayout);
+        panelInfoLayout.setHorizontalGroup(
+            panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelInfoLayout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addComponent(lblUser)
+                .addGap(12, 12, 12)
+                .addComponent(txtUser)
+                .addGap(18, 18, 18)
+                .addComponent(lblDate)
+                .addGap(6, 6, 6)
+                .addComponent(txtDate))
+        );
+        panelInfoLayout.setVerticalGroup(
+            panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelInfoLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lblUser)
+                        .addComponent(txtUser))
+                    .addComponent(lblDate)
+                    .addComponent(txtDate))
+                .addContainerGap())
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(243, Short.MAX_VALUE)
-                .addComponent(panelAcao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 514, Short.MAX_VALUE)
+                        .addComponent(panelAcao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(panelInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(panelAcao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -138,6 +183,11 @@ public class FormPesquisa extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonSair;
+    private javax.swing.JLabel lblDate;
+    private javax.swing.JLabel lblUser;
     private javax.swing.JPanel panelAcao;
+    private javax.swing.JPanel panelInfo;
+    private javax.swing.JLabel txtDate;
+    private javax.swing.JLabel txtUser;
     // End of variables declaration//GEN-END:variables
 }
