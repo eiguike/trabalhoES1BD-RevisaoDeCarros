@@ -32,7 +32,7 @@ public class FormPrincipalFuncionario extends javax.swing.JFrame {
 
         panelRevisao = new javax.swing.JPanel();
         panelAtual = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        scrRevisao = new javax.swing.JScrollPane();
         tableRevisao = new javax.swing.JTable();
         labelAtual = new javax.swing.JLabel();
         panelAcao = new javax.swing.JPanel();
@@ -60,7 +60,7 @@ public class FormPrincipalFuncionario extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(tableRevisao);
+        scrRevisao.setViewportView(tableRevisao);
         tableRevisao.getAccessibleContext().setAccessibleName("tableRevisao");
 
         labelAtual.setText("hue");
@@ -76,7 +76,7 @@ public class FormPrincipalFuncionario extends javax.swing.JFrame {
                         .addComponent(panelAtual)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(labelAtual))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 441, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(scrRevisao, javax.swing.GroupLayout.PREFERRED_SIZE, 441, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelRevisaoLayout.setVerticalGroup(
@@ -87,7 +87,7 @@ public class FormPrincipalFuncionario extends javax.swing.JFrame {
                     .addComponent(panelAtual)
                     .addComponent(labelAtual))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 396, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(scrRevisao, javax.swing.GroupLayout.PREFERRED_SIZE, 396, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         panelAtual.getAccessibleContext().setAccessibleName("jPanelAtual");
@@ -104,6 +104,11 @@ public class FormPrincipalFuncionario extends javax.swing.JFrame {
         });
 
         buttonRevisao.setText("Agendar Revisão");
+        buttonRevisao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonRevisaoActionPerformed(evt);
+            }
+        });
 
         buttonControle.setText("Controle Cliente");
         buttonControle.addActionListener(new java.awt.event.ActionListener() {
@@ -113,8 +118,18 @@ public class FormPrincipalFuncionario extends javax.swing.JFrame {
         });
 
         buttonPesquisa.setText("Pesquisar");
+        buttonPesquisa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonPesquisaActionPerformed(evt);
+            }
+        });
 
         buttonHistorico.setText("Histórico");
+        buttonHistorico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonHistoricoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelAcaoLayout = new javax.swing.GroupLayout(panelAcao);
         panelAcao.setLayout(panelAcaoLayout);
@@ -191,8 +206,24 @@ public class FormPrincipalFuncionario extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_buttonSairActionPerformed
 
+    private void buttonRevisaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRevisaoActionPerformed
+        new FormAgendaRevisao(this).setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_buttonRevisaoActionPerformed
+
+    private void buttonPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPesquisaActionPerformed
+        new FormPesquisa(this).setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_buttonPesquisaActionPerformed
+
+    private void buttonHistoricoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonHistoricoActionPerformed
+        new FormHistorico(this).setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_buttonHistoricoActionPerformed
+
     private void buttonControleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonControleActionPerformed
-        // TODO add your handling code here:
+        new FormControleCliente(this).setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_buttonControleActionPerformed
 
     /**
@@ -235,11 +266,11 @@ public class FormPrincipalFuncionario extends javax.swing.JFrame {
     private javax.swing.JButton buttonPesquisa;
     private javax.swing.JButton buttonRevisao;
     private javax.swing.JButton buttonSair;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel labelAtual;
     private javax.swing.JPanel panelAcao;
     private javax.swing.JLabel panelAtual;
     private javax.swing.JPanel panelRevisao;
+    private javax.swing.JScrollPane scrRevisao;
     private javax.swing.JTable tableRevisao;
     // End of variables declaration//GEN-END:variables
 }
