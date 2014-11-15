@@ -29,15 +29,15 @@ public class FormLogin extends javax.swing.JFrame {
         initComponents();
         this.setResizable(false);
         
-        con = new ConexaoBD();
+//        con = new ConexaoBD();
         
         // SE NÃO TIVER ACESSO AO BANCO DE DADOS
         // ELE FARÁ O ACESSO POR DEBUG...
         // ISTO É, COM LOGIN PADRÃO HENRIQUE E MARCELLO
-        if(con == null)
+//        if(con == null)
             debug = 1;
-        else
-            debug = 0;
+//        else
+//           debug = 0;
     }
 
     /**
