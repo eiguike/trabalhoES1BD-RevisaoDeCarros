@@ -12,6 +12,7 @@ import javax.swing.JOptionPane;
  * @author Aluno
  */
 public class FormAdicionarPecas extends javax.swing.JFrame {
+    ClockTest clock;
 
     public FormPrincipalMecanico formPrincipal;
     /**
@@ -22,9 +23,24 @@ public class FormAdicionarPecas extends javax.swing.JFrame {
         initComponents();
     }
     public FormAdicionarPecas(FormPrincipalMecanico form) {
+        
         formPrincipal = form;
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         initComponents();
+        clock = new ClockTest(lbdataHora);  
+    }
+    
+    private void fecharFormulario(){
+        int n = JOptionPane.showConfirmDialog(
+            this,
+            "Você tem certeza que gostaria de sair sem salvar?",
+            "Sair",
+            JOptionPane.YES_NO_OPTION);
+        if(n==0){
+            formPrincipal.setVisible(true);
+            clock.stop();
+            this.dispose();
+        }         
     }
 
     /**
@@ -204,15 +220,7 @@ public class FormAdicionarPecas extends javax.swing.JFrame {
     }//GEN-LAST:event_jbSalvarSairActionPerformed
 
     private void jbSairSemSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSairSemSalvarActionPerformed
-        int n = JOptionPane.showConfirmDialog(
-            this,
-            "Você tem certeza que gostaria de sair sem salvar?",
-            "Sair",
-            JOptionPane.YES_NO_OPTION);
-        if(n==0){
-            formPrincipal.setVisible(true);
-            this.dispose();
-        }        
+        fecharFormulario();
     }//GEN-LAST:event_jbSairSemSalvarActionPerformed
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
@@ -220,15 +228,7 @@ public class FormAdicionarPecas extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        int n = JOptionPane.showConfirmDialog(
-            this,
-            "Você tem certeza que gostaria de sair sem salvar?",
-            "Sair",
-            JOptionPane.YES_NO_OPTION);
-        if(n==0){
-            formPrincipal.setVisible(true);
-            this.dispose();
-        } 
+
     }//GEN-LAST:event_formWindowClosing
 
     /**

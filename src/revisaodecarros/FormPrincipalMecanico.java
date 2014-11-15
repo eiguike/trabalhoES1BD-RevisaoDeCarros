@@ -28,7 +28,19 @@ public class FormPrincipalMecanico extends javax.swing.JFrame {
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         initComponents();
     }    
+    private void fecharFormulario(){
+        int n = JOptionPane.showConfirmDialog(
+            this,
+            "Você tem certeza que gostaria de sair?",
+            "Sair",
+            JOptionPane.YES_NO_OPTION);
+        if(n==0){
+            new FormLogin().setVisible(true);
+            clock.stop();
+            this.dispose();
 
+        }        
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -238,16 +250,7 @@ public class FormPrincipalMecanico extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        int n = JOptionPane.showConfirmDialog(
-            this,
-            "Você tem certeza que gostaria de sair?",
-            "Sair",
-            JOptionPane.YES_NO_OPTION);
-        if(n==0){
-            new FormLogin().setVisible(true);
-            this.dispose();
-
-        }
+        fecharFormulario();
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -270,17 +273,7 @@ public class FormPrincipalMecanico extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        int n = JOptionPane.showConfirmDialog(
-            this,
-            "Você tem certeza que gostaria de sair?",
-            "Sair",
-            JOptionPane.YES_NO_OPTION);
-        if(n==0){
-            new FormLogin().setVisible(true);
-            clock.stop();
-            this.dispose();
-
-        }
+        fecharFormulario();
     }//GEN-LAST:event_formWindowClosing
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
