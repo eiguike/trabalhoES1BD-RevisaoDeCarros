@@ -179,15 +179,21 @@
         </Component>
         <Component class="javax.swing.JButton" name="buttonAdicionar">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Adicionar"/>
+            <Property name="text" type="java.lang.String" value="Cadastrar"/>
             <Property name="actionCommand" type="java.lang.String" value=""/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonAdicionarActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="buttonProcura">
           <Properties>
             <Property name="text" type="java.lang.String" value="Procurar"/>
             <Property name="actionCommand" type="java.lang.String" value=""/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonProcuraActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="buttonEditar">
           <Properties>

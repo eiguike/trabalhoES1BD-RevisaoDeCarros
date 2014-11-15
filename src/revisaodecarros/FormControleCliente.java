@@ -8,12 +8,17 @@ package revisaodecarros;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+import Control.ClienteControl;
+import Model.Cliente;
+
 /**
  *
  * @author Charizard
  */
 public class FormControleCliente extends javax.swing.JFrame {
     ClockTest clock;
+    private Cliente cliente;
+    private ClienteControl conexao;
     
     public FormPrincipalFuncionario formPrincipal;
     
@@ -28,6 +33,7 @@ public class FormControleCliente extends javax.swing.JFrame {
         initComponents();
         txtUser.setText(login);
         clock = new ClockTest(txtDate);
+        conexao = new ClienteControl();
     }
 
     /**
@@ -83,11 +89,21 @@ public class FormControleCliente extends javax.swing.JFrame {
             }
         });
 
-        buttonAdicionar.setText("Adicionar");
+        buttonAdicionar.setText("Cadastrar");
         buttonAdicionar.setActionCommand("");
+        buttonAdicionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonAdicionarActionPerformed(evt);
+            }
+        });
 
         buttonProcura.setText("Procurar");
         buttonProcura.setActionCommand("");
+        buttonProcura.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonProcuraActionPerformed(evt);
+            }
+        });
 
         buttonEditar.setText("Editar");
         buttonEditar.setActionCommand("");
@@ -293,6 +309,54 @@ public class FormControleCliente extends javax.swing.JFrame {
             this.dispose();
         }
     }//GEN-LAST:event_formWindowClosing
+
+    private void buttonProcuraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonProcuraActionPerformed
+        Object[] possibilities = {"","CPF", "Nome"};
+        String opcao;
+        do{
+        opcao = (String)JOptionPane.showInputDialog(
+                            this,
+                            "Procurar por:",
+                            "Customized Dialog",
+                            JOptionPane.PLAIN_MESSAGE,
+                            null,
+                            possibilities,
+                            "");        
+        }while(opcao.compareTo("") == 0);
+        
+        if(opcao.compareTo("CPF") == 0){
+            String s = (String)JOptionPane.showInputDialog(
+                               this,
+                               "Entre com o CPF do Cliente:\n",
+                               "Customized Dialog",
+                               JOptionPane.PLAIN_MESSAGE,
+                               null,
+                               null,
+                               "");
+            
+            cliente = conexao.getCliente(s, null);
+            if(cliente != null){
+                //atualizar campos
+            }
+            
+        }
+        if(opcao.compareTo("Nome") == 0){
+            String s = (String)JOptionPane.showInputDialog(
+                               this,
+                               "Entre com o nome do Cliente:",
+                               "Customized Dialog",
+                               JOptionPane.PLAIN_MESSAGE,
+                               null,
+                               null,
+                               "");    
+        }
+
+
+    }//GEN-LAST:event_buttonProcuraActionPerformed
+
+    private void buttonAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAdicionarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_buttonAdicionarActionPerformed
 
     /**
      * @param args the command line arguments

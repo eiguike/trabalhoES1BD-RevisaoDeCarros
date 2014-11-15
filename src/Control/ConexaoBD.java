@@ -12,7 +12,7 @@ public class ConexaoBD {
     private Connection myConnection;
 
     //Objeto usado para enviar comandos SQL no SGBD
-    private Statement st;
+    Statement st;
     private boolean conectado;
 
     public boolean isConectado() {
