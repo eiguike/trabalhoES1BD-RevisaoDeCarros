@@ -34,7 +34,7 @@ public class FormLogin extends javax.swing.JFrame {
         // SE NÃO TIVER ACESSO AO BANCO DE DADOS
         // ELE FARÁ O ACESSO POR DEBUG...
         // ISTO É, COM LOGIN PADRÃO HENRIQUE E MARCELLO
-        if(con == null)
+        if(!con.isConectado())
             debug = 1;
         else
             debug = 0;
@@ -88,9 +88,6 @@ public class FormLogin extends javax.swing.JFrame {
             }
         });
 
-        jTextField1.setText("jTextField1");
-
-        caixaTextoLogin.setText("Marcello");
         caixaTextoLogin.setName("caixaTextoLogin"); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -99,8 +96,9 @@ public class FormLogin extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 32, Short.MAX_VALUE)
                         .addComponent(jButton1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton2))
@@ -112,7 +110,7 @@ public class FormLogin extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(caixaTextoLogin)
                             .addComponent(jTextField1))))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -165,7 +163,7 @@ public class FormLogin extends javax.swing.JFrame {
                     this.dispose();
                 }
             }else{
-                // mostrar janela q deu pau
+                JOptionPane.showMessageDialog(this, "Usuário e Senha invalída!");
             }
         }
         

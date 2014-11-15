@@ -67,7 +67,6 @@ public class FormPrincipalMecanico extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(835, 300));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
@@ -77,7 +76,7 @@ public class FormPrincipalMecanico extends javax.swing.JFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Ações"));
 
         jButton1.setText("Outras Datas (F1)");
-        jButton1.setToolTipText("");
+        jButton1.setToolTipText("Mostra o agendamento de outra semana");
         jButton1.setMargin(new java.awt.Insets(2, 10, 2, 10));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -86,6 +85,7 @@ public class FormPrincipalMecanico extends javax.swing.JFrame {
         });
 
         jButton2.setText("Informações Carro (F2)");
+        jButton2.setToolTipText("Exibe as informações do carro da revisão atual");
         jButton2.setMargin(new java.awt.Insets(2, 10, 2, 10));
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -94,6 +94,7 @@ public class FormPrincipalMecanico extends javax.swing.JFrame {
         });
 
         jButton3.setText("Adicionar Peças (F3)");
+        jButton3.setToolTipText("Adiciona peças no carro da revisão atual");
         jButton3.setMargin(new java.awt.Insets(2, 10, 2, 10));
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -131,7 +132,7 @@ public class FormPrincipalMecanico extends javax.swing.JFrame {
                 .addComponent(jButton2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 321, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 320, Short.MAX_VALUE)
                 .addComponent(jButton4)
                 .addContainerGap())
         );
