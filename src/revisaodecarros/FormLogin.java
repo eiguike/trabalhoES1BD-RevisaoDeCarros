@@ -29,19 +29,15 @@ public class FormLogin extends javax.swing.JFrame {
         initComponents();
         this.setResizable(false);
         
-//        con = new ConexaoBD();
+        con = new ConexaoBD();
         
         // SE NÃO TIVER ACESSO AO BANCO DE DADOS
         // ELE FARÁ O ACESSO POR DEBUG...
         // ISTO É, COM LOGIN PADRÃO HENRIQUE E MARCELLO
-<<<<<<< HEAD
         if(!con.isConectado())
-=======
-//        if(con == null)
->>>>>>> f2207b9d2236f7a3cca86150c3a5d390a0a97c7a
             debug = 1;
-//        else
-//           debug = 0;
+        else
+           debug = 0;
     }
 
     /**
@@ -128,7 +124,7 @@ public class FormLogin extends javax.swing.JFrame {
                     .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton1)
                     .addComponent(jButton2))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))

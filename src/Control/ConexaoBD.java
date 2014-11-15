@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package Control;
-import Model.Usuario;
+import Model.*;
 import java.sql.*;
 
 public class ConexaoBD {
@@ -69,5 +69,31 @@ public class ConexaoBD {
           return null;
         }
         return ret_usuario;      
-    }   
+    }
+    
+    public Carro getCarro(String placaCarro){
+        Carro retCarro = new Carro();
+        ResultSet rs = null;        
+            
+        String texto_consulta = "SELECT * FROM CARRO WHERE PLACACARRO = '";
+        texto_consulta +=placaCarro; 
+        texto_consulta+="'";
+        
+        try{
+          st.execute(texto_consulta);
+          rs = st.getResultSet();
+          rs.next();
+          retCarro.setCPF(rs.getString(1));          
+          retCarro.setPlacaCarro(rs.getString(2));
+          retCarro.setChassi(rs.getString(3));
+          retCarro.setCor(rs.getString(4));
+          retCarro.setAno(rs.getInt(5));
+          retCarro.setModelo(rs.getString(6));
+
+        }catch(SQLException e){
+          return null;
+        }
+        return retCarro;     
+        
+    }
 }
