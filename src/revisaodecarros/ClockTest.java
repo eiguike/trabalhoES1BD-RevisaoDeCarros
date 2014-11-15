@@ -15,30 +15,22 @@ import javax.swing.JLabel;
 import javax.swing.Timer;
 
 public class ClockTest extends JFrame {
+    
+  JLabel clock;
+  Timer timer;
 
-  public ClockTest() {
-    super("Timer Demo");
-    setSize(300, 100);
-    setDefaultCloseOperation(EXIT_ON_CLOSE);
-
-    ClockLabel clock = new ClockLabel();
-    getContentPane().add(clock, BorderLayout.NORTH);
-  }
-
-  public static void main(String args[]) {
-    ClockTest ct = new ClockTest();
-    ct.setVisible(true);
-  }
-}
-class ClockLabel extends JLabel implements ActionListener {
-
-  public ClockLabel() {
-    super("" + new Date());
-    Timer t = new Timer(1000, this);
-    t.start();
-  }
-
-  public void actionPerformed(ActionEvent ae) {
-    setText((new Date()).toString());
+  public ClockTest(final JLabel clock) {
+    int delay = 1000; //milliseconds
+    ActionListener taskPerformer = new ActionListener() {
+        public void actionPerformed(ActionEvent evt) {
+            Date  data = new Date();
+            clock.setText(data.getHours()+":"+data.getMinutes()+":"+data.getSeconds());
+        }
+    };
+    timer = new Timer(delay, taskPerformer);
+    timer.start();
+  }  
+  public void stop(){
+      timer.stop();
   }
 }
