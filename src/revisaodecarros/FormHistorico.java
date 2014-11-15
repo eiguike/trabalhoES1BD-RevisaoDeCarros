@@ -13,7 +13,8 @@ import javax.swing.JOptionPane;
  * @author Charizard
  */
 public class FormHistorico extends javax.swing.JFrame {
-
+    ClockTest clock;
+    
     public FormPrincipalFuncionario formPrincipal;
     
     public FormHistorico() {
@@ -26,6 +27,7 @@ public class FormHistorico extends javax.swing.JFrame {
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         initComponents();
         txtUser.setText(login);
+        clock = new ClockTest(txtDate);
     }
 
     /**
@@ -46,6 +48,11 @@ public class FormHistorico extends javax.swing.JFrame {
         txtDate = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         panelAcao.setBorder(javax.swing.BorderFactory.createTitledBorder("Ações"));
 
@@ -141,10 +148,25 @@ public class FormHistorico extends javax.swing.JFrame {
             JOptionPane.YES_NO_OPTION);
         if(n==0){
             formPrincipal.setVisible(true);
+            clock.stop();
             this.dispose();
 
         }
     }//GEN-LAST:event_buttonSair2ActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        int n = JOptionPane.showConfirmDialog(
+            this,
+            "Você tem certeza que gostaria de sair?",
+            "Sair",
+            JOptionPane.YES_NO_OPTION);
+        if(n==0){
+            formPrincipal.setVisible(true);
+            clock.stop();
+            this.dispose();
+
+        }
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments

@@ -24,7 +24,56 @@ public class ClockTest extends JFrame {
     ActionListener taskPerformer = new ActionListener() {
         public void actionPerformed(ActionEvent evt) {
             Date  data = new Date();
-            clock.setText(data.getHours()+":"+data.getMinutes()+":"+data.getSeconds());
+            if(data.getSeconds() >= 0 && data.getSeconds() < 10)
+            {
+                if(data.getMinutes() >= 0 && data.getMinutes() < 10)
+                {
+                    if(data.getHours() >= 0 && data.getHours() < 10)
+                    {
+                        clock.setText("0"+data.getHours()+":0"+data.getMinutes()+":0"+data.getSeconds());
+                    }
+                    else
+                    {
+                        clock.setText(data.getHours()+":0"+data.getMinutes()+":0"+data.getSeconds());
+                    }
+                }
+                else
+                {
+                    if(data.getHours() >= 0 && data.getHours() < 10)
+                    {
+                        clock.setText("0"+data.getHours()+":"+data.getMinutes()+":0"+data.getSeconds());
+                    }
+                    else
+                    {
+                        clock.setText(data.getHours()+":"+data.getMinutes()+":0"+data.getSeconds());
+                    }
+                }
+            }
+            else
+            {
+                if(data.getMinutes() >= 0 && data.getMinutes() < 10)
+                {
+                    if(data.getHours() >= 0 && data.getHours() < 10)
+                    {
+                        clock.setText("0"+data.getHours()+":0"+data.getMinutes()+":"+data.getSeconds());
+                    }
+                    else
+                    {
+                        clock.setText(data.getHours()+":0"+data.getMinutes()+":"+data.getSeconds());
+                    }
+                }
+                else
+                {
+                    if(data.getHours() >= 0 && data.getHours() < 10)
+                    {
+                        clock.setText("0"+data.getHours()+":"+data.getMinutes()+":"+data.getSeconds());
+                    }
+                    else
+                    {
+                        clock.setText(data.getHours()+":"+data.getMinutes()+":"+data.getSeconds());
+                    }
+                }
+            }
         }
     };
     timer = new Timer(delay, taskPerformer);

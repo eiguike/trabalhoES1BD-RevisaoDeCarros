@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
  * @author Aluno
  */
 public class FormPrincipalFuncionario extends javax.swing.JFrame {
-
+    ClockTest clock;
     /**
      * Creates new form FormPrincipalFuncionario
      */
@@ -24,6 +24,7 @@ public class FormPrincipalFuncionario extends javax.swing.JFrame {
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         initComponents();
         txtUser.setText(login);
+        clock = new ClockTest(txtDate); 
     }
 
     /**
@@ -53,6 +54,11 @@ public class FormPrincipalFuncionario extends javax.swing.JFrame {
         txtDate = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         panelRevisao.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
         panelRevisao.setName(""); // NOI18N
@@ -249,6 +255,7 @@ public class FormPrincipalFuncionario extends javax.swing.JFrame {
             JOptionPane.YES_NO_OPTION);
         if(n==0){
             new FormLogin().setVisible(true);
+            clock.stop();
             this.dispose();
 
         }
@@ -273,6 +280,20 @@ public class FormPrincipalFuncionario extends javax.swing.JFrame {
         new FormControleCliente(this, txtUser.getText()).setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_buttonControleActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        int n = JOptionPane.showConfirmDialog(
+            this,
+            "Você tem certeza que gostaria de sair?",
+            "Sair",
+            JOptionPane.YES_NO_OPTION);
+        if(n==0){
+            new FormLogin().setVisible(true);
+            clock.stop();
+            this.dispose();
+
+        }
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments
