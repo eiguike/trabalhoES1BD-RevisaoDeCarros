@@ -8,11 +8,19 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
+import Control.ConexaoBD;
+import Model.*;
+
 /**
  *
  * @author Aluno
  */
 public class FormLogin extends javax.swing.JFrame {
+    
+    private ConexaoBD con;
+    private Usuario usuario;
+    
+    private int debug;
 
     /**
      * Creates new form login
@@ -20,6 +28,16 @@ public class FormLogin extends javax.swing.JFrame {
     public FormLogin() {
         initComponents();
         this.setResizable(false);
+        
+        con = new ConexaoBD();
+        
+        // SE NÃO TIVER ACESSO AO BANCO DE DADOS
+        // ELE FARÁ O ACESSO POR DEBUG...
+        // ISTO É, COM LOGIN PADRÃO HENRIQUE E MARCELLO
+        if(con == null)
+            debug = 1;
+        else
+            debug = 0;
     }
 
     /**
@@ -121,19 +139,36 @@ public class FormLogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if(caixaTextoLogin.getText().compareTo("Henrique") == 0){
-            System.out.println("Entrei como funcionário...");
-            new FormPrincipalFuncionario(caixaTextoLogin.getText()).setVisible(true);
-            this.dispose();
-        }else{
-            if(caixaTextoLogin.getText().compareTo("Marcello") == 0){
-                System.out.println(caixaTextoLogin.getText());
-                new FormPrincipalMecanico(caixaTextoLogin.getText()).setVisible(true);
-                this.dispose();                
+        if(debug==1){
+            if(caixaTextoLogin.getText().compareTo("Henrique") == 0){
+                System.out.println("Entrei como funcionário...");
+                new FormPrincipalFuncionario(caixaTextoLogin.getText()).setVisible(true);
+                this.dispose();
             }else{
-    
+                if(caixaTextoLogin.getText().compareTo("Marcello") == 0){
+                    System.out.println(caixaTextoLogin.getText());
+                    new FormPrincipalMecanico(caixaTextoLogin.getText()).setVisible(true);
+                    this.dispose();                
+                }else{
+
+                }
+            }
+        }else{
+            usuario = con.getUsuario(caixaTextoLogin.getText(), jTextField1.getText());
+            if(usuario != null){
+                if(usuario.isTipo() == true){
+                    // se é mecânico
+                    new FormPrincipalMecanico(caixaTextoLogin.getText()).setVisible(true);
+                    this.dispose();           
+                }else{
+                    new FormPrincipalFuncionario(caixaTextoLogin.getText()).setVisible(true);
+                    this.dispose();
+                }
+            }else{
+                // mostrar janela q deu pau
             }
         }
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
