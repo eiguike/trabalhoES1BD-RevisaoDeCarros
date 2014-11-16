@@ -14,9 +14,16 @@ import java.util.ArrayList;
 public class Cliente {
     private String CPF;
     private String nome;
-    private ArrayList<String> telefone;
+    private String telefone;
+    private String celular;
+    private String empresarial;
     private String rua;
-
+    private Integer numero;
+    private String complemento;
+    private String bairro;
+    private String cidade;
+    private String estado;
+    
     public String getCPF() {
         return CPF;
     }
@@ -33,12 +40,28 @@ public class Cliente {
         this.nome = nome;
     }
 
-    public ArrayList<String> getTelefone() {
+    public String getTelefone() {
         return telefone;
     }
 
-    public void setTelefone(ArrayList<String> telefone) {
+    public void setTelefone(String telefone) {
         this.telefone = telefone;
+    }
+
+    public String getCelular() {
+        return celular;
+    }
+
+    public void setCelular(String celular) {
+        this.celular = celular;
+    }
+
+    public String getEmpresarial() {
+        return empresarial;
+    }
+
+    public void setEmpresarial(String empresarial) {
+        this.empresarial = empresarial;
     }
 
     public String getRua() {
@@ -88,10 +111,5 @@ public class Cliente {
     public void setEstado(String estado) {
         this.estado = estado;
     }
-    private Integer numero;
-    private String complemento;
-    private String bairro;
-    private String cidade;
-    private String estado;
 
 }
