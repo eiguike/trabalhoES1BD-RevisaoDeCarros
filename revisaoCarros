@@ -1,0 +1,101 @@
+﻿create table Cliente (
+    CPF    varchar(11)PRIMARY KEY,
+    nome    varchar(100)NOT NULL,
+    rua    varchar(50)NOT NULL,
+    numero    smallint,
+    complemento    varchar(50),
+    bairro    varchar(50)NOT NULL,
+    cidade    varchar(50)NOT NULL,
+    estado    varchar(20)NOT NULL
+);
+
+create table Telefone (
+    CPF    varchar(11) PRIMARY KEY,
+    telefone varchar(20)NOT NULL,
+    celular    varchar(20)NOT NULL,
+    empresarial varchar(20),
+    FOREIGN KEY (CPF) REFERENCES Cliente(CPF) --ON DELETE
+);
+
+create table Carro (
+    CPF    varchar(11),
+    placaCarro    varchar(8),
+    chassi    varchar(20),
+    cor    varchar(10),
+    ano    smallint,
+    modelo    varchar(20),
+    CONSTRAINT codigoCarro PRIMARY KEY (CPF, placaCarro),
+    FOREIGN KEY (CPF) REFERENCES Cliente(CPF) --ON DELETE
+);
+
+create table Garantia (
+    codGarantia    smallint PRIMARY KEY,
+    dataInicio    date,
+    dataFim        date
+);
+
+create table CarroGarantia (
+    CPF    varchar(11),
+    placaCarro    varchar(8),
+    codGarantia    smallint,
+    FOREIGN KEY (CPF, placaCarro) REFERENCES Carro(CPF, placaCarro), --ON DELETE
+    FOREIGN KEY (codGarantia) REFERENCES Garantia(codGarantia), --ON DELETE
+    CONSTRAINT codigoCarroGarantia PRIMARY KEY (CPF, placaCarro, codGarantia)
+);
+
+create table Funcionario (
+    CPF    varchar(11) PRIMARY KEY,
+    nome    varchar(100),
+    senha    varchar(10),
+    login    varchar(20),
+    mecanico boolean
+);
+
+create table FuncionarioRevisao (
+    CPF    varchar(11),
+    dataAgendamento    date,
+    codRevisao smallint,
+    FOREIGN KEY (CPF) REFERENCES Funcionario(CPF), --ON DELETE
+    CONSTRAINT codigoFuncionarioRevisao PRIMARY KEY (CPF, codRevisao)
+);
+
+create table Revisao2 (
+    codRevisao smallint PRIMARY KEY,
+    kmAtual       smallint,
+    dataRevisao date,
+    hora       varchar(10)  
+);
+
+create table TipoDeServico (
+    codServico smallint PRIMARY KEY,
+    descricao      varchar(50),
+    preco    real,
+    quilometragem smallint,
+    tempoMedio  real
+);
+
+create table Peca (
+    codPeca smallint PRIMARY KEY,
+    nome      varchar(50)
+);
+
+create table GarantiaPeca (
+    codPeca smallint,
+    codGarantia smallint,
+    duracao varchar(10),
+    FOREIGN KEY (codPeca) REFERENCES Peca(codPeca), --ON DELETE
+    FOREIGN KEY (codGarantia) REFERENCES Garantia(codGarantia), --ON DELETE
+    CONSTRAINT codigoGarantiaPeca PRIMARY KEY (codPeca, codGarantia)
+);
+
+create table RevisaoTipoDeServico (
+    codRevisao smallint,
+    codServico smallint,
+    codPeca smallint,
+    quantidade smallint,    
+    FOREIGN KEY (codRevisao) REFERENCES Revisao2(codRevisao), --ON DELETE
+    FOREIGN KEY (codServico) REFERENCES TipoDeServico(codServico), --ON DELETE
+    FOREIGN KEY (codPeca) REFERENCES Peca(codPeca), --ON DELETE
+    CONSTRAINT codigoRevisaoTipoDeServico PRIMARY KEY (codRevisao, codServico, codPeca)
+
+);
