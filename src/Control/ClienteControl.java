@@ -36,9 +36,10 @@ public class ClienteControl{
         if(nome != null){
             texto_consulta = "SELECT * FROM CLIENTE WHERE NOME LIKE '";
             texto_consulta += nome;
-            texto_consulta+="'";             
+            texto_consulta+="%'";             
         } 
        
+        System.out.println(texto_consulta);
         try{
           con.st.execute(texto_consulta);
           rs = con.st.getResultSet();

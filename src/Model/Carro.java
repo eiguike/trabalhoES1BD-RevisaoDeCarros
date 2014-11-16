@@ -5,6 +5,8 @@
  */
 package Model;
 
+import java.util.Date;
+
 /**
  *
  * @author floss
@@ -14,6 +16,17 @@ public class Carro {
     private String placaCarro;
     private String chassi;
     private String cor;
+    private Date garantia;
+    private Integer ano;
+    private String modelo;
+
+    public Date getGarantia() {
+        return garantia;
+    }
+
+    public void setGarantia(Date garantia) {
+        this.garantia = garantia;
+    }
 
     public String getCPF() {
         return CPF;
@@ -47,7 +60,7 @@ public class Carro {
         this.cor = cor;
     }
 
-    public int getAno() {
+    public Integer getAno() {
         return ano;
     }
 
@@ -62,7 +75,6 @@ public class Carro {
     public void setModelo(String modelo) {
         this.modelo = modelo;
     }
-    private int ano;
-    private String modelo;
+
     
 }

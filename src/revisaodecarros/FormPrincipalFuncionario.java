@@ -37,10 +37,8 @@ public class FormPrincipalFuncionario extends javax.swing.JFrame {
     private void initComponents() {
 
         panelRevisao = new javax.swing.JPanel();
-        panelAtual = new javax.swing.JLabel();
         scrRevisao = new javax.swing.JScrollPane();
         tableRevisao = new javax.swing.JTable();
-        labelAtual = new javax.swing.JLabel();
         panelAcao = new javax.swing.JPanel();
         buttonSair = new javax.swing.JButton();
         buttonRevisao = new javax.swing.JButton();
@@ -53,17 +51,15 @@ public class FormPrincipalFuncionario extends javax.swing.JFrame {
         lblDate = new javax.swing.JLabel();
         txtDate = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
             }
         });
 
-        panelRevisao.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        panelRevisao.setBorder(javax.swing.BorderFactory.createTitledBorder("Revisões Marcadas"));
         panelRevisao.setName(""); // NOI18N
-
-        panelAtual.setText("Revisão Atual: ");
 
         tableRevisao.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -79,35 +75,22 @@ public class FormPrincipalFuncionario extends javax.swing.JFrame {
         scrRevisao.setViewportView(tableRevisao);
         tableRevisao.getAccessibleContext().setAccessibleName("tableRevisao");
 
-        labelAtual.setText("hue");
-
         javax.swing.GroupLayout panelRevisaoLayout = new javax.swing.GroupLayout(panelRevisao);
         panelRevisao.setLayout(panelRevisaoLayout);
         panelRevisaoLayout.setHorizontalGroup(
             panelRevisaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelRevisaoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(panelRevisaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelRevisaoLayout.createSequentialGroup()
-                        .addComponent(panelAtual)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(labelAtual))
-                    .addComponent(scrRevisao, javax.swing.GroupLayout.PREFERRED_SIZE, 441, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(scrRevisao, javax.swing.GroupLayout.PREFERRED_SIZE, 441, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelRevisaoLayout.setVerticalGroup(
             panelRevisaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelRevisaoLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRevisaoLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(panelRevisaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelAtual, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(panelAtual, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(scrRevisao, javax.swing.GroupLayout.PREFERRED_SIZE, 396, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(scrRevisao, javax.swing.GroupLayout.PREFERRED_SIZE, 384, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
-
-        panelAtual.getAccessibleContext().setAccessibleName("jPanelAtual");
-        labelAtual.getAccessibleContext().setAccessibleName("labelAtual");
 
         panelAcao.setBorder(javax.swing.BorderFactory.createTitledBorder("Ações"));
 
@@ -335,11 +318,9 @@ public class FormPrincipalFuncionario extends javax.swing.JFrame {
     private javax.swing.JButton buttonPesquisa;
     private javax.swing.JButton buttonRevisao;
     private javax.swing.JButton buttonSair;
-    private javax.swing.JLabel labelAtual;
     private javax.swing.JLabel lblDate;
     private javax.swing.JLabel lblUser;
     private javax.swing.JPanel panelAcao;
-    private javax.swing.JLabel panelAtual;
     private javax.swing.JPanel panelInfo;
     private javax.swing.JPanel panelRevisao;
     private javax.swing.JScrollPane scrRevisao;

@@ -335,10 +335,6 @@ public class FormControleCliente extends javax.swing.JFrame {
                                "");
             
             cliente = conexao.getCliente(s, null);
-            if(cliente != null){
-                //atualizar campos
-            }
-            
         }
         if(opcao.compareTo("Nome") == 0){
             String s = (String)JOptionPane.showInputDialog(
@@ -349,9 +345,12 @@ public class FormControleCliente extends javax.swing.JFrame {
                                null,
                                null,
                                "");    
+            cliente = conexao.getCliente(null, s);
         }
-
-
+        
+        if(cliente != null){
+            //atualizar campos
+        }
     }//GEN-LAST:event_buttonProcuraActionPerformed
 
     private void buttonAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAdicionarActionPerformed
