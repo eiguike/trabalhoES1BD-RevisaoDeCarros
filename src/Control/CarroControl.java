@@ -8,6 +8,7 @@ import Model.Carro;
 import Control.ConexaoBD;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  *
@@ -19,6 +20,42 @@ public class CarroControl {
     
     public CarroControl(){
         con = new ConexaoBD();
+    }
+    
+    public ArrayList<Carro> getCarros(String CPF) {
+        ArrayList<Carro> carros = new ArrayList<Carro>();
+        Carro aux;
+
+        ResultSet rs = null;
+        String texto_consulta = "SELECT CPF, PLACACARRO, CHASSI, COR, ANO, MODELO FROM CARRO WHERE CPF='"
+                + CPF + "'";
+        
+        System.out.println(texto_consulta);
+        
+        try {
+            con.st.execute(texto_consulta);
+            rs = con.st.getResultSet();
+            rs.next();
+            
+            while(rs.isAfterLast() == false){
+                aux = new Carro();
+                aux.setCPF(rs.getString(1));
+                aux.setPlacaCarro(rs.getString(2));
+                aux.setChassi(rs.getString(3));
+                aux.setCor(rs.getString(4));
+                aux.setAno(rs.getInt(5));
+                aux.setModelo(rs.getString(6));
+                
+                carros.add(aux);
+                
+                rs.next();
+              }
+
+            return carros;
+        } catch (SQLException e) {
+            return null;
+        }
+
     }
     
     public Carro getCarro(String placaCarro, String chassi){

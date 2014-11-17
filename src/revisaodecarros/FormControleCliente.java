@@ -9,8 +9,12 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import Control.ClienteControl;
+import Control.CarroControl;
 import Model.Cliente;
+import Model.Carro;
+import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -20,6 +24,9 @@ public class FormControleCliente extends javax.swing.JFrame {
     ClockTest clock;
     private Cliente cliente;
     private ClienteControl conexao;
+    private CarroControl carroControl;
+    
+    private ArrayList<Carro> listaCarros;
     
     public FormPrincipalFuncionario formPrincipal;
     
@@ -37,6 +44,9 @@ public class FormControleCliente extends javax.swing.JFrame {
         tblCarro.setModel(tabela);
         clock = new ClockTest(txtDate);
         conexao = new ClienteControl();
+        
+        carroControl = new CarroControl();
+
     }
     
     class Table extends AbstractTableModel {
@@ -312,15 +322,14 @@ public class FormControleCliente extends javax.swing.JFrame {
 
         tblCarro.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+
             }
         ));
+        tblCarro.setEditingColumn(0);
+        tblCarro.setEditingRow(0);
         tblCarro.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblCarroMouseClicked(evt);
@@ -656,6 +665,26 @@ public class FormControleCliente extends javax.swing.JFrame {
             buttonDEL.enable(false);
             buttonAdicionar.enable(false);
             buttonEditar.enable(true);
+            
+            
+            // trata a tabela
+            DefaultTableModel model = new DefaultTableModel();
+            model.addColumn("Placa de Carro");
+            model.addColumn("Chassi");
+            model.addColumn("Modelo");
+            model.addColumn("Cor");
+            model.addColumn("Ano");
+            
+            i=0;
+            
+            ArrayList<Carro> listaCarros = carroControl.getCarros(cliente.getCPF());
+            while(i < listaCarros.size()){
+                Carro aux = new Carro();    
+                aux = listaCarros.get(i);
+                model.addRow(new Object[]{aux.getPlacaCarro(), aux.getChassi(), aux.getModelo(), aux.getCor(), aux.getAno().toString()});
+                i++;
+            }
+            tblCarro.setModel(model);
         }
         else
         {
