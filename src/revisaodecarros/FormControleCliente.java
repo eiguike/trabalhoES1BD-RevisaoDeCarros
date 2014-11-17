@@ -270,7 +270,7 @@ public class FormControleCliente extends javax.swing.JFrame {
         catch (Exception e){  
         }
 
-        cmbEstado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { " ", "AC \t", "AL \t", "AP \t", "AM \t", "BA \t", "CE \t", "DF \t", "ES \t", "GO \t", "MA \t", "MT \t", "MS \t", "MG \t", "PA \t", "PB \t", "PR \t", "PE \t", "PI \t", "RJ \t", "RN \t", "RS \t", "RO \t", "RR \t", "SC \t", "SP \t", "SE \t", "TO" }));
+        cmbEstado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO" }));
 
         try{  
             javax.swing.text.MaskFormatter placa = new javax.swing.text.MaskFormatter("???-####");  
@@ -310,6 +310,7 @@ public class FormControleCliente extends javax.swing.JFrame {
 
         lblCor.setText("Cor");
 
+        tblCarro.setAutoCreateColumnsFromModel(false);
         tblCarro.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -321,6 +322,11 @@ public class FormControleCliente extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblCarro.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblCarroMouseClicked(evt);
+            }
+        });
         sclCarro.setViewportView(tblCarro);
 
         javax.swing.GroupLayout pnlCarroLayout = new javax.swing.GroupLayout(pnlCarro);
@@ -339,10 +345,13 @@ public class FormControleCliente extends javax.swing.JFrame {
         );
 
         buttonADD.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/ADD.png"))); // NOI18N
+        buttonADD.setEnabled(false);
 
         buttonEDIT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/EDIT.png"))); // NOI18N
+        buttonEDIT.setEnabled(false);
 
         buttonDEL.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/DEL.png"))); // NOI18N
+        buttonDEL.setEnabled(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -402,10 +411,10 @@ public class FormControleCliente extends javax.swing.JFrame {
                                                     .addComponent(lblEstado, javax.swing.GroupLayout.Alignment.LEADING))))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                .addComponent(txtNumero)
-                                                .addComponent(cmbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addComponent(txtCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                            .addComponent(txtCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                                .addComponent(txtNumero, javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(cmbEstado, javax.swing.GroupLayout.Alignment.LEADING, 0, 71, Short.MAX_VALUE)))))
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -602,7 +611,7 @@ public class FormControleCliente extends javax.swing.JFrame {
             cliente = conexao.getCliente(null, s);
         }
         
-        if(cliente == null){
+        if(cliente != null){
             txtNome.setText(cliente.getNome());
             txtNome.setEditable(false);
             txtCPF.setText(cliente.getCPF());
@@ -623,14 +632,12 @@ public class FormControleCliente extends javax.swing.JFrame {
             txtComplemento.setEditable(false);
             txtCidade.setText(cliente.getCidade());
             txtCidade.setEditable(false);
-            cmbEstado.setSelectedItem(cliente.getEstado());      
 //            Código caso a linha acima não selecione o estado correto            
-//            while(cliente.getEstado() != cmbEstado.getItemAt(i))
-//            {
-//                i++;
-//            }
-//            
-//            cmbEstado.setSelectedIndex(i);
+            while(cliente.getEstado().compareTo(cmbEstado.getItemAt(i).toString())== 0);
+            {
+                i++;
+            }
+            cmbEstado.setSelectedIndex(i);
             cmbEstado.setEditable(false);
             
             //Editar a tabela com os valores atuais do carro
@@ -701,6 +708,25 @@ public class FormControleCliente extends javax.swing.JFrame {
         txtModel.setText("");
         txtCor.setText("");
         txtAno.setText("");
+        txtNome.setEditable(true);
+        txtCPF.setEditable(true);
+        txtTelefone.setEditable(true);
+        txtCelular.setEditable(true);
+        txtEmp.setEditable(true);
+        txtRua.setEditable(true);
+        txtNumero.setEditable(true);
+        txtBairro.setEditable(true);
+        txtComplemento.setEditable(true);
+        txtCidade.setEditable(true);
+        cmbEstado.setEditable(true);
+        txtPlaca.setEditable(true);
+        txtChassi.setEditable(true);
+        txtModel.setEditable(true);
+        txtCor.setEditable(true);
+        txtAno.setEditable(true);
+        buttonADD.setEnabled(false);
+        buttonDEL.setEnabled(false);
+        buttonEDIT.setEnabled(false);
         
         Table resetada = new Table();
         
@@ -711,6 +737,22 @@ public class FormControleCliente extends javax.swing.JFrame {
             buttonEditar.enable(false);
         }
     }//GEN-LAST:event_buttonLimparActionPerformed
+
+    private void tblCarroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCarroMouseClicked
+        Integer i;
+        
+        for(i=0;i>tblCarro.getRowCount();i++)
+        {
+            if(tblCarro.isRowSelected(i))
+            {
+                txtPlaca.setText(tblCarro.getValueAt(i,0).toString());
+                txtChassi.setText(tblCarro.getValueAt(i,1).toString());
+                txtModel.setText(tblCarro.getValueAt(i,2).toString());
+                txtCor.setText(tblCarro.getValueAt(i,3).toString());
+                txtAno.setText(tblCarro.getValueAt(i,4).toString());
+            }
+        }
+    }//GEN-LAST:event_tblCarroMouseClicked
 
     /**
      * @param args the command line arguments

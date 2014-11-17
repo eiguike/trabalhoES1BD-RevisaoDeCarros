@@ -24,6 +24,7 @@ create table Carro (
     cor    varchar(10),
     ano    smallint,
     modelo    varchar(20),
+    removido boolean,
     CONSTRAINT codigoCarro PRIMARY KEY (CPF, placaCarro),
     FOREIGN KEY (CPF) REFERENCES Cliente(CPF) --ON DELETE
 );
@@ -113,14 +114,16 @@ create table Revisao (
 
 );
 
-INSERT INTO Cliente VALUES('16640124432','João da Silva Pereira','Rua Gonçalves Roberto',205,'Apto. 235', 'Jardim Aquidaban', 'São Paulo', 'SP'); INSERT INTO Cliente VALUES('24391956853','Dionísio Falces Laae', 'Av. Zhoeiras Flamejantes', 222, '', 'Jardim Bandeirantes', 'São Paulo', 'SP'); 
+INSERT INTO Cliente VALUES('16640124432','João da Silva Pereira','Rua Gonçalves Roberto',205,'Apto. 235', 'Jardim Aquidaban', 'São Paulo', 'SP');
+INSERT INTO Cliente VALUES('24391956853','Dionísio Falces Laae', 'Av. Zhoeiras Flamejantes', 222, '', 'Jardim Bandeirantes', 'São Paulo', 'SP'); 
 INSERT INTO Cliente VALUES('15898450998','Machado de Assis', 'Rua Senador Barroso', 4353, '', 'Alameda dos Anjos', 'São Paulo', 'SP');
-INSERT INTO Carro VALUES('15898450998','DOM-2586', '7SWHG25AX24558915', 'preto', 2015, 'S10'); 
-INSERT INTO Cliente VALUES('59372476633','Denis Felipe de Alcantra', 'Rua Plano Cartesianos', 3231,'', 'Jardim Maria Eugênia', 'Sorocaba', 'SP'); INSERT INTO Carro VALUES('59372476633','URR-2011', '2UEXA35LK15987460', 'amarelo', 2013, 'Camaro');
-
+INSERT INTO Carro VALUES('15898450998','DOM-2586', '7SWHG25AX24558915', 'preto', 2015, 'S10',true); 
+INSERT INTO Cliente VALUES('59372476633','Denis Felipe de Alcantra', 'Rua Plano Cartesianos', 3231,'', 'Jardim Maria Eugênia', 'Sorocaba', 'SP'); 
+INSERT INTO Carro VALUES('59372476633','URR-2011', '2UEXA35LK15987460', 'amarelo', 2013, 'Camaro',true);
++
 INSERT INTO Cliente VALUES('08111639708','Christopher Alesund', 'Rua Gal. Ace M. Puppets',16,'','Jardim dos Neides' , 'São Paulo', 'SP'); 
-INSERT INTO Carro VALUES('08111639708','ALC-4020', '9BWHE21JX24060960', 'azul', 2013, 'Astra');
-INSERT INTO Carro VALUES('08111639708','VAC-2014', '1DWXW23JD36960250', 'prata', 2014, 'Corsa');
+INSERT INTO Carro VALUES('08111639708','ALC-4020', '9BWHE21JX24060960', 'azul', 2013, 'Astra',true);
+INSERT INTO Carro VALUES('08111639708','VAC-2014', '1DWXW23JD36960250', 'prata', 2014, 'Corsa', true);
 
 INSERT INTO Garantia VALUES('1','2014-10-20','2019-10-20'); 
 INSERT INTO Garantia VALUES('2','2014-10-22','2019-10-22');
