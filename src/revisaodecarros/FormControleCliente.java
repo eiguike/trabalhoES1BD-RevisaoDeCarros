@@ -694,9 +694,12 @@ public class FormControleCliente extends javax.swing.JFrame {
             
             listaCarros = carroControl.getCarros(cliente.getCPF());
             while(i < listaCarros.size()){
-                Carro aux = new Carro();    
-                aux = listaCarros.get(i);
-                model.addRow(new Object[]{aux.getPlacaCarro(), aux.getChassi(), aux.getModelo(), aux.getCor(), aux.getAno().toString()});
+                Carro aux = new Carro(); 
+                if(aux.isRemovido() != true){
+                    aux = listaCarros.get(i);
+                    model.addRow(new Object[]{aux.getPlacaCarro(), aux.getChassi(), aux.getModelo(), aux.getCor(), aux.getAno().toString()});
+                    
+                }
                 i++;
             }
             
