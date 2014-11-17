@@ -13,6 +13,7 @@ import Control.ClienteControl;
 import Control.CarroControl;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.Date;
 
 
 /**
@@ -43,7 +44,13 @@ public class FormAgendaRevisao extends javax.swing.JFrame {
         
         jCalendar1.addPropertyChangeListener("calendar",new PropertyChangeListener(){
             public void propertyChange(PropertyChangeEvent e) {
-                System.out.println(jCalendar1.getDate());   
+                Date data = new Date();
+                if(jCalendar1.getDate().before(data)){
+                    // TODO 
+                    // colocar um aviso...
+                    jCalendar1.setDate(data);
+                }
+                
             }            
         });    
     }
@@ -60,7 +67,6 @@ public class FormAgendaRevisao extends javax.swing.JFrame {
         panelAcao = new javax.swing.JPanel();
         buttonSair = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
-        jToggleButton1 = new javax.swing.JToggleButton();
         panelInfo = new javax.swing.JPanel();
         lblUser = new javax.swing.JLabel();
         txtUser = new javax.swing.JLabel();
@@ -102,6 +108,7 @@ public class FormAgendaRevisao extends javax.swing.JFrame {
         jLabel15 = new javax.swing.JLabel();
         jTextField13 = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
+        jTextField14 = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         jCalendar1 = new com.toedter.calendar.JCalendar();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -131,8 +138,6 @@ public class FormAgendaRevisao extends javax.swing.JFrame {
             }
         });
 
-        jToggleButton1.setText("Procurar Cliente");
-
         javax.swing.GroupLayout panelAcaoLayout = new javax.swing.GroupLayout(panelAcao);
         panelAcao.setLayout(panelAcaoLayout);
         panelAcaoLayout.setHorizontalGroup(
@@ -141,10 +146,7 @@ public class FormAgendaRevisao extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(panelAcaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(buttonSair, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(panelAcaoLayout.createSequentialGroup()
-                        .addComponent(jToggleButton1)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE))
                 .addGap(6, 6, 6))
         );
         panelAcaoLayout.setVerticalGroup(
@@ -152,8 +154,6 @@ public class FormAgendaRevisao extends javax.swing.JFrame {
             .addGroup(panelAcaoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jToggleButton1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(buttonSair)
                 .addContainerGap())
@@ -365,12 +365,17 @@ public class FormAgendaRevisao extends javax.swing.JFrame {
         jLabel14.setText("Tipo de Serviço:");
 
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox2ActionPerformed(evt);
+            }
+        });
 
         jLabel15.setText("Preço:");
 
-        jTextField13.setText("jTextField13");
+        jLabel16.setText("Estimativa:");
 
-        jLabel16.setText("jLabel16");
+        jTextField14.setText("jTextField14");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -390,7 +395,9 @@ public class FormAgendaRevisao extends javax.swing.JFrame {
                     .addComponent(jLabel14)
                     .addComponent(jLabel16))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jComboBox2, 0, 166, Short.MAX_VALUE)
+                    .addComponent(jTextField14))
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
@@ -406,8 +413,9 @@ public class FormAgendaRevisao extends javax.swing.JFrame {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel15)
                     .addComponent(jTextField13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel16))
-                .addContainerGap(122, Short.MAX_VALUE))
+                    .addComponent(jLabel16)
+                    .addComponent(jTextField14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(132, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("tab2", jPanel5);
@@ -458,7 +466,7 @@ public class FormAgendaRevisao extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(1, 1, 1)
-                        .addComponent(jCalendar1, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE))
+                        .addComponent(jCalendar1, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -484,7 +492,7 @@ public class FormAgendaRevisao extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -586,6 +594,10 @@ public class FormAgendaRevisao extends javax.swing.JFrame {
         System.out.println("HAHAHA MUDEI\n");
     }//GEN-LAST:event_jCalendar1MousePressed
 
+    private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -656,6 +668,7 @@ public class FormAgendaRevisao extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField11;
     private javax.swing.JTextField jTextField12;
     private javax.swing.JTextField jTextField13;
+    private javax.swing.JTextField jTextField14;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
@@ -664,7 +677,6 @@ public class FormAgendaRevisao extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField7;
     private javax.swing.JTextField jTextField8;
     private javax.swing.JTextField jTextField9;
-    private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JLabel lblDate;
     private javax.swing.JLabel lblUser;
     private javax.swing.JPanel panelAcao;
