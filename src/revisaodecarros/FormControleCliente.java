@@ -310,7 +310,6 @@ public class FormControleCliente extends javax.swing.JFrame {
 
         lblCor.setText("Cor");
 
-        tblCarro.setAutoCreateColumnsFromModel(false);
         tblCarro.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -346,6 +345,11 @@ public class FormControleCliente extends javax.swing.JFrame {
 
         buttonADD.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/ADD.png"))); // NOI18N
         buttonADD.setEnabled(false);
+        buttonADD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonADDActionPerformed(evt);
+            }
+        });
 
         buttonEDIT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/EDIT.png"))); // NOI18N
         buttonEDIT.setEnabled(false);
@@ -665,7 +669,6 @@ public class FormControleCliente extends javax.swing.JFrame {
         if(nome.compareTo("Editar") == 0)
         {
             txtNome.setEditable(true);
-            txtCPF.setEditable(true);
             txtTelefone.setEditable(true);
             txtCelular.setEditable(true);
             txtEmp.setEditable(true);
@@ -753,6 +756,28 @@ public class FormControleCliente extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_tblCarroMouseClicked
+
+    private void buttonADDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonADDActionPerformed
+        Integer x = tblCarro.getRowCount();
+                
+        if(txtPlaca.getText().trim().length() != 0 &&
+           txtChassi.getText().trim().length() != 0 &&
+           txtModel.getText().trim().length() != 0 &&
+           txtCor.getText().trim().length() != 0 &&
+           txtAno.getText().trim().length() != 0)
+        {
+            tblCarro.addRowSelectionInterval(tblCarro.getRowCount(), tblCarro.getRowCount());
+            tblCarro.setValueAt(txtPlaca.getText(), x, 0);
+            tblCarro.setValueAt(txtChassi.getText(), x, 1);
+            tblCarro.setValueAt(txtModel.getText(), x, 2);
+            tblCarro.setValueAt(txtCor.getText(), x, 3);
+            tblCarro.setValueAt(txtAno.getText(), x, 4);
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(this, "Não pode existir campos em branco!", "Erro!", JOptionPane.OK_OPTION);
+        }
+    }//GEN-LAST:event_buttonADDActionPerformed
 
     /**
      * @param args the command line arguments
