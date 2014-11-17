@@ -58,7 +58,7 @@ public class FormPrincipalFuncionario extends javax.swing.JFrame {
             }
         });
 
-        panelRevisao.setBorder(javax.swing.BorderFactory.createTitledBorder("Revisões Marcadas"));
+        panelRevisao.setBorder(javax.swing.BorderFactory.createTitledBorder("Revisões Agendadas"));
         panelRevisao.setName(""); // NOI18N
 
         tableRevisao.setModel(new javax.swing.table.DefaultTableModel(

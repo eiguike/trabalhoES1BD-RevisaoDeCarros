@@ -133,7 +133,7 @@
                                       </Group>
                                   </Group>
                               </Group>
-                              <EmptySpace pref="84" max="32767" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
                               <Component id="buttonADD" min="-2" pref="42" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="buttonEDIT" min="-2" pref="42" max="-2" attributes="0"/>
@@ -166,7 +166,7 @@
                           <Component id="lblCPF" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="txtCPF" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="sprCli" min="-2" pref="5" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -268,7 +268,7 @@
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="panelInfo" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="42" max="32767" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -290,7 +290,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="buttonProcura" max="32767" attributes="0"/>
-                      <Component id="buttonSair" pref="146" max="32767" attributes="0"/>
+                      <Component id="buttonSair" max="32767" attributes="0"/>
                       <Component id="buttonAdicionar" max="32767" attributes="0"/>
                       <Component id="buttonEditar" alignment="0" max="32767" attributes="0"/>
                       <Component id="buttonLimpar" alignment="0" max="32767" attributes="0"/>
