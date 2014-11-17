@@ -34,6 +34,7 @@ public class CarroControl {
                     + placaCarro + "' AND CARROGARANTIA.CODGARANTIA = GARANTIA.CODGARANTIA";   
         }
         if(chassi != null){
+            // arrumar aqui....
             //texto_consulta = "SELECT * FROM CLIENTE, TELEFONE, ENDERECO WHERE CPF = '";
             texto_consulta = "SELECT * FROM CARRO WHERE CHASSI = '";
             texto_consulta += chassi;
