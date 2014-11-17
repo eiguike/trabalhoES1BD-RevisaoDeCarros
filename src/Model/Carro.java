@@ -19,7 +19,16 @@ public class Carro {
     private Date garantia;
     private Integer ano;
     private String modelo;
+    private boolean removido;
 
+    public boolean isRemovido() {
+        return removido;
+    }
+    
+    public void setRemovido(boolean removido) {
+        this.removido = removido;
+    }
+    
     public Date getGarantia() {
         return garantia;
     }

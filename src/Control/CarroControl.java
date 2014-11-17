@@ -27,7 +27,7 @@ public class CarroControl {
         Carro aux;
 
         ResultSet rs = null;
-        String texto_consulta = "SELECT CPF, PLACACARRO, CHASSI, COR, ANO, MODELO FROM CARRO WHERE CPF='"
+        String texto_consulta = "SELECT CPF, PLACACARRO, CHASSI, COR, ANO, MODELO, REMOVIDO FROM CARRO WHERE CPF='"
                 + CPF + "'";
         
         System.out.println(texto_consulta);
@@ -45,6 +45,13 @@ public class CarroControl {
                 aux.setCor(rs.getString(4));
                 aux.setAno(rs.getInt(5));
                 aux.setModelo(rs.getString(6));
+                if(rs.getString(7).compareTo("t") == 0){
+                // foi removido
+              
+                    aux.setRemovido(true);
+                }else{
+                    aux.setRemovido(false);
+                } 
                 
                 carros.add(aux);
                 
