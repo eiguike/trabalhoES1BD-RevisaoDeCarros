@@ -100,6 +100,19 @@ create table RevisaoTipoDeServico (
 
 );
 
+create table Revisao (
+    codRevisao smallint,
+    CPFMecanico varchar(11),
+    placaCarro  varchar(8),
+    CPFCliente  varchar(11),
+    codServico smallint,
+    FOREIGN KEY (codRevisao) REFERENCES Revisao2(codRevisao), --ON DELETE
+    FOREIGN KEY (codServico) REFERENCES TipoDeServico(codServico), --ON DELETE
+    FOREIGN KEY (CPFMecanico) REFERENCES Funcionario(CPF), --ON DELETE
+    FOREIGN KEY (CPFCliente, placaCarro) REFERENCES Carro(CPF, placaCarro) --ON DELETE
+
+);
+
 INSERT INTO Cliente VALUES('16640124432','João da Silva Pereira','Rua Gonçalves Roberto',205,'Apto. 235', 'Jardim Aquidaban', 'São Paulo', 'SP'); INSERT INTO Cliente VALUES('24391956853','Dionísio Falces Laae', 'Av. Zhoeiras Flamejantes', 222, '', 'Jardim Bandeirantes', 'São Paulo', 'SP'); 
 INSERT INTO Cliente VALUES('15898450998','Machado de Assis', 'Rua Senador Barroso', 4353, '', 'Alameda dos Anjos', 'São Paulo', 'SP');
 INSERT INTO Carro VALUES('15898450998','DOM-2586', '7SWHG25AX24558915', 'preto', 2015, 'S10'); 
