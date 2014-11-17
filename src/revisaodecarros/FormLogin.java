@@ -54,8 +54,8 @@ public class FormLogin extends javax.swing.JFrame {
         label2 = new java.awt.Label();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
         caixaTextoLogin = new javax.swing.JTextField();
+        jPasswordField1 = new javax.swing.JPasswordField();
 
         javax.swing.GroupLayout panel1Layout = new javax.swing.GroupLayout(panel1);
         panel1.setLayout(panel1Layout);
@@ -98,7 +98,7 @@ public class FormLogin extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 32, Short.MAX_VALUE)
+                        .addGap(0, 36, Short.MAX_VALUE)
                         .addComponent(jButton1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton2))
@@ -109,7 +109,7 @@ public class FormLogin extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(caixaTextoLogin)
-                            .addComponent(jTextField1))))
+                            .addComponent(jPasswordField1))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -122,7 +122,7 @@ public class FormLogin extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton1)
@@ -152,7 +152,7 @@ public class FormLogin extends javax.swing.JFrame {
                 }
             }
         }else{
-            usuario = con.getUsuario(caixaTextoLogin.getText(), jTextField1.getText());
+            usuario = con.getUsuario(caixaTextoLogin.getText(), jPasswordField1.getText());
             if(usuario != null){
                 if(usuario.isTipo() == true){
                     // se é mecânico
@@ -211,7 +211,7 @@ public class FormLogin extends javax.swing.JFrame {
     private javax.swing.JTextField caixaTextoLogin;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JPasswordField jPasswordField1;
     private java.awt.Label label1;
     private java.awt.Label label2;
     private java.awt.Panel panel1;
