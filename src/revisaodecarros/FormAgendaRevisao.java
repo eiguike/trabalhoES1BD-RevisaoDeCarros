@@ -9,10 +9,13 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import Model.Carro;
 import Model.Cliente;
+import Control.TipoDeServicoControl;
 import Control.ClienteControl;
 import Control.CarroControl;
+import Model.TipoDeServico;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
 import java.util.Date;
 
 
@@ -24,6 +27,9 @@ public class FormAgendaRevisao extends javax.swing.JFrame {
     ClockTest clock;
     Cliente cliente;
     Carro carro;
+    ArrayList<TipoDeServico> tipoDeServico;
+    
+    TipoDeServicoControl tipoDeServicoControl;
     ClienteControl clienteControl;
     CarroControl carroControl;
     
@@ -241,13 +247,13 @@ public class FormAgendaRevisao extends javax.swing.JFrame {
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel4)))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jLabel5)))
+                        .addComponent(jLabel5))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jTextField6)
@@ -289,7 +295,11 @@ public class FormAgendaRevisao extends javax.swing.JFrame {
 
         jLabel9.setText("Rua:");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
 
         jTextField8.setEditable(false);
 
@@ -360,11 +370,14 @@ public class FormAgendaRevisao extends javax.swing.JFrame {
 
         jLabel13.setText("Quilometragem Atual:");
 
-        jTextField12.setText("jTextField12");
+        jTextField12.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextField12FocusLost(evt);
+            }
+        });
 
         jLabel14.setText("Tipo de Serviço:");
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jComboBox2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox2ActionPerformed(evt);
@@ -374,8 +387,6 @@ public class FormAgendaRevisao extends javax.swing.JFrame {
         jLabel15.setText("Preço:");
 
         jLabel16.setText("Estimativa:");
-
-        jTextField14.setText("jTextField14");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -415,7 +426,7 @@ public class FormAgendaRevisao extends javax.swing.JFrame {
                     .addComponent(jTextField13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel16)
                     .addComponent(jTextField14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(132, Short.MAX_VALUE))
+                .addContainerGap(183, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("tab2", jPanel5);
@@ -466,7 +477,7 @@ public class FormAgendaRevisao extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(1, 1, 1)
-                        .addComponent(jCalendar1, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE))
+                        .addComponent(jCalendar1, javax.swing.GroupLayout.DEFAULT_SIZE, 219, Short.MAX_VALUE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -578,6 +589,10 @@ public class FormAgendaRevisao extends javax.swing.JFrame {
             jTextField8.setText(cliente.getRua());
             jTextField11.setText(cliente.getCidade()+"-"+cliente.getEstado());
             jTextField10.setText(cliente.getBairro());
+            jComboBox1.addItem(cliente.getTelefone()+" - Residêncial");
+            jComboBox1.addItem(cliente.getCelular()+" - Celular");
+            jComboBox1.addItem(cliente.getEmpresarial()+" - Comercial");
+            
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -597,6 +612,15 @@ public class FormAgendaRevisao extends javax.swing.JFrame {
     private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox2ActionPerformed
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void jTextField12FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField12FocusLost
+        System.out.println("hehehehe");
+        
+    }//GEN-LAST:event_jTextField12FocusLost
 
     /**
      * @param args the command line arguments
