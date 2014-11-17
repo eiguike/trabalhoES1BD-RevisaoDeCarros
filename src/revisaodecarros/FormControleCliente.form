@@ -279,6 +279,7 @@
                       <Component id="buttonSair" pref="146" max="32767" attributes="0"/>
                       <Component id="buttonAdicionar" max="32767" attributes="0"/>
                       <Component id="buttonEditar" alignment="0" max="32767" attributes="0"/>
+                      <Component id="buttonLimpar" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -292,8 +293,10 @@
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="buttonProcura" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Component id="buttonLimpar" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="buttonEditar" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="317" max="32767" attributes="0"/>
+                  <EmptySpace pref="283" max="32767" attributes="0"/>
                   <Component id="buttonSair" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -317,9 +320,6 @@
             <Property name="text" type="java.lang.String" value="Cadastrar"/>
             <Property name="actionCommand" type="java.lang.String" value=""/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonAdicionarActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="buttonProcura">
           <Properties>
@@ -336,6 +336,17 @@
             <Property name="actionCommand" type="java.lang.String" value=""/>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonEditarActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="buttonLimpar">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Limpar"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonLimparActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -467,9 +478,6 @@
     <Component class="javax.swing.JTextField" name="txtRua">
     </Component>
     <Component class="javax.swing.JTextField" name="txtBairro">
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtBairroActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="txtComplemento">
     </Component>

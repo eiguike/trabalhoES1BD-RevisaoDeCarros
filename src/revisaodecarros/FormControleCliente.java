@@ -50,6 +50,7 @@ public class FormControleCliente extends javax.swing.JFrame {
         buttonAdicionar = new javax.swing.JButton();
         buttonProcura = new javax.swing.JButton();
         buttonEditar = new javax.swing.JButton();
+        buttonLimpar = new javax.swing.JButton();
         panelInfo = new javax.swing.JPanel();
         lblUser = new javax.swing.JLabel();
         txtUser = new javax.swing.JLabel();
@@ -117,11 +118,6 @@ public class FormControleCliente extends javax.swing.JFrame {
 
         buttonAdicionar.setText("Cadastrar");
         buttonAdicionar.setActionCommand("");
-        buttonAdicionar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonAdicionarActionPerformed(evt);
-            }
-        });
 
         buttonProcura.setText("Procurar");
         buttonProcura.setActionCommand("");
@@ -134,6 +130,18 @@ public class FormControleCliente extends javax.swing.JFrame {
         buttonEditar.setText("Editar");
         buttonEditar.setActionCommand("");
         buttonEditar.setEnabled(false);
+        buttonEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonEditarActionPerformed(evt);
+            }
+        });
+
+        buttonLimpar.setText("Limpar");
+        buttonLimpar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonLimparActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelAcaoLayout = new javax.swing.GroupLayout(panelAcao);
         panelAcao.setLayout(panelAcaoLayout);
@@ -145,7 +153,8 @@ public class FormControleCliente extends javax.swing.JFrame {
                     .addComponent(buttonProcura, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(buttonSair, javax.swing.GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE)
                     .addComponent(buttonAdicionar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(buttonEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(buttonEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(buttonLimpar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         panelAcaoLayout.setVerticalGroup(
@@ -156,8 +165,10 @@ public class FormControleCliente extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(buttonProcura)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(buttonLimpar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(buttonEditar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 317, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 283, Short.MAX_VALUE)
                 .addComponent(buttonSair)
                 .addContainerGap())
         );
@@ -223,12 +234,6 @@ public class FormControleCliente extends javax.swing.JFrame {
         }  
         catch (Exception e){  
         }
-
-        txtBairro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtBairroActionPerformed(evt);
-            }
-        });
 
         cmbEstado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { " ", "AC \t", "AL \t", "AP \t", "AM \t", "BA \t", "CE \t", "DF \t", "ES \t", "GO \t", "MA \t", "MT \t", "MS \t", "MG \t", "PA \t", "PB \t", "PR \t", "PE \t", "PI \t", "RJ \t", "RN \t", "RS \t", "RO \t", "RR \t", "SC \t", "SP \t", "SE \t", "TO" }));
 
@@ -481,6 +486,7 @@ public class FormControleCliente extends javax.swing.JFrame {
     private void buttonProcuraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonProcuraActionPerformed
         Object[] possibilities = {"","CPF", "Nome"};
         String opcao;
+        Integer i = 0;
         do{
         opcao = (String)JOptionPane.showInputDialog(
                             this,
@@ -517,17 +523,86 @@ public class FormControleCliente extends javax.swing.JFrame {
         }
         
         if(cliente != null){
-            //atualizar campos
+            txtNome.setText(cliente.getNome());
+            txtNome.setEditable(false);
+            txtCPF.setText(cliente.getCPF());
+            txtCPF.setEditable(false);
+            txtTelefone.setText(cliente.getTelefone());
+            txtTelefone.setEditable(false);
+            txtCelular.setText(cliente.getCelular());
+            txtCelular.setEditable(false);
+            txtEmp.setText(cliente.getEmpresarial());
+            txtEmp.setEditable(false);
+            txtRua.setText(cliente.getRua());
+            txtRua.setEditable(false);
+            txtNumero.setText(cliente.getNumero().toString());
+            txtNumero.setEditable(false);
+            txtBairro.setText(cliente.getBairro());
+            txtBairro.setEditable(false);
+            txtComplemento.setText(cliente.getComplemento());
+            txtComplemento.setEditable(false);
+            txtCidade.setText(cliente.getCidade());
+            txtCidade.setEditable(false);
+            cmbEstado.setSelectedItem(cliente.getEstado());      
+//            Código caso a linha acima não selecione o estado correto            
+//            while(cliente.getEstado() != cmbEstado.getItemAt(i))
+//            {
+//                i++;
+//            }
+//            
+//            cmbEstado.setSelectedIndex(i);
+            cmbEstado.setEditable(false);
+            
+            buttonAdicionar.enable(false);
+            buttonEditar.enable(true);
+        }
+        else
+        {
+            //MENSAGEM DE ERRO
         }
     }//GEN-LAST:event_buttonProcuraActionPerformed
 
-    private void buttonAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAdicionarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_buttonAdicionarActionPerformed
+    private void buttonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEditarActionPerformed
+        String nome = buttonEditar.getName();
+        
+        if(nome.compareTo("Editar") == 0)
+        {
+            txtNome.setEditable(true);
+            txtCPF.setEditable(true);
+            txtTelefone.setEditable(true);
+            txtCelular.setEditable(true);
+            txtEmp.setEditable(true);
+            txtRua.setEditable(true);
+            txtNumero.setEditable(true);
+            txtBairro.setEditable(true);
+            txtComplemento.setEditable(true);
+            txtCidade.setEditable(true);
+            cmbEstado.setEditable(true);
+        }
+        else
+        {
+                
+        }
+    }//GEN-LAST:event_buttonEditarActionPerformed
 
-    private void txtBairroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBairroActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtBairroActionPerformed
+    private void buttonLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonLimparActionPerformed
+        txtNome.setText("");
+        txtCPF.setText("");
+        txtTelefone.setText("");
+        txtCelular.setText("");
+        txtEmp.setText("");
+        txtRua.setText("");
+        txtNumero.setText("");
+        txtBairro.setText("");
+        txtComplemento.setText("");
+        txtCidade.setText("");
+        cmbEstado.setSelectedIndex(0);
+        
+        if(buttonEditar.isEnabled() == true)
+        {
+            buttonEditar.enable(false);
+        }
+    }//GEN-LAST:event_buttonLimparActionPerformed
 
     /**
      * @param args the command line arguments
@@ -567,6 +642,7 @@ public class FormControleCliente extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonAdicionar;
     private javax.swing.JButton buttonEditar;
+    private javax.swing.JButton buttonLimpar;
     private javax.swing.JButton buttonProcura;
     private javax.swing.JButton buttonSair;
     private javax.swing.JComboBox cmbEstado;
