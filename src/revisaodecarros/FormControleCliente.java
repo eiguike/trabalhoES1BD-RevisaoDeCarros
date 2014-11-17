@@ -666,7 +666,6 @@ public class FormControleCliente extends javax.swing.JFrame {
             buttonAdicionar.enable(false);
             buttonEditar.enable(true);
             
-            
             // trata a tabela
             DefaultTableModel model = new DefaultTableModel();
             model.addColumn("Placa de Carro");
