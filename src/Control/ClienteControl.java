@@ -63,4 +63,9 @@ public class ClienteControl{
 
         return retCliente;  
     }
+    
+    public boolean setCliente(Cliente cliente)
+    {
+        return true;
+    }
 }
