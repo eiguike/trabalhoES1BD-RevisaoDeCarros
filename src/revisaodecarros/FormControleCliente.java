@@ -13,6 +13,7 @@ import Control.CarroControl;
 import Model.Cliente;
 import Model.Carro;
 import java.util.ArrayList;
+import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
 
@@ -691,13 +692,14 @@ public class FormControleCliente extends javax.swing.JFrame {
             
             i=0;
             
-            ArrayList<Carro> listaCarros = carroControl.getCarros(cliente.getCPF());
+            listaCarros = carroControl.getCarros(cliente.getCPF());
             while(i < listaCarros.size()){
                 Carro aux = new Carro();    
                 aux = listaCarros.get(i);
                 model.addRow(new Object[]{aux.getPlacaCarro(), aux.getChassi(), aux.getModelo(), aux.getCor(), aux.getAno().toString()});
                 i++;
             }
+            
             tblCarro.setModel(model);
         }
         else
@@ -786,18 +788,14 @@ public class FormControleCliente extends javax.swing.JFrame {
 
     private void tblCarroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCarroMouseClicked
         Integer i;
+        Carro carro = listaCarros.get(tblCarro.getSelectedRow());
         
-        for(i=0;i>tblCarro.getRowCount();i++)
-        {
-            if(tblCarro.isRowSelected(i))
-            {
-                txtPlaca.setText(tblCarro.getValueAt(i,0).toString());
-                txtChassi.setText(tblCarro.getValueAt(i,1).toString());
-                txtModel.setText(tblCarro.getValueAt(i,2).toString());
-                txtCor.setText(tblCarro.getValueAt(i,3).toString());
-                txtAno.setText(tblCarro.getValueAt(i,4).toString());
-            }
-        }
+        txtPlaca.setText(carro.getPlacaCarro());
+        txtChassi.setText(carro.getChassi());
+        txtModel.setText(carro.getModelo());
+        txtCor.setText(carro.getCor());
+        txtAno.setText(carro.getAno().toString());
+
     }//GEN-LAST:event_tblCarroMouseClicked
 
     private void buttonADDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonADDActionPerformed
