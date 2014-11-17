@@ -26,15 +26,13 @@ public class ClienteControl{
     public Cliente getCliente(String CPF, String nome){
         Cliente retCliente = new Cliente();
         ResultSet rs = null;  
-        ResultSet telefone = null;
         String texto_consulta = null;
-        String consulta_telefone = null;
-        
+
         if(CPF != null){
             //texto_consulta = "SELECT * FROM CLIENTE, TELEFONE, ENDERECO WHERE CPF = '";
-            texto_consulta = "SELECT * FROM CLIENTE WHERE CPF = '";
-            texto_consulta += CPF;
-            texto_consulta+="'";   
+            texto_consulta = "SELECT CLIENTE.CPF, CLIENTE.NOME, CLIENTE.RUA, CLIENTE.NUMERO, CLIENTE.COMPLEMENTO"
+                    + ", CLIENTE.BAIRRO, CLIENTE.CIDADE, CLIENTE.ESTADO, TELEFONE.TELEFONE, TELEFONE.CELULAR"
+                    + ", TELEFONE.EMPRESARIAL  FROM CLIENTE, TELEFONE WHERE CLIENTE.CPF = '"+CPF+ "' AND TELEFONE.CPF ='" + CPF+"'";   
         }
         if(nome != null){
             texto_consulta = "SELECT * FROM CLIENTE WHERE NOME LIKE '";
@@ -55,21 +53,14 @@ public class ClienteControl{
           retCliente.setBairro(rs.getString(6));
           retCliente.setCidade(rs.getString(7));
           retCliente.setEstado(rs.getString(8));
-          
-          consulta_telefone = "SELECT * FROM TELEFONE WHERE CPF ='";
-          consulta_telefone += retCliente.getCPF();
-          consulta_telefone += "'";
-          
-          con.st.execute(consulta_telefone);
-          telefone = con.st.getResultSet();
-          telefone.next();
-          retCliente.setTelefone(telefone.getString(1));
-          retCliente.setCelular(telefone.getString(2));
-          retCliente.setEmpresarial(telefone.getString(3));
-          
+          retCliente.setTelefone(rs.getString(9));
+          retCliente.setCelular(rs.getString(10));
+          retCliente.setEmpresarial(rs.getString(11));                
+                   
         }catch(SQLException e){
           return null;
         }
+
         return retCliente;  
     }
 }
