@@ -73,6 +73,11 @@ public class FormControleCliente extends javax.swing.JFrame {
             Info[linha][coluna] = valor;
             fireTableCellUpdated(linha, coluna);
         }
+        
+        public boolean isCellEditable(int row, int column)
+        {
+            return false;
+        }
     }
     
     @SuppressWarnings("unchecked")
@@ -280,7 +285,7 @@ public class FormControleCliente extends javax.swing.JFrame {
         catch (Exception e){  
         }
 
-        cmbEstado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO" }));
+        cmbEstado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { " ", "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO" }));
 
         try{  
             javax.swing.text.MaskFormatter placa = new javax.swing.text.MaskFormatter("???-####");  
@@ -362,9 +367,19 @@ public class FormControleCliente extends javax.swing.JFrame {
 
         buttonEDIT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/EDIT.png"))); // NOI18N
         buttonEDIT.setEnabled(false);
+        buttonEDIT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonEDITActionPerformed(evt);
+            }
+        });
 
         buttonDEL.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/DEL.png"))); // NOI18N
         buttonDEL.setEnabled(false);
+        buttonDEL.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonDELActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -806,6 +821,14 @@ public class FormControleCliente extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Não pode existir campos em branco!", "Erro!", JOptionPane.OK_OPTION);
         }
     }//GEN-LAST:event_buttonADDActionPerformed
+
+    private void buttonEDITActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEDITActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_buttonEDITActionPerformed
+
+    private void buttonDELActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDELActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_buttonDELActionPerformed
 
     /**
      * @param args the command line arguments
