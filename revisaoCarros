@@ -132,3 +132,5 @@ INSERT INTO CarroGarantia VALUES('59372476633', 'URR-2011', '2');
 INSERT INTO Funcionario VALUES('16640124432','Marcello','1234','caco',true);
 INSERT INTO Funcionario VALUES('12345678941','Henrique','1234','snd',false);
 INSERT INTO Funcionario VALUES('90134578459','Joao Gustavo','4321','hue',true); 
+
+
