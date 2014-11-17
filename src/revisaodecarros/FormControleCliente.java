@@ -861,10 +861,10 @@ public class FormControleCliente extends javax.swing.JFrame {
             
             
         }
-        if(salvar != 0){
-            if()
+        //if(salvar != 0){
+        //    if()
             
-        }
+        //}
         
         
     }//GEN-LAST:event_buttonAdicionarActionPerformed
