@@ -46,8 +46,7 @@ public class CarroControl {
                 aux.setAno(rs.getInt(5));
                 aux.setModelo(rs.getString(6));
                 if(rs.getString(7).compareTo("t") == 0){
-                // foi removido
-              
+                    // foi removido
                     aux.setRemovido(true);
                 }else{
                     aux.setRemovido(false);

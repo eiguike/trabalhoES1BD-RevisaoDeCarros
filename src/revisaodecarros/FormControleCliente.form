@@ -478,9 +478,6 @@
     <Component class="javax.swing.JTextField" name="txtNome">
     </Component>
     <Component class="javax.swing.JTextField" name="txtCPF">
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="try{  &#xd;&#xa;   javax.swing.text.MaskFormatter cpf = new javax.swing.text.MaskFormatter(&quot;###.###.###-#&quot;);  &#xd;&#xa;   txtCPF = new javax.swing.JFormattedTextField(cpf);  &#xd;&#xa;}  &#xd;&#xa;   catch (Exception e){  &#xd;&#xa;}"/>
-      </AuxValues>
     </Component>
     <Component class="javax.swing.JTextField" name="txtTelefone">
       <AuxValues>
@@ -494,9 +491,6 @@
     <Component class="javax.swing.JTextField" name="txtComplemento">
     </Component>
     <Component class="javax.swing.JTextField" name="txtNumero">
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="try{  &#xd;&#xa;   javax.swing.text.MaskFormatter num = new javax.swing.text.MaskFormatter(&quot;#####&quot;);  &#xd;&#xa;   txtNumero = new javax.swing.JFormattedTextField(num);  &#xd;&#xa;}  &#xd;&#xa;   catch (Exception e){  &#xd;&#xa;}"/>
-      </AuxValues>
     </Component>
     <Component class="javax.swing.JTextField" name="txtCidade">
     </Component>

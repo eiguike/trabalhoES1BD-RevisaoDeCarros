@@ -22,6 +22,24 @@ public class ClienteControl{
         con = new ConexaoBD();
     
     }
+    
+    public boolean setCliente(Cliente aux){
+        ResultSet rs = null;
+        String texto_consulta = "INSERT INTO Cliente VALUES('"
+                + aux.getCPF() + "','" + aux.getNome() + "','" + aux.getRua() +"',"
+                + aux.getNumero() +", '" + aux.getComplemento() + "','" + aux.getBairro() +"','"
+                + aux.getCidade() +"','" + aux.getEstado()+"')";
+                
+        System.out.println(texto_consulta);
+        
+        try{
+            con.st.execute(texto_consulta);
+        }catch(SQLException e){
+          return false;
+        }
+        
+        return true;
+    }
     // consultas
     public Cliente getCliente(String CPF, String nome){
         Cliente retCliente = new Cliente();

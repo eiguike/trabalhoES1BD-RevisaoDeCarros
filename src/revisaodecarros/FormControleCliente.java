@@ -12,6 +12,7 @@ import Control.ClienteControl;
 import Control.CarroControl;
 import Model.Cliente;
 import Model.Carro;
+import static java.lang.Integer.parseInt;
 import java.util.ArrayList;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
@@ -48,6 +49,7 @@ public class FormControleCliente extends javax.swing.JFrame {
         conexao = new ClienteControl();
         
         carroControl = new CarroControl();
+        salvar = 0;
 
     }
     
@@ -110,23 +112,11 @@ public class FormControleCliente extends javax.swing.JFrame {
         lblModelo = new javax.swing.JLabel();
         txtNome = new javax.swing.JTextField();
         txtCPF = new javax.swing.JTextField();
-        try{  
-            javax.swing.text.MaskFormatter cpf = new javax.swing.text.MaskFormatter("###.###.###-#");  
-            txtCPF = new javax.swing.JFormattedTextField(cpf);  
-        }  
-        catch (Exception e){  
-        }
         txtTelefone = new javax.swing.JTextField();
         txtRua = new javax.swing.JTextField();
         txtBairro = new javax.swing.JTextField();
         txtComplemento = new javax.swing.JTextField();
         txtNumero = new javax.swing.JTextField();
-        try{  
-            javax.swing.text.MaskFormatter num = new javax.swing.text.MaskFormatter("#####");  
-            txtNumero = new javax.swing.JFormattedTextField(num);  
-        }  
-        catch (Exception e){  
-        }
         txtCidade = new javax.swing.JTextField();
         cmbEstado = new javax.swing.JComboBox();
         txtPlaca = new javax.swing.JTextField();
@@ -803,22 +793,19 @@ public class FormControleCliente extends javax.swing.JFrame {
 
     private void buttonADDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonADDActionPerformed
         Integer x = tblCarro.getRowCount();
-                
-        if(txtPlaca.getText().trim().length() != 0 &&
-           txtChassi.getText().trim().length() != 0 &&
-           txtModel.getText().trim().length() != 0 &&
-           txtCor.getText().trim().length() != 0 &&
-           txtAno.getText().trim().length() != 0)
-        {
+
+        if (txtPlaca.getText().trim().length() != 0
+                && txtChassi.getText().trim().length() != 0
+                && txtModel.getText().trim().length() != 0
+                && txtCor.getText().trim().length() != 0
+                && txtAno.getText().trim().length() != 0) {
             tblCarro.addRowSelectionInterval(tblCarro.getRowCount(), tblCarro.getRowCount());
             tblCarro.setValueAt(txtPlaca.getText(), x, 0);
             tblCarro.setValueAt(txtChassi.getText(), x, 1);
             tblCarro.setValueAt(txtModel.getText(), x, 2);
             tblCarro.setValueAt(txtCor.getText(), x, 3);
             tblCarro.setValueAt(txtAno.getText(), x, 4);
-        }
-        else
-        {
+        } else {
             JOptionPane.showMessageDialog(this, "Não pode existir campos em branco!", "Erro!", JOptionPane.OK_OPTION);
         }
     }//GEN-LAST:event_buttonADDActionPerformed
@@ -832,11 +819,11 @@ public class FormControleCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonDELActionPerformed
 
     private void buttonAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAdicionarActionPerformed
-        if(salvar == 0){
+        if (salvar == 0) {
             buttonAdicionar.setText("Salvar");
             buttonProcura.enable(false);
             buttonEDIT.enable(false);
-            
+
             txtNome.setText("");
             txtCPF.setText("");
             txtTelefone.setText("");
@@ -848,22 +835,60 @@ public class FormControleCliente extends javax.swing.JFrame {
             txtComplemento.setText("");
             txtCidade.setText("");
             cmbEstado.setSelectedIndex(0);
+
             txtPlaca.setText("");
             txtChassi.setText("");
             txtModel.setText("");
             txtCor.setText("");
             txtAno.setText("");
-            
+
             tblCarro.enable(false);
-            
-            
+            salvar = 1;
+
+        } else {
+            if (salvar != 0) {
+                if (((txtNome.getText().compareTo("") == 0) || (txtCPF.getText().compareTo("") == 0) || (txtTelefone.getText().compareTo("") == 0) || (txtCelular.getText().compareTo("") == 0) || (txtEmp.getText().compareTo("") == 0) || (txtRua.getText().compareTo("") == 0) || (txtNumero.getText().compareTo("") == 0) || (txtBairro.getText().compareTo("") == 0) || (txtCidade.getText().compareTo("") == 0))) {
+                    JOptionPane.showMessageDialog(this, "Você precisa preencher todos os campos!", "Erro!", JOptionPane.OK_OPTION);
+                } else {
+                    Cliente aux = new Cliente();
+                    aux.setNome(txtNome.getText());
+                    aux.setCPF(txtCPF.getText());
+                    aux.setTelefone(txtTelefone.getText());
+                    aux.setCelular(txtCelular.getText());
+                    aux.setEmpresarial(txtEmp.getText());
+                    aux.setRua(txtRua.getText());
+                    aux.setNumero(parseInt(txtNumero.getText()));
+                    aux.setBairro(txtBairro.getText());
+                    aux.setComplemento(txtComplemento.getText());
+                    aux.setCidade(txtCidade.getText());
+                    aux.setEstado(cmbEstado.getSelectedItem().toString());
+
+                    ClienteControl cadastro = new ClienteControl();
+                    if (cadastro.setCliente(aux)) {
+                        JOptionPane.showMessageDialog(null, "Cadastro feito com sucesso! ");
+                        buttonAdicionar.setText("Cadastrar Cliente");
+                        buttonProcura.enable(true);
+                        buttonEDIT.enable(true);
+                        salvar = 0;
+                    } else {
+                        JOptionPane.showMessageDialog(this, "ERRO!", "", JOptionPane.OK_OPTION);
+                        salvar = 0;
+                    }
+                    txtNome.setText("");
+                    txtCPF.setText("");
+                    txtTelefone.setText("");
+                    txtCelular.setText("");
+                    txtEmp.setText("");
+                    txtRua.setText("");
+                    txtNumero.setText("");
+                    txtBairro.setText("");
+                    txtComplemento.setText("");
+                    txtCidade.setText("");
+                    cmbEstado.setSelectedIndex(0);                    
+                }
+            }
         }
-        if(salvar != 0){
-            if()
-            
-        }
-        
-        
+
     }//GEN-LAST:event_buttonAdicionarActionPerformed
 
     /**
