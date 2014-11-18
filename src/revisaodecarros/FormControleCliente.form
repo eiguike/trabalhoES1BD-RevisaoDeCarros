@@ -45,9 +45,15 @@
                                       </Group>
                                       <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="txtCPF" min="-2" pref="127" max="-2" attributes="0"/>
+                                          <Group type="102" attributes="0">
+                                              <Component id="txtCPF" min="-2" pref="127" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="lblExemploCPF" min="-2" max="-2" attributes="0"/>
+                                          </Group>
                                           <Component id="txtNome" min="-2" pref="330" max="-2" attributes="0"/>
                                       </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="lblExemploNome" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
@@ -62,10 +68,15 @@
                                               <Component id="txtTelefone" min="-2" pref="163" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
-                                      <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
-                                      <Component id="lblEmp" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="txtEmp" min="-2" pref="163" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="lblExemploTelefone" min="-2" max="-2" attributes="0"/>
+                                          <Group type="102" attributes="0">
+                                              <Component id="lblEmp" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="txtEmp" min="-2" pref="163" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
@@ -100,7 +111,7 @@
                                       </Group>
                                   </Group>
                               </Group>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="188" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
@@ -109,31 +120,35 @@
                                   <Component id="lblModelo" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="txtModel" min="-2" pref="191" max="-2" attributes="0"/>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="txtChassi" min="-2" pref="192" max="-2" attributes="0"/>
-                                          <Component id="txtPlaca" min="-2" pref="127" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="lblAno" min="-2" max="-2" attributes="0"/>
-                                          <Component id="lblCor" alignment="1" min="-2" max="-2" attributes="0"/>
-                                      </Group>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <Component id="txtPlaca" min="-2" pref="63" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="txtAno" min="-2" pref="42" max="-2" attributes="0"/>
-                                          <Component id="txtCor" alignment="0" min="-2" pref="130" max="-2" attributes="0"/>
-                                      </Group>
+                                      <Component id="lblExemploPlaca" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Component id="txtChassi" pref="123" max="32767" attributes="0"/>
+                                  <Component id="txtModel" max="32767" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <Component id="lblCor" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="txtCor" min="-2" pref="130" max="-2" attributes="0"/>
+                                      <EmptySpace max="32767" attributes="0"/>
+                                      <Component id="buttonADD" min="-2" pref="42" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="buttonEDIT" min="-2" pref="42" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="buttonDEL" min="-2" pref="42" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" attributes="0">
+                                      <Component id="lblAno" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="txtAno" min="-2" pref="42" max="-2" attributes="0"/>
+                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
-                              <EmptySpace pref="62" max="32767" attributes="0"/>
-                              <Component id="buttonADD" min="-2" pref="42" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="buttonEDIT" min="-2" pref="42" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="buttonDEL" min="-2" pref="42" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -154,11 +169,13 @@
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="lblNome" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="txtNome" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblExemploNome" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="lblCPF" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="txtCPF" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblExemploCPF" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="sprCli" min="-2" pref="5" max="-2" attributes="0"/>
@@ -166,13 +183,14 @@
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="lblTel" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="txtTelefone" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtEmp" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblEmp" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblExemploTelefone" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="txtCelular" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="lblCelular" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtEmp" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblEmp" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="sprTel" min="-2" pref="5" max="-2" attributes="0"/>
@@ -218,34 +236,32 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" attributes="0">
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="txtPlaca" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lblPlaca" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lblExemploPlaca" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Group type="103" groupAlignment="3" attributes="0">
-                                                  <Component id="txtPlaca" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="lblPlaca" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              </Group>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Group type="103" groupAlignment="3" attributes="0">
-                                                  <Component id="txtChassi" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="lblChassi" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              </Group>
+                                          <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                                              <Component id="txtAno" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="lblAno" alignment="3" min="-2" max="-2" attributes="0"/>
                                           </Group>
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Group type="103" groupAlignment="3" attributes="0">
-                                                  <Component id="txtCor" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="lblCor" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              </Group>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Group type="103" groupAlignment="3" attributes="0">
-                                                  <Component id="txtAno" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="lblAno" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              </Group>
+                                          <Group type="103" groupAlignment="3" attributes="0">
+                                              <Component id="txtChassi" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="lblChassi" alignment="3" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="txtModel" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="lblModelo" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                                              <Component id="txtCor" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="lblCor" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Group type="103" groupAlignment="3" attributes="0">
+                                              <Component id="txtModel" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="lblModelo" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          </Group>
                                       </Group>
                                   </Group>
                                   <Component id="buttonADD" alignment="1" min="-2" pref="38" max="-2" attributes="0"/>
@@ -476,10 +492,18 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtNome">
+      <Events>
+        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtNomeFocusGained"/>
+        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtNomeFocusLost"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="txtCPF">
     </Component>
     <Component class="javax.swing.JTextField" name="txtTelefone">
+      <Events>
+        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtTelefoneFocusGained"/>
+        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtTelefoneFocusLost"/>
+      </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="try{  &#xd;&#xa;   javax.swing.text.MaskFormatter tel = new javax.swing.text.MaskFormatter(&quot;(##)####-####&quot;);  &#xd;&#xa;   txtTelefone = new javax.swing.JFormattedTextField(tel);  &#xd;&#xa;}  &#xd;&#xa;   catch (Exception e){  &#xd;&#xa;}"/>
       </AuxValues>
@@ -531,6 +555,10 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtPlaca">
+      <Events>
+        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtPlacaFocusGained"/>
+        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtPlacaFocusLost"/>
+      </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="try{  &#xd;&#xa;   javax.swing.text.MaskFormatter placa = new javax.swing.text.MaskFormatter(&quot;???-####&quot;);  &#xd;&#xa;   txtPlaca = new javax.swing.JFormattedTextField(placa);  &#xd;&#xa;}  &#xd;&#xa;   catch (Exception e){  &#xd;&#xa;}"/>
       </AuxValues>
@@ -549,6 +577,10 @@
     <Component class="javax.swing.JSeparator" name="sprCli">
     </Component>
     <Component class="javax.swing.JTextField" name="txtCelular">
+      <Events>
+        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtCelularFocusGained"/>
+        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtTelefoneFocusLost"/>
+      </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="try{  &#xd;&#xa;   javax.swing.text.MaskFormatter cel = new javax.swing.text.MaskFormatter(&quot;(##)#####-####&quot;);  &#xd;&#xa;   txtCelular = new javax.swing.JFormattedTextField(cel);  &#xd;&#xa;}  &#xd;&#xa;   catch (Exception e){  &#xd;&#xa;}"/>
       </AuxValues>
@@ -558,6 +590,10 @@
     <Component class="javax.swing.JSeparator" name="sprEnd">
     </Component>
     <Component class="javax.swing.JTextField" name="txtEmp">
+      <Events>
+        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtEmpFocusGained"/>
+        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtTelefoneFocusLost"/>
+      </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="try{  &#xd;&#xa;   javax.swing.text.MaskFormatter emp = new javax.swing.text.MaskFormatter(&quot;(##)#####-####&quot;);  &#xd;&#xa;   txtEmp = new javax.swing.JFormattedTextField(emp);  &#xd;&#xa;}  &#xd;&#xa;   catch (Exception e){  &#xd;&#xa;}"/>
       </AuxValues>
@@ -663,6 +699,14 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonDELActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblExemploNome">
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblExemploCPF">
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblExemploTelefone">
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblExemploPlaca">
     </Component>
   </SubComponents>
 </Form>
