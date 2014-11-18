@@ -877,7 +877,8 @@ public class FormControleCliente extends javax.swing.JFrame {
         txtModel.setText(carro.getModelo());
         txtCor.setText(carro.getCor());
         txtAno.setText(carro.getAno().toString());
-
+        
+        buttonEDIT.setEnabled(true);
     }//GEN-LAST:event_tblCarroMouseClicked
 
     private void buttonADDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonADDActionPerformed
@@ -900,7 +901,28 @@ public class FormControleCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonADDActionPerformed
 
     private void buttonEDITActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEDITActionPerformed
+        Integer i = 0;
         
+        while(txtPlaca.getText().compareTo(tblCarro.getValueAt(i, 0).toString()) != 0)
+        {
+            i++;
+        }
+        
+        if (txtPlaca.getText().trim().length() != 0
+                && txtChassi.getText().trim().length() != 0
+                && txtModel.getText().trim().length() != 0
+                && txtCor.getText().trim().length() != 0
+                && txtAno.getText().trim().length() != 0) {
+            tblCarro.setValueAt(txtPlaca.getText(), i, 0);
+            tblCarro.setValueAt(txtChassi.getText(), i, 1);
+            tblCarro.setValueAt(txtModel.getText(), i, 2);
+            tblCarro.setValueAt(txtCor.getText(), i, 3);
+            tblCarro.setValueAt(txtAno.getText(), i, 4);
+        } else {
+            JOptionPane.showMessageDialog(this, "Não pode existir campos em branco!", "Erro!", JOptionPane.OK_OPTION);
+        }
+        
+        buttonEDIT.setEnabled(false);
     }//GEN-LAST:event_buttonEDITActionPerformed
 
     private void buttonDELActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDELActionPerformed
