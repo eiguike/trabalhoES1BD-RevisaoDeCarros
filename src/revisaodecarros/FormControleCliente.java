@@ -26,6 +26,7 @@ public class FormControleCliente extends javax.swing.JFrame {
     private Cliente cliente;
     private ClienteControl conexao;
     private CarroControl carroControl;
+    public Integer salvar;
     
     private ArrayList<Carro> listaCarros;
     
@@ -173,6 +174,11 @@ public class FormControleCliente extends javax.swing.JFrame {
 
         buttonAdicionar.setText("Cadastrar Cliente");
         buttonAdicionar.setActionCommand("");
+        buttonAdicionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonAdicionarActionPerformed(evt);
+            }
+        });
 
         buttonProcura.setText("Procurar Cliente");
         buttonProcura.setActionCommand("");
@@ -217,13 +223,13 @@ public class FormControleCliente extends javax.swing.JFrame {
             .addGroup(panelAcaoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(buttonAdicionar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buttonProcura)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(buttonLimpar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buttonEditar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 283, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(buttonLimpar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 301, Short.MAX_VALUE)
                 .addComponent(buttonSair)
                 .addContainerGap())
         );
@@ -246,7 +252,8 @@ public class FormControleCliente extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(lblDate)
                 .addGap(6, 6, 6)
-                .addComponent(txtDate))
+                .addComponent(txtDate)
+                .addContainerGap(669, Short.MAX_VALUE))
         );
         panelInfoLayout.setVerticalGroup(
             panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -440,9 +447,9 @@ public class FormControleCliente extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(panelInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -523,6 +530,7 @@ public class FormControleCliente extends javax.swing.JFrame {
                                 .addGap(6, 6, 6)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
+<<<<<<< HEAD
                                         .addComponent(lblCor)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(txtCor, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -537,9 +545,27 @@ public class FormControleCliente extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(txtAno, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(0, 0, Short.MAX_VALUE)))))
+=======
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(txtChassi, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(txtPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(35, 35, 35)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(lblAno)
+                                            .addComponent(lblCor, javax.swing.GroupLayout.Alignment.TRAILING))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(txtAno, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(txtCor, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
+                                .addComponent(buttonADD, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(buttonEDIT, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(buttonDEL, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))
+>>>>>>> 6178e3a0725ffea1ad442e325aa4c836e2132d7d
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(panelAcao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(12, 12, 12)))
+                        .addComponent(panelAcao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -630,7 +656,7 @@ public class FormControleCliente extends javax.swing.JFrame {
                                 .addComponent(buttonDEL, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(pnlCarro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -757,9 +783,12 @@ public class FormControleCliente extends javax.swing.JFrame {
             
             listaCarros = carroControl.getCarros(cliente.getCPF());
             while(i < listaCarros.size()){
-                Carro aux = new Carro();    
-                aux = listaCarros.get(i);
-                model.addRow(new Object[]{aux.getPlacaCarro(), aux.getChassi(), aux.getModelo(), aux.getCor(), aux.getAno().toString()});
+                Carro aux = new Carro(); 
+                if(aux.isRemovido() != true){
+                    aux = listaCarros.get(i);
+                    model.addRow(new Object[]{aux.getPlacaCarro(), aux.getChassi(), aux.getModelo(), aux.getCor(), aux.getAno().toString()});
+                    
+                }
                 i++;
             }
             
@@ -918,6 +947,7 @@ public class FormControleCliente extends javax.swing.JFrame {
         
     }//GEN-LAST:event_buttonDELActionPerformed
 
+<<<<<<< HEAD
     private void txtNomeFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNomeFocusGained
         lblExemploNome.setText("Ex.: Alberto Souza");
     }//GEN-LAST:event_txtNomeFocusGained
@@ -957,6 +987,42 @@ public class FormControleCliente extends javax.swing.JFrame {
     private void txtPlacaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPlacaFocusLost
         lblExemploPlaca.setText("");
     }//GEN-LAST:event_txtPlacaFocusLost
+=======
+    private void buttonAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAdicionarActionPerformed
+        if(salvar == 0){
+            buttonAdicionar.setText("Salvar");
+            buttonProcura.enable(false);
+            buttonEDIT.enable(false);
+            
+            txtNome.setText("");
+            txtCPF.setText("");
+            txtTelefone.setText("");
+            txtCelular.setText("");
+            txtEmp.setText("");
+            txtRua.setText("");
+            txtNumero.setText("");
+            txtBairro.setText("");
+            txtComplemento.setText("");
+            txtCidade.setText("");
+            cmbEstado.setSelectedIndex(0);
+            txtPlaca.setText("");
+            txtChassi.setText("");
+            txtModel.setText("");
+            txtCor.setText("");
+            txtAno.setText("");
+            
+            tblCarro.enable(false);
+            
+            
+        }
+        //if(salvar != 0){
+        //    if()
+            
+        //}
+        
+        
+    }//GEN-LAST:event_buttonAdicionarActionPerformed
+>>>>>>> 6178e3a0725ffea1ad442e325aa4c836e2132d7d
 
     /**
      * @param args the command line arguments
