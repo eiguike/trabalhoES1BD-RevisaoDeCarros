@@ -28,7 +28,10 @@ public class ClienteControl{
         String texto_consulta = "INSERT INTO Cliente VALUES('"
                 + aux.getCPF() + "','" + aux.getNome() + "','" + aux.getRua() +"',"
                 + aux.getNumero() +", '" + aux.getComplemento() + "','" + aux.getBairro() +"','"
-                + aux.getCidade() +"','" + aux.getEstado()+"')";
+                + aux.getCidade() +"','" + aux.getEstado()+"');";
+        texto_consulta+="INSERT INTO Telefone VALUES('"
+                + aux.getCPF() + "','" + aux.getTelefone() +"','" + aux.getCelular() +"','"
+                + aux.getEmpresarial() +"');";
                 
         System.out.println(texto_consulta);
         
@@ -53,9 +56,9 @@ public class ClienteControl{
                     + ", TELEFONE.EMPRESARIAL  FROM CLIENTE, TELEFONE WHERE CLIENTE.CPF = '"+CPF+ "' AND TELEFONE.CPF ='" + CPF+"'";   
         }
         if(nome != null){
-            texto_consulta = "SELECT * FROM CLIENTE WHERE NOME LIKE '";
-            texto_consulta += nome;
-            texto_consulta+="%'";             
+            texto_consulta = "SELECT CLIENTE.CPF, CLIENTE.NOME, CLIENTE.RUA, CLIENTE.NUMERO, CLIENTE.COMPLEMENTO"
+                    + ", CLIENTE.BAIRRO, CLIENTE.CIDADE, CLIENTE.ESTADO, TELEFONE.TELEFONE, TELEFONE.CELULAR"
+                    + ", TELEFONE.EMPRESARIAL  FROM CLIENTE, TELEFONE WHERE CLIENTE.NOME = '"+nome+ "%' AND TELEFONE.CPF =CLIENTE.CPF";           
         } 
        
         System.out.println(texto_consulta);

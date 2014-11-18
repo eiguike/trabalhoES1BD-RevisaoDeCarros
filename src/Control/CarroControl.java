@@ -64,6 +64,25 @@ public class CarroControl {
 
     }
     
+    public boolean updateCarro(Carro aux){
+        //UPDATE CARRO SET COR =
+        if(aux == null)
+            return false;
+        String texto_consulta = "UPDATE CARRO SET COR='"
+                + aux.getCor() +"' WHERE CARRO.PLACACARRO ='"
+                + aux.getPlacaCarro()+"'";
+        ResultSet rs = null;
+        
+        System.out.println(texto_consulta);
+        
+        try{
+            con.st.execute(texto_consulta);
+            return true;
+        }catch(SQLException e){
+          return false;
+        }
+    }
+    
     public Carro getCarro(String placaCarro, String chassi){
         retCarro = new Carro();
         String texto_consulta = null;

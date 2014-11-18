@@ -879,6 +879,8 @@ public class FormControleCliente extends javax.swing.JFrame {
         txtAno.setText(carro.getAno().toString());
         
         buttonEDIT.setEnabled(true);
+        txtCor.enable(true);
+        txtCor.setEditable(true);
     }//GEN-LAST:event_tblCarroMouseClicked
 
     private void buttonADDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonADDActionPerformed
@@ -901,7 +903,14 @@ public class FormControleCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonADDActionPerformed
 
     private void buttonEDITActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEDITActionPerformed
+        Carro aux = new Carro();
         Integer i = 0;
+        
+        txtPlaca.setEditable(false);
+        txtChassi.setEditable(true);
+        txtModel.setEditable(false);
+        txtCor.setEditable(true);
+        txtAno.setEditable(false);        
         
         while(txtPlaca.getText().compareTo(tblCarro.getValueAt(i, 0).toString()) != 0)
         {
@@ -913,11 +922,19 @@ public class FormControleCliente extends javax.swing.JFrame {
                 && txtModel.getText().trim().length() != 0
                 && txtCor.getText().trim().length() != 0
                 && txtAno.getText().trim().length() != 0) {
-            tblCarro.setValueAt(txtPlaca.getText(), i, 0);
-            tblCarro.setValueAt(txtChassi.getText(), i, 1);
-            tblCarro.setValueAt(txtModel.getText(), i, 2);
-            tblCarro.setValueAt(txtCor.getText(), i, 3);
-            tblCarro.setValueAt(txtAno.getText(), i, 4);
+            aux.setPlacaCarro(txtPlaca.getText());
+            aux.setCor(txtCor.getText());
+            if(carroControl.updateCarro(aux)){
+                tblCarro.setValueAt(txtPlaca.getText(), i, 0);
+                tblCarro.setValueAt(txtChassi.getText(), i, 1);
+                tblCarro.setValueAt(txtModel.getText(), i, 2);
+                tblCarro.setValueAt(txtCor.getText(), i, 3);
+                tblCarro.setValueAt(txtAno.getText(), i, 4);                
+                JOptionPane.showMessageDialog(this, "Edição feito com sucesso!", "", JOptionPane.OK_OPTION);
+            }else{
+                JOptionPane.showMessageDialog(this, "Não foi possível editar!", "", JOptionPane.OK_OPTION);
+            }
+
         } else {
             JOptionPane.showMessageDialog(this, "Não pode existir campos em branco!", "Erro!", JOptionPane.OK_OPTION);
         }
