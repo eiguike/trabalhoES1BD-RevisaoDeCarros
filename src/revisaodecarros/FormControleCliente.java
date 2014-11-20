@@ -57,6 +57,11 @@ public class FormControleCliente extends javax.swing.JFrame {
         edicao = 0;
 
         buttonLimpar.setEnabled(false);
+            txtPlaca.setEnabled(false);
+            txtChassi.setEnabled(false);
+            txtModel.setEnabled(false);
+            txtCor.setEnabled(false);
+            txtAno.setEnabled(false);           
 
     }
 
@@ -392,6 +397,14 @@ public class FormControleCliente extends javax.swing.JFrame {
                 tblCarroMouseClicked(evt);
             }
         });
+        tblCarro.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                tblCarroFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tblCarroFocusLost(evt);
+            }
+        });
         sclCarro.setViewportView(tblCarro);
 
         javax.swing.GroupLayout pnlCarroLayout = new javax.swing.GroupLayout(pnlCarro);
@@ -604,7 +617,7 @@ public class FormControleCliente extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(txtComplemento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(lblComp))))
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(sprEnd, javax.swing.GroupLayout.PREFERRED_SIZE, 5, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -744,6 +757,11 @@ public class FormControleCliente extends javax.swing.JFrame {
             cmbEstado.setEditable(false);
 
             //Editar a tabela com os valores atuais do carro
+            txtPlaca.setEnabled(true);
+            txtChassi.setEnabled(true);
+            txtModel.setEnabled(true);
+            txtCor.setEnabled(true);
+            txtAno.setEnabled(true);                
             txtPlaca.setEditable(false);
             txtChassi.setEditable(false);
             txtModel.setEditable(false);
@@ -777,6 +795,7 @@ public class FormControleCliente extends javax.swing.JFrame {
             }
 
             tblCarro.setModel(model);
+            tblCarro.setEnabled(true);
         } else {
             JOptionPane.showMessageDialog(this, "Cliente não encontrado.", "Erro!", JOptionPane.OK_OPTION);
         }
@@ -806,7 +825,7 @@ public class FormControleCliente extends javax.swing.JFrame {
             buttonAdicionar.setEnabled(false);
             buttonProcura.setEnabled(false);
 
-            buttonLimpar.setEnabled(true);
+            buttonLimpar.setEnabled(false);
 
             //buttonADD.enable(true);
             //buttonEDIT.enable(false);
@@ -830,7 +849,7 @@ public class FormControleCliente extends javax.swing.JFrame {
 
             if (conexao_cliente.updateCliente(cliente)) {
                 JOptionPane.showMessageDialog(this, "Edição feita com êxito!", "", JOptionPane.OK_OPTION);
-                buttonEditar.setText("Editar");
+                buttonEditar.setText("Editar Cliente");
                 buttonAdicionar.setEnabled(true);
                 buttonProcura.setEnabled(true);
                 buttonLimpar.setEnabled(false);
@@ -850,6 +869,8 @@ public class FormControleCliente extends javax.swing.JFrame {
                 txtModel.setEditable(false);
                 txtCor.setEditable(false);
                 txtAno.setEditable(false);
+                buttonAdicionar.setEnabled(true);
+                edicao = 0;
             } else {
                 JOptionPane.showMessageDialog(this, "Não foi possível a edição do cliente.", "Erro!", JOptionPane.OK_OPTION);
             }
@@ -907,7 +928,17 @@ public class FormControleCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonLimparActionPerformed
 
     private void tblCarroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCarroMouseClicked
-
+        Integer i;
+        Carro carro = listaCarros.get(tblCarro.getSelectedRow());
+        
+        txtPlaca.setText(carro.getPlacaCarro());
+        txtChassi.setText(carro.getChassi());
+        txtModel.setText(carro.getModelo());
+        txtCor.setText(carro.getCor());
+        txtAno.setText(carro.getAno().toString());
+        buttonEDIT.setEnabled(true);
+        txtCor.setEnabled(true);
+        txtCor.setEditable(true);
     }//GEN-LAST:event_tblCarroMouseClicked
 
     private void buttonADDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonADDActionPerformed
@@ -918,6 +949,8 @@ public class FormControleCliente extends javax.swing.JFrame {
         aux.setCor(txtCor.getText());
         aux.setModelo(txtModel.getText());
         aux.setPlacaCarro(txtPlaca.getText());
+        
+        buttonEditar.setEnabled(false);
         
         // trata a tabela
         DefaultTableModel model = new DefaultTableModel();
@@ -966,12 +999,6 @@ public class FormControleCliente extends javax.swing.JFrame {
         Carro aux = new Carro();
         Integer i = 0;
 
-        txtPlaca.setEditable(false);
-        txtChassi.setEditable(true);
-        txtModel.setEditable(false);
-        txtCor.setEditable(true);
-        txtAno.setEditable(false);
-
         while (txtPlaca.getText().compareTo(tblCarro.getValueAt(i, 0).toString()) != 0) {
             i++;
         }
@@ -997,17 +1024,45 @@ public class FormControleCliente extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(this, "Não pode existir campos em branco!", "Erro!", JOptionPane.OK_OPTION);
         }
-
-        buttonEDIT.setEnabled(false);
     }//GEN-LAST:event_buttonEDITActionPerformed
 
     private void buttonDELActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDELActionPerformed
-        Carro aux = listaCarros.get(tblCarro.getSelectedRow());
-        
-        
-        
-        
-        
+        Integer i;
+
+        int n = JOptionPane.showConfirmDialog(
+                this,
+                "Você tem certeza que deseja excluir o carro selecionado?",
+                "Sair",
+                JOptionPane.YES_NO_OPTION);
+        if (n == 0) {
+            Carro carro = listaCarros.get(tblCarro.getSelectedRow());
+            if (carroControl.deleteCarro(carro)) {
+                JOptionPane.showMessageDialog(this, "Carro excluido com sucesso!", "", JOptionPane.OK_OPTION);
+                i = 0;
+                
+                DefaultTableModel model = new DefaultTableModel();
+                model.addColumn("Placa de Carro");
+                model.addColumn("Chassi");
+                model.addColumn("Modelo");
+                model.addColumn("Cor");
+                model.addColumn("Ano");
+                listaCarros = carroControl.getCarros(cliente.getCPF());
+                Carro aux = new Carro();
+                while (i < listaCarros.size()) {
+                    aux = new Carro();
+                    if (aux.isRemovido() != true) {
+                        aux = listaCarros.get(i);
+                        model.addRow(new Object[]{aux.getPlacaCarro(), aux.getChassi(), aux.getModelo(), aux.getCor(), aux.getAno().toString()});
+
+                    }
+                    i++;
+                }
+                tblCarro.setModel(model);
+
+            } else {
+                JOptionPane.showMessageDialog(this, "Não foi possível excluir o carro!", "Erro!", JOptionPane.OK_OPTION);
+            }
+        }        
     }//GEN-LAST:event_buttonDELActionPerformed
 
     private void txtNomeFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNomeFocusGained
@@ -1181,6 +1236,14 @@ public class FormControleCliente extends javax.swing.JFrame {
         txtAno.setText("");
         txtPlaca.requestFocus();
     }//GEN-LAST:event_buttonADD1ActionPerformed
+
+    private void tblCarroFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tblCarroFocusGained
+        buttonDEL.setEnabled(true);
+    }//GEN-LAST:event_tblCarroFocusGained
+
+    private void tblCarroFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tblCarroFocusLost
+
+    }//GEN-LAST:event_tblCarroFocusLost
 
     /**
      * @param args the command line arguments

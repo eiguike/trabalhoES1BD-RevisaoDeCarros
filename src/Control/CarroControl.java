@@ -40,7 +40,21 @@ public class CarroControl {
     }
     
     public boolean deleteCarro(Carro aux){
-        return false;
+        //UPDATE CARRO SET COR =
+        if(aux == null)
+            return false;
+        String texto_consulta = "UPDATE CARRO SET REMOVIDO='t' WHERE PLACACARRO ='"
+                + aux.getPlacaCarro() +"';";
+        ResultSet rs = null;
+        
+        System.out.println(texto_consulta);
+        
+        try{
+            con.st.execute(texto_consulta);
+            return true;
+        }catch(SQLException e){
+          return false;
+        }
     }
     
     public ArrayList<Carro> getCarros(String CPF) {
@@ -49,7 +63,7 @@ public class CarroControl {
 
         ResultSet rs = null;
         String texto_consulta = "SELECT CPF, PLACACARRO, CHASSI, COR, ANO, MODELO, REMOVIDO FROM CARRO WHERE CPF='"
-                + CPF + "'";
+                + CPF + "' AND REMOVIDO ='f'";
         
         System.out.println(texto_consulta);
         
