@@ -23,6 +23,26 @@ public class ClienteControl{
     
     }
     
+    public boolean updateCliente(Cliente aux){
+        ResultSet rs = null;
+        String texto_consulta = "UPDATE Cliente SET RUA = '"+ aux.getRua() +"', NUMERO ="
+                + aux.getNumero() + ", BAIRRO ='" + aux.getBairro() +"', ESTADO='"+ aux.getEstado() +"',"
+                + "COMPLEMENTO = '" + aux.getComplemento() + "', CIDADE ='" + aux.getCidade() + "'"
+                + " WHERE CLIENTE.CPF ='"+ aux.getCPF() +"';";
+        texto_consulta+="UPDATE Telefone SET(TELEFONE, CELULAR, EMPRESARIAL) = ('"+aux.getTelefone()+"'"
+                + ", '" + aux.getCelular() +"', '" + aux.getEmpresarial() +"') WHERE Telefone.CPF = '"+ aux.getCPF()+"';";
+                
+        System.out.println(texto_consulta);
+        
+        try{
+            con.st.execute(texto_consulta);
+        }catch(SQLException e){
+            return false;
+        }
+        
+        return true;   
+    }
+    
     public boolean setCliente(Cliente aux){
         ResultSet rs = null;
         String texto_consulta = "INSERT INTO Cliente VALUES('"

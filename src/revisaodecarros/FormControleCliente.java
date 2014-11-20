@@ -12,6 +12,8 @@ import Control.ClienteControl;
 import Control.CarroControl;
 import Model.Cliente;
 import Model.Carro;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import static java.lang.Integer.parseInt;
 import java.util.ArrayList;
 import javax.swing.JTable;
@@ -28,8 +30,9 @@ public class FormControleCliente extends javax.swing.JFrame {
     private ClienteControl conexao;
     private CarroControl carroControl;
     public Integer salvar;
+    public Integer edicao;
     
-    private ArrayList<Carro> listaCarros;
+    private        boolean verificacao; ArrayList<Carro> listaCarros;
     
     public FormPrincipalFuncionario formPrincipal;
     
@@ -50,6 +53,10 @@ public class FormControleCliente extends javax.swing.JFrame {
         
         carroControl = new CarroControl();
         salvar = 0;
+        edicao = 0;
+        
+        buttonLimpar.setEnabled(false);
+                     
 
     }
     
@@ -188,6 +195,7 @@ public class FormControleCliente extends javax.swing.JFrame {
         });
 
         buttonLimpar.setText("Limpar Tudo");
+        buttonLimpar.setEnabled(false);
         buttonLimpar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonLimparActionPerformed(evt);
@@ -693,6 +701,8 @@ public class FormControleCliente extends javax.swing.JFrame {
         }
         
         if(cliente != null){
+            buttonEditar.setEnabled(true);
+            
             txtNome.setText(cliente.getNome());
             txtNome.setEditable(false);
             txtCPF.setText(cliente.getCPF());
@@ -713,9 +723,11 @@ public class FormControleCliente extends javax.swing.JFrame {
             txtComplemento.setEditable(false);
             txtCidade.setText(cliente.getCidade());
             txtCidade.setEditable(false);
-//            Código caso a linha acima não selecione o estado correto            
-            while(cliente.getEstado().compareTo(cmbEstado.getItemAt(i).toString())== 0);
+//            Código caso a linha acima não selecione o estado correto    
+            while(cliente.getEstado().compareTo(cmbEstado.getItemAt(i).toString().trim()) != 0)
             {
+                System.out.println(cmbEstado.getItemAt(i).toString().trim());
+                System.out.println(cliente.getEstado());
                 i++;
             }
             cmbEstado.setSelectedIndex(i);
@@ -764,14 +776,12 @@ public class FormControleCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonProcuraActionPerformed
 
     private void buttonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEditarActionPerformed
-        String nome = buttonEditar.getName();
-        boolean verificacao;
-        Cliente cliente = new Cliente();
-        ClienteControl conexao_cliente = new ClienteControl();
-        
-        if(nome.compareTo("Editar") == 0)
+       
+        if(edicao == 0)
         {
-            txtNome.setEditable(true);
+            buttonEditar.setText("Salvar edição");
+            
+            txtNome.setEditable(false);
             txtTelefone.setEditable(true);
             txtCelular.setEditable(true);
             txtEmp.setEditable(true);
@@ -781,17 +791,25 @@ public class FormControleCliente extends javax.swing.JFrame {
             txtComplemento.setEditable(true);
             txtCidade.setEditable(true);
             cmbEstado.setEditable(true);
-            txtPlaca.setEditable(true);
-            txtChassi.setEditable(true);
-            txtModel.setEditable(true);
+            txtPlaca.setEditable(false);
+            txtChassi.setEditable(false);
+            txtModel.setEditable(false);
             txtCor.setEditable(true);
-            txtAno.setEditable(true);
-            buttonADD.enable(true);
-            buttonEDIT.enable(true);
-            buttonDEL.enable(true);
-        }
-        else
-        {
+            txtAno.setEditable(false);
+
+            buttonAdicionar.setEnabled(false);
+            buttonProcura.setEnabled(false);
+            
+            buttonLimpar.setEnabled(true);
+
+            //buttonADD.enable(true);
+            //buttonEDIT.enable(false);
+            //buttonDEL.enable(true);
+            edicao = 1;
+        } else {
+            Cliente cliente = new Cliente();
+            ClienteControl conexao_cliente = new ClienteControl();
+
             cliente.setNome(txtNome.getText());
             cliente.setCPF(txtCPF.getText());
             cliente.setTelefone(txtTelefone.getText());
@@ -803,12 +821,29 @@ public class FormControleCliente extends javax.swing.JFrame {
             cliente.setEstado(cmbEstado.getSelectedItem().toString());
             cliente.setCidade(txtCidade.getText());
             cliente.setComplemento(txtComplemento.getText());
-            
-            verificacao = conexao_cliente.setCliente(cliente);
-            
-            if(verificacao)
-            {
+
+            if (conexao_cliente.updateCliente(cliente)) {
+                JOptionPane.showMessageDialog(this, "Edição feita com êxito!", "", JOptionPane.OK_OPTION);
+                buttonEditar.setText("Editar");
+                buttonAdicionar.setEnabled(true);
+                buttonProcura.setEnabled(true);
+                buttonLimpar.setEnabled(false);
                 
+                txtNome.setEditable(false);
+                txtTelefone.setEditable(false);
+                txtCelular.setEditable(false);
+                txtEmp.setEditable(false);
+                txtRua.setEditable(false);
+                txtNumero.setEditable(false);
+                txtBairro.setEditable(false);
+                txtComplemento.setEditable(false);
+                txtCidade.setEditable(false);
+                cmbEstado.setEditable(false);
+                txtPlaca.setEditable(false);
+                txtChassi.setEditable(false);
+                txtModel.setEditable(false);
+                txtCor.setEditable(false);
+                txtAno.setEditable(false);         
             }
             else
             {
@@ -838,7 +873,7 @@ public class FormControleCliente extends javax.swing.JFrame {
         lblExemploCPF.setText("");
         lblExemploTelefone.setText("");
         lblExemploPlaca.setText("");
-        txtNome.setEditable(true);
+        /*txtNome.setEditable(true);
         txtCPF.setEditable(true);
         txtTelefone.setEditable(true);
         txtCelular.setEditable(true);
@@ -853,7 +888,7 @@ public class FormControleCliente extends javax.swing.JFrame {
         txtChassi.setEditable(true);
         txtModel.setEditable(true);
         txtCor.setEditable(true);
-        txtAno.setEditable(true);
+        txtAno.setEditable(true);*/
         buttonADD.setEnabled(false);
         buttonDEL.setEnabled(false);
         buttonEDIT.setEnabled(false);
@@ -989,8 +1024,9 @@ public class FormControleCliente extends javax.swing.JFrame {
     private void buttonAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAdicionarActionPerformed
         if (salvar == 0) {
             buttonAdicionar.setText("Salvar");
-            buttonProcura.enable(false);
-            buttonEDIT.enable(false);
+            buttonProcura.setEnabled(false);
+            buttonEDIT.setEnabled(false);
+            buttonEditar.setEnabled(false);
 
             txtNome.setText("");
             txtCPF.setText("");
@@ -1009,10 +1045,27 @@ public class FormControleCliente extends javax.swing.JFrame {
             txtModel.setText("");
             txtCor.setText("");
             txtAno.setText("");
+            
+            // Limpa tabela...
+            Table resetada = new Table();
+            tblCarro.setModel(resetada);
+
+            txtNome.setEditable(true);
+            txtCPF.setEditable(true);
+            txtTelefone.setEditable(true);
+            txtCelular.setEditable(true);
+            txtEmp.setEditable(true);
+            txtRua.setEditable(true);
+            txtNumero.setEditable(true);
+            txtBairro.setEditable(true);
+            txtComplemento.setEditable(true);
+            txtCidade.setEditable(true);            
 
             tblCarro.enable(false);
+            buttonLimpar.setEnabled(true);
             
             salvar = 1;
+            txtNome.requestFocus();
 
         } else {
             if (salvar != 0) {
@@ -1036,24 +1089,39 @@ public class FormControleCliente extends javax.swing.JFrame {
                     if (cadastro.setCliente(aux)) {
                         JOptionPane.showMessageDialog(null, "Cadastro feito com sucesso! ");
                         buttonAdicionar.setText("Cadastrar Cliente");
-                        buttonProcura.enable(true);
-                        buttonEDIT.enable(true);
+                        buttonProcura.setEnabled(true);
+                        buttonEDIT.setEnabled(false);
+                        buttonLimpar.setEnabled(false);
+                        //buttonEditar.setEnabled(true);
+                        
+                        // travando os campos
+                        txtNome.setEditable(false);
+                        txtCPF.setEditable(false);
+                        txtTelefone.setEditable(false);
+                        txtCelular.setEditable(false);
+                        txtEmp.setEditable(false);
+                        txtRua.setEditable(false);
+                        txtNumero.setEditable(false);
+                        txtBairro.setEditable(false);
+                        txtComplemento.setEditable(false);
+                        txtCidade.setEditable(false);
+
+                        // limpeza dos campos
+                        txtNome.setText("");
+                        txtCPF.setText("");
+                        txtTelefone.setText("");
+                        txtCelular.setText("");
+                        txtEmp.setText("");
+                        txtRua.setText("");
+                        txtNumero.setText("");
+                        txtBairro.setText("");
+                        txtComplemento.setText("");
+                        txtCidade.setText("");
+                        cmbEstado.setSelectedIndex(0);                          
                         salvar = 0;
                     } else {
                         JOptionPane.showMessageDialog(this, "ERRO!", "", JOptionPane.OK_OPTION);
-                        salvar = 0;
-                    }
-                    txtNome.setText("");
-                    txtCPF.setText("");
-                    txtTelefone.setText("");
-                    txtCelular.setText("");
-                    txtEmp.setText("");
-                    txtRua.setText("");
-                    txtNumero.setText("");
-                    txtBairro.setText("");
-                    txtComplemento.setText("");
-                    txtCidade.setText("");
-                    cmbEstado.setSelectedIndex(0);                    
+                    }                  
                 }
             }
         }
