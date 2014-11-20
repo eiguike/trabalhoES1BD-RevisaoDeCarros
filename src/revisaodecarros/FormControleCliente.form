@@ -131,24 +131,25 @@
                               </Group>
                               <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
                                       <Component id="lblCor" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="txtCor" min="-2" pref="130" max="-2" attributes="0"/>
-                                      <EmptySpace max="32767" attributes="0"/>
-                                      <Component id="buttonADD" min="-2" pref="42" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="buttonEDIT" min="-2" pref="42" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="buttonDEL" min="-2" pref="42" max="-2" attributes="0"/>
                                   </Group>
-                                  <Group type="102" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
                                       <Component id="lblAno" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="txtAno" min="-2" pref="42" max="-2" attributes="0"/>
-                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="buttonADD" min="-2" pref="42" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="buttonADD1" min="-2" pref="42" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="buttonEDIT" min="-2" pref="42" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="buttonDEL" min="-2" pref="42" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -235,42 +236,43 @@
                               <Component id="sprEnd" min="-2" pref="5" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="txtPlaca" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="lblPlaca" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="lblExemploPlaca" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                                              <Component id="txtAno" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              <Component id="lblAno" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          </Group>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="buttonADD" alignment="1" min="-2" pref="38" max="-2" attributes="0"/>
+                                      <Group type="102" attributes="0">
                                           <Group type="103" groupAlignment="3" attributes="0">
-                                              <Component id="txtChassi" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              <Component id="lblChassi" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="txtPlaca" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="lblPlaca" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="lblExemploPlaca" alignment="3" min="-2" max="-2" attributes="0"/>
                                           </Group>
-                                      </Group>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                                              <Component id="txtCor" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              <Component id="lblCor" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                                                  <Component id="txtAno" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="lblAno" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Group type="103" groupAlignment="3" attributes="0">
+                                                  <Component id="txtChassi" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="lblChassi" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              </Group>
                                           </Group>
-                                          <Group type="103" groupAlignment="3" attributes="0">
-                                              <Component id="txtModel" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              <Component id="lblModelo" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                                                  <Component id="txtCor" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="lblCor" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Group type="103" groupAlignment="3" attributes="0">
+                                                  <Component id="txtModel" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="lblModelo" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              </Group>
                                           </Group>
                                       </Group>
                                   </Group>
-                                  <Component id="buttonADD" alignment="1" min="-2" pref="38" max="-2" attributes="0"/>
+                                  <Component id="buttonEDIT" alignment="1" min="-2" pref="38" max="-2" attributes="0"/>
+                                  <Component id="buttonADD1" alignment="1" min="-2" pref="38" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="buttonEDIT" min="-2" pref="38" max="-2" attributes="0"/>
-                              <Component id="buttonDEL" min="-2" pref="38" max="-2" attributes="0"/>
-                          </Group>
+                          <Component id="buttonDEL" min="-2" pref="38" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="pnlCarro" min="-2" max="-2" attributes="0"/>
@@ -278,7 +280,7 @@
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="panelInfo" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace pref="13" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -671,7 +673,7 @@
     <Component class="javax.swing.JButton" name="buttonADD">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/Icon/ADD.png"/>
+          <Image iconType="3" name="/Icon/1416530062_Check.png"/>
         </Property>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
@@ -682,7 +684,7 @@
     <Component class="javax.swing.JButton" name="buttonEDIT">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/Icon/EDIT.png"/>
+          <Image iconType="3" name="/Icon/1416530124_pencil_32.png"/>
         </Property>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
@@ -693,7 +695,7 @@
     <Component class="javax.swing.JButton" name="buttonDEL">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/Icon/DEL.png"/>
+          <Image iconType="3" name="/Icon/1416530067_Delete.png"/>
         </Property>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
@@ -708,6 +710,17 @@
     <Component class="javax.swing.JLabel" name="lblExemploTelefone">
     </Component>
     <Component class="javax.swing.JLabel" name="lblExemploPlaca">
+    </Component>
+    <Component class="javax.swing.JButton" name="buttonADD1">
+      <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/Icon/1416530056_Add.png"/>
+        </Property>
+        <Property name="enabled" type="boolean" value="false"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonADD1ActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

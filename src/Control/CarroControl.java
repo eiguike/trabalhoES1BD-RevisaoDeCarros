@@ -22,6 +22,27 @@ public class CarroControl {
         con = new ConexaoBD();
     }
     
+    public boolean setCarro(Carro aux){
+        ResultSet rs = null;
+        String texto_consulta = "INSERT INTO Carro VALUES('"
+                + aux.getCPF() + "','" + aux.getPlacaCarro()+ "','" + aux.getChassi() +"','"
+                + aux.getCor() +"', " + aux.getAno()+ ",'" + aux.getModelo()+"','f');";
+                
+        System.out.println(texto_consulta);
+        
+        try{
+            con.st.execute(texto_consulta);
+        }catch(SQLException e){
+            return false;
+        }
+        
+        return true;        
+    }
+    
+    public boolean deleteCarro(Carro aux){
+        return false;
+    }
+    
     public ArrayList<Carro> getCarros(String CPF) {
         ArrayList<Carro> carros = new ArrayList<Carro>();
         Carro aux;

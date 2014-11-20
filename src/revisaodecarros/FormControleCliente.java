@@ -12,11 +12,9 @@ import Control.ClienteControl;
 import Control.CarroControl;
 import Model.Cliente;
 import Model.Carro;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import static java.lang.Integer.parseInt;
 import java.util.ArrayList;
-import javax.swing.JTable;
+import javax.swing.ImageIcon;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
 
@@ -25,23 +23,24 @@ import javax.swing.table.DefaultTableModel;
  * @author Charizard
  */
 public class FormControleCliente extends javax.swing.JFrame {
+
     ClockTest clock;
     private Cliente cliente;
     private ClienteControl conexao;
     private CarroControl carroControl;
     public Integer salvar;
     public Integer edicao;
-    
-    private        boolean verificacao; ArrayList<Carro> listaCarros;
-    
+
+    private boolean verificacao;
+    ArrayList<Carro> listaCarros;
+
     public FormPrincipalFuncionario formPrincipal;
-    
+
     public FormControleCliente() {
         initComponents();
     }
-    
-    public FormControleCliente(FormPrincipalFuncionario formFunc, String login)
-    {
+
+    public FormControleCliente(FormPrincipalFuncionario formFunc, String login) {
         formPrincipal = formFunc;
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         initComponents();
@@ -51,19 +50,21 @@ public class FormControleCliente extends javax.swing.JFrame {
         clock = new ClockTest(txtDate);
         conexao = new ClienteControl();
         
+        buttonADD.setVisible(false);
+
         carroControl = new CarroControl();
         salvar = 0;
         edicao = 0;
-        
+
         buttonLimpar.setEnabled(false);
-                     
 
     }
-    
+
     class Table extends AbstractTableModel {
-        private String[] NomeColuna = { "Placa", "Chassi", "Modelo", "Cor", "Ano" };
+
+        private String[] NomeColuna = {"Placa", "Chassi", "Modelo", "Cor", "Ano"};
         private Object[][] Info = {};
-        
+
         public int getColumnCount() {
             return NomeColuna.length;
         }
@@ -79,18 +80,17 @@ public class FormControleCliente extends javax.swing.JFrame {
         public Object getValueAt(int linha, int coluna) {
             return Info[linha][coluna];
         }
-        
+
         public void setValueAt(String valor, int linha, int coluna) {
             Info[linha][coluna] = valor;
             fireTableCellUpdated(linha, coluna);
         }
-        
-        public boolean isCellEditable(int row, int column)
-        {
+
+        public boolean isCellEditable(int row, int column) {
             return false;
         }
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -151,6 +151,7 @@ public class FormControleCliente extends javax.swing.JFrame {
         lblExemploCPF = new javax.swing.JLabel();
         lblExemploTelefone = new javax.swing.JLabel();
         lblExemploPlaca = new javax.swing.JLabel();
+        buttonADD1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -408,7 +409,7 @@ public class FormControleCliente extends javax.swing.JFrame {
                 .addComponent(sclCarro, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE))
         );
 
-        buttonADD.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/ADD.png"))); // NOI18N
+        buttonADD.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/1416530062_Check.png"))); // NOI18N
         buttonADD.setEnabled(false);
         buttonADD.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -416,7 +417,7 @@ public class FormControleCliente extends javax.swing.JFrame {
             }
         });
 
-        buttonEDIT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/EDIT.png"))); // NOI18N
+        buttonEDIT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/1416530124_pencil_32.png"))); // NOI18N
         buttonEDIT.setEnabled(false);
         buttonEDIT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -424,11 +425,19 @@ public class FormControleCliente extends javax.swing.JFrame {
             }
         });
 
-        buttonDEL.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/DEL.png"))); // NOI18N
+        buttonDEL.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/1416530067_Delete.png"))); // NOI18N
         buttonDEL.setEnabled(false);
         buttonDEL.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonDELActionPerformed(evt);
+            }
+        });
+
+        buttonADD1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/1416530056_Add.png"))); // NOI18N
+        buttonADD1.setEnabled(false);
+        buttonADD1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonADD1ActionPerformed(evt);
             }
         });
 
@@ -521,18 +530,19 @@ public class FormControleCliente extends javax.swing.JFrame {
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(lblCor)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtCor, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(buttonADD, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(buttonEDIT, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(buttonDEL, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(txtCor, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(lblAno)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtAno, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(0, 0, Short.MAX_VALUE)))))
+                                        .addComponent(txtAno, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(buttonADD, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(buttonADD1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(buttonEDIT, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(buttonDEL, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(panelAcao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
@@ -600,36 +610,37 @@ public class FormControleCliente extends javax.swing.JFrame {
                                 .addComponent(sprEnd, javax.swing.GroupLayout.PREFERRED_SIZE, 5, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                            .addComponent(txtPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(lblPlaca)
-                                            .addComponent(lblExemploPlaca))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(buttonADD, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(layout.createSequentialGroup()
                                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                                .addComponent(txtAno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(lblAno))
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                                .addComponent(txtChassi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(lblChassi)))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                                .addComponent(txtCor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(lblCor))
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                                .addComponent(txtModel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(lblModelo))))
-                                    .addComponent(buttonADD, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(buttonEDIT, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(buttonDEL, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                                .addComponent(txtPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(lblPlaca)
+                                                .addComponent(lblExemploPlaca))
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                    .addComponent(txtAno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(lblAno))
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                    .addComponent(txtChassi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(lblChassi)))
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                    .addComponent(txtCor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(lblCor))
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                    .addComponent(txtModel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(lblModelo)))))
+                                    .addComponent(buttonEDIT, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(buttonADD1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(buttonDEL, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(pnlCarro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
 
         pack();
@@ -637,11 +648,11 @@ public class FormControleCliente extends javax.swing.JFrame {
 
     private void buttonSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSairActionPerformed
         int n = JOptionPane.showConfirmDialog(
-            this,
-            "Você tem certeza que gostaria de sair?",
-            "Sair",
-            JOptionPane.YES_NO_OPTION);
-        if(n==0){
+                this,
+                "Você tem certeza que gostaria de sair?",
+                "Sair",
+                JOptionPane.YES_NO_OPTION);
+        if (n == 0) {
             formPrincipal.setVisible(true);
             clock.stop();
             this.dispose();
@@ -650,11 +661,11 @@ public class FormControleCliente extends javax.swing.JFrame {
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         int n = JOptionPane.showConfirmDialog(
-            this,
-            "Você tem certeza que gostaria de sair?",
-            "Sair",
-            JOptionPane.YES_NO_OPTION);
-        if(n==0){
+                this,
+                "Você tem certeza que gostaria de sair?",
+                "Sair",
+                JOptionPane.YES_NO_OPTION);
+        if (n == 0) {
             formPrincipal.setVisible(true);
             clock.stop();
             this.dispose();
@@ -662,47 +673,47 @@ public class FormControleCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosing
 
     private void buttonProcuraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonProcuraActionPerformed
-        Object[] possibilities = {"","CPF", "Nome"};
+        Object[] possibilities = {"", "CPF", "Nome"};
         String opcao;
         Integer i = 0;
-        do{
-        opcao = (String)JOptionPane.showInputDialog(
-                            this,
-                            "Procurar por:",
-                            "Pesquisar",
-                            JOptionPane.PLAIN_MESSAGE,
-                            null,
-                            possibilities,
-                            "");        
-        }while(opcao.compareTo("") == 0);
-        
-        if(opcao.compareTo("CPF") == 0){
-            String s = (String)JOptionPane.showInputDialog(
-                               this,
-                               "Entre com o CPF do Cliente:\n",
-                               "Pesquisa: CPF",
-                               JOptionPane.PLAIN_MESSAGE,
-                               null,
-                               null,
-                               "");
-            
+        do {
+            opcao = (String) JOptionPane.showInputDialog(
+                    this,
+                    "Procurar por:",
+                    "Pesquisar",
+                    JOptionPane.PLAIN_MESSAGE,
+                    null,
+                    possibilities,
+                    "");
+        } while (opcao.compareTo("") == 0);
+
+        if (opcao.compareTo("CPF") == 0) {
+            String s = (String) JOptionPane.showInputDialog(
+                    this,
+                    "Entre com o CPF do Cliente:\n",
+                    "Pesquisa: CPF",
+                    JOptionPane.PLAIN_MESSAGE,
+                    null,
+                    null,
+                    "");
+
             cliente = conexao.getCliente(s, null);
         }
-        if(opcao.compareTo("Nome") == 0){
-            String s = (String)JOptionPane.showInputDialog(
-                               this,
-                               "Entre com o nome do Cliente:",
-                               "Pesquisa: Nome",
-                               JOptionPane.PLAIN_MESSAGE,
-                               null,
-                               null,
-                               "");    
+        if (opcao.compareTo("Nome") == 0) {
+            String s = (String) JOptionPane.showInputDialog(
+                    this,
+                    "Entre com o nome do Cliente:",
+                    "Pesquisa: Nome",
+                    JOptionPane.PLAIN_MESSAGE,
+                    null,
+                    null,
+                    "");
             cliente = conexao.getCliente(null, s);
         }
-        
-        if(cliente != null){
+
+        if (cliente != null) {
             buttonEditar.setEnabled(true);
-            
+
             txtNome.setText(cliente.getNome());
             txtNome.setEditable(false);
             txtCPF.setText(cliente.getCPF());
@@ -724,28 +735,26 @@ public class FormControleCliente extends javax.swing.JFrame {
             txtCidade.setText(cliente.getCidade());
             txtCidade.setEditable(false);
 //            Código caso a linha acima não selecione o estado correto    
-            while(cliente.getEstado().compareTo(cmbEstado.getItemAt(i).toString().trim()) != 0)
-            {
+            while (cliente.getEstado().compareTo(cmbEstado.getItemAt(i).toString().trim()) != 0) {
                 System.out.println(cmbEstado.getItemAt(i).toString().trim());
                 System.out.println(cliente.getEstado());
                 i++;
             }
             cmbEstado.setSelectedIndex(i);
             cmbEstado.setEditable(false);
-            
+
             //Editar a tabela com os valores atuais do carro
-            
             txtPlaca.setEditable(false);
             txtChassi.setEditable(false);
             txtModel.setEditable(false);
             txtCor.setEditable(false);
             txtAno.setEditable(false);
-            buttonADD.enable(false);
-            buttonEDIT.enable(false);
-            buttonDEL.enable(false);
-            buttonAdicionar.enable(false);
-            buttonEditar.enable(true);
-            
+            buttonADD1.setEnabled(true);
+            buttonEDIT.setEnabled(false);
+            buttonDEL.setEnabled(false);
+            buttonAdicionar.setEnabled(false);
+            buttonEditar.setEnabled(true);
+
             // trata a tabela
             DefaultTableModel model = new DefaultTableModel();
             model.addColumn("Placa de Carro");
@@ -753,34 +762,31 @@ public class FormControleCliente extends javax.swing.JFrame {
             model.addColumn("Modelo");
             model.addColumn("Cor");
             model.addColumn("Ano");
-            
-            i=0;
-            
+
+            i = 0;
+
             listaCarros = carroControl.getCarros(cliente.getCPF());
-            while(i < listaCarros.size()){
-                Carro aux = new Carro(); 
-                if(aux.isRemovido() != true){
+            while (i < listaCarros.size()) {
+                Carro aux = new Carro();
+                if (aux.isRemovido() != true) {
                     aux = listaCarros.get(i);
                     model.addRow(new Object[]{aux.getPlacaCarro(), aux.getChassi(), aux.getModelo(), aux.getCor(), aux.getAno().toString()});
-                    
+
                 }
                 i++;
             }
-            
+
             tblCarro.setModel(model);
-        }
-        else
-        {
+        } else {
             JOptionPane.showMessageDialog(this, "Cliente não encontrado.", "Erro!", JOptionPane.OK_OPTION);
         }
     }//GEN-LAST:event_buttonProcuraActionPerformed
 
     private void buttonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEditarActionPerformed
-       
-        if(edicao == 0)
-        {
+
+        if (edicao == 0) {
             buttonEditar.setText("Salvar edição");
-            
+
             txtNome.setEditable(false);
             txtTelefone.setEditable(true);
             txtCelular.setEditable(true);
@@ -799,7 +805,7 @@ public class FormControleCliente extends javax.swing.JFrame {
 
             buttonAdicionar.setEnabled(false);
             buttonProcura.setEnabled(false);
-            
+
             buttonLimpar.setEnabled(true);
 
             //buttonADD.enable(true);
@@ -828,7 +834,7 @@ public class FormControleCliente extends javax.swing.JFrame {
                 buttonAdicionar.setEnabled(true);
                 buttonProcura.setEnabled(true);
                 buttonLimpar.setEnabled(false);
-                
+
                 txtNome.setEditable(false);
                 txtTelefone.setEditable(false);
                 txtCelular.setEditable(false);
@@ -843,10 +849,8 @@ public class FormControleCliente extends javax.swing.JFrame {
                 txtChassi.setEditable(false);
                 txtModel.setEditable(false);
                 txtCor.setEditable(false);
-                txtAno.setEditable(false);         
-            }
-            else
-            {
+                txtAno.setEditable(false);
+            } else {
                 JOptionPane.showMessageDialog(this, "Não foi possível a edição do cliente.", "Erro!", JOptionPane.OK_OPTION);
             }
         }
@@ -874,84 +878,104 @@ public class FormControleCliente extends javax.swing.JFrame {
         lblExemploTelefone.setText("");
         lblExemploPlaca.setText("");
         /*txtNome.setEditable(true);
-        txtCPF.setEditable(true);
-        txtTelefone.setEditable(true);
-        txtCelular.setEditable(true);
-        txtEmp.setEditable(true);
-        txtRua.setEditable(true);
-        txtNumero.setEditable(true);
-        txtBairro.setEditable(true);
-        txtComplemento.setEditable(true);
-        txtCidade.setEditable(true);
-        cmbEstado.setEditable(true);
-        txtPlaca.setEditable(true);
-        txtChassi.setEditable(true);
-        txtModel.setEditable(true);
-        txtCor.setEditable(true);
-        txtAno.setEditable(true);*/
+         txtCPF.setEditable(true);
+         txtTelefone.setEditable(true);
+         txtCelular.setEditable(true);
+         txtEmp.setEditable(true);
+         txtRua.setEditable(true);
+         txtNumero.setEditable(true);
+         txtBairro.setEditable(true);
+         txtComplemento.setEditable(true);
+         txtCidade.setEditable(true);
+         cmbEstado.setEditable(true);
+         txtPlaca.setEditable(true);
+         txtChassi.setEditable(true);
+         txtModel.setEditable(true);
+         txtCor.setEditable(true);
+         txtAno.setEditable(true);*/
         buttonADD.setEnabled(false);
         buttonDEL.setEnabled(false);
         buttonEDIT.setEnabled(false);
-        
+
         Table resetada = new Table();
-        
+
         tblCarro.setModel(resetada);
-        
-        if(buttonEditar.isEnabled() == true)
-        {
+
+        if (buttonEditar.isEnabled() == true) {
             buttonEditar.enable(false);
         }
     }//GEN-LAST:event_buttonLimparActionPerformed
 
     private void tblCarroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCarroMouseClicked
-        Integer i;
-        Carro carro = listaCarros.get(tblCarro.getSelectedRow());
-        
-        txtPlaca.setText(carro.getPlacaCarro());
-        txtChassi.setText(carro.getChassi());
-        txtModel.setText(carro.getModelo());
-        txtCor.setText(carro.getCor());
-        txtAno.setText(carro.getAno().toString());
-        
-        buttonEDIT.setEnabled(true);
-        txtCor.enable(true);
-        txtCor.setEditable(true);
+
     }//GEN-LAST:event_tblCarroMouseClicked
 
     private void buttonADDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonADDActionPerformed
-        Integer x = tblCarro.getRowCount();
+        Carro aux = new Carro();
+        aux.setCPF(cliente.getCPF());
+        aux.setAno(parseInt(txtAno.getText()));
+        aux.setChassi(txtChassi.getText());
+        aux.setCor(txtCor.getText());
+        aux.setModelo(txtModel.getText());
+        aux.setPlacaCarro(txtPlaca.getText());
+        
+        // trata a tabela
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("Placa de Carro");
+        model.addColumn("Chassi");
+        model.addColumn("Modelo");
+        model.addColumn("Cor");
+        model.addColumn("Ano");
+        if(carroControl.setCarro(aux)){
+            JOptionPane.showMessageDialog(this, "Cadastro de Carro feito com sucesso!", "", JOptionPane.OK_OPTION);
+            txtPlaca.setEnabled(false);
+            txtChassi.setEnabled(false);
+            txtAno.setEnabled(false);
+            txtModel.setEnabled(false);
+            txtCor.setEnabled(false);
+            txtPlaca.setText("");
+            txtChassi.setText("");
+            txtAno.setText("");
+            txtModel.setText("");
+            txtCor.setText("");
+            buttonADD.setVisible(false);
+            buttonADD1.setVisible(true);
+            Integer i = 0;
+            
 
-        if (txtPlaca.getText().trim().length() != 0
-                && txtChassi.getText().trim().length() != 0
-                && txtModel.getText().trim().length() != 0
-                && txtCor.getText().trim().length() != 0
-                && txtAno.getText().trim().length() != 0) {
-            tblCarro.addRowSelectionInterval(tblCarro.getRowCount(), tblCarro.getRowCount());
-            tblCarro.setValueAt(txtPlaca.getText(), x, 0);
-            tblCarro.setValueAt(txtChassi.getText(), x, 1);
-            tblCarro.setValueAt(txtModel.getText(), x, 2);
-            tblCarro.setValueAt(txtCor.getText(), x, 3);
-            tblCarro.setValueAt(txtAno.getText(), x, 4);
-        } else {
-            JOptionPane.showMessageDialog(this, "Não pode existir campos em branco!", "Erro!", JOptionPane.OK_OPTION);
-        }
+            
+            listaCarros = carroControl.getCarros(cliente.getCPF());
+            while (i < listaCarros.size()) {
+                aux = new Carro();
+                if (aux.isRemovido() != true) {
+                    aux = listaCarros.get(i);
+                    model.addRow(new Object[]{aux.getPlacaCarro(), aux.getChassi(), aux.getModelo(), aux.getCor(), aux.getAno().toString()});
+
+                }
+                i++;
+            }
+
+            tblCarro.setModel(model);            
+        }else{
+            JOptionPane.showMessageDialog(this, "Não foi possível cadastar o carro! Tente novamente...", "", JOptionPane.OK_OPTION);
+            
+        }  
     }//GEN-LAST:event_buttonADDActionPerformed
 
     private void buttonEDITActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEDITActionPerformed
         Carro aux = new Carro();
         Integer i = 0;
-        
+
         txtPlaca.setEditable(false);
         txtChassi.setEditable(true);
         txtModel.setEditable(false);
         txtCor.setEditable(true);
-        txtAno.setEditable(false);        
-        
-        while(txtPlaca.getText().compareTo(tblCarro.getValueAt(i, 0).toString()) != 0)
-        {
+        txtAno.setEditable(false);
+
+        while (txtPlaca.getText().compareTo(tblCarro.getValueAt(i, 0).toString()) != 0) {
             i++;
         }
-        
+
         if (txtPlaca.getText().trim().length() != 0
                 && txtChassi.getText().trim().length() != 0
                 && txtModel.getText().trim().length() != 0
@@ -959,25 +983,30 @@ public class FormControleCliente extends javax.swing.JFrame {
                 && txtAno.getText().trim().length() != 0) {
             aux.setPlacaCarro(txtPlaca.getText());
             aux.setCor(txtCor.getText());
-            if(carroControl.updateCarro(aux)){
+            if (carroControl.updateCarro(aux)) {
                 tblCarro.setValueAt(txtPlaca.getText(), i, 0);
                 tblCarro.setValueAt(txtChassi.getText(), i, 1);
                 tblCarro.setValueAt(txtModel.getText(), i, 2);
                 tblCarro.setValueAt(txtCor.getText(), i, 3);
-                tblCarro.setValueAt(txtAno.getText(), i, 4);                
+                tblCarro.setValueAt(txtAno.getText(), i, 4);
                 JOptionPane.showMessageDialog(this, "Edição feito com sucesso!", "", JOptionPane.OK_OPTION);
-            }else{
+            } else {
                 JOptionPane.showMessageDialog(this, "Não foi possível editar!", "", JOptionPane.OK_OPTION);
             }
 
         } else {
             JOptionPane.showMessageDialog(this, "Não pode existir campos em branco!", "Erro!", JOptionPane.OK_OPTION);
         }
-        
+
         buttonEDIT.setEnabled(false);
     }//GEN-LAST:event_buttonEDITActionPerformed
 
     private void buttonDELActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDELActionPerformed
+        Carro aux = listaCarros.get(tblCarro.getSelectedRow());
+        
+        
+        
+        
         
     }//GEN-LAST:event_buttonDELActionPerformed
 
@@ -1045,7 +1074,7 @@ public class FormControleCliente extends javax.swing.JFrame {
             txtModel.setText("");
             txtCor.setText("");
             txtAno.setText("");
-            
+
             // Limpa tabela...
             Table resetada = new Table();
             tblCarro.setModel(resetada);
@@ -1059,11 +1088,11 @@ public class FormControleCliente extends javax.swing.JFrame {
             txtNumero.setEditable(true);
             txtBairro.setEditable(true);
             txtComplemento.setEditable(true);
-            txtCidade.setEditable(true);            
+            txtCidade.setEditable(true);
 
             tblCarro.enable(false);
             buttonLimpar.setEnabled(true);
-            
+
             salvar = 1;
             txtNome.requestFocus();
 
@@ -1093,7 +1122,7 @@ public class FormControleCliente extends javax.swing.JFrame {
                         buttonEDIT.setEnabled(false);
                         buttonLimpar.setEnabled(false);
                         //buttonEditar.setEnabled(true);
-                        
+
                         // travando os campos
                         txtNome.setEditable(false);
                         txtCPF.setEditable(false);
@@ -1117,18 +1146,41 @@ public class FormControleCliente extends javax.swing.JFrame {
                         txtBairro.setText("");
                         txtComplemento.setText("");
                         txtCidade.setText("");
-                        cmbEstado.setSelectedIndex(0);                          
+                        cmbEstado.setSelectedIndex(0);
                         salvar = 0;
                     } else {
                         JOptionPane.showMessageDialog(this, "ERRO!", "", JOptionPane.OK_OPTION);
-                    }                  
+                    }
                 }
             }
         }
-            
- 
+
 
     }//GEN-LAST:event_buttonAdicionarActionPerformed
+
+    private void buttonADD1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonADD1ActionPerformed
+        buttonADD1.setVisible(false);
+        buttonADD.setEnabled(true);
+        buttonADD.setVisible(true);
+        Integer i;
+
+        txtPlaca.setEnabled(true);
+        txtChassi.setEnabled(true);
+        txtModel.setEnabled(true);
+        txtCor.setEnabled(true);
+        txtAno.setEnabled(true);
+        txtPlaca.setEditable(true);
+        txtChassi.setEditable(true);
+        txtModel.setEditable(true);
+        txtCor.setEditable(true);
+        txtAno.setEditable(true);
+        txtPlaca.setText("");
+        txtChassi.setText("");
+        txtModel.setText("");
+        txtCor.setText("");
+        txtAno.setText("");
+        txtPlaca.requestFocus();
+    }//GEN-LAST:event_buttonADD1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1167,6 +1219,7 @@ public class FormControleCliente extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonADD;
+    private javax.swing.JButton buttonADD1;
     private javax.swing.JButton buttonAdicionar;
     private javax.swing.JButton buttonDEL;
     private javax.swing.JButton buttonEDIT;
