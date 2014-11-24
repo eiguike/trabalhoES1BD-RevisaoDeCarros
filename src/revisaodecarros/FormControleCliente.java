@@ -970,56 +970,64 @@ public class FormControleCliente extends javax.swing.JFrame {
 
     private void buttonADDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonADDActionPerformed
         Carro aux = new Carro();
-        aux.setCPF(cliente.getCPF());
-        aux.setAno(parseInt(txtAno.getText()));
-        aux.setChassi(txtChassi.getText());
-        aux.setCor(txtCor.getText());
-        aux.setModelo(txtModel.getText());
-        aux.setPlacaCarro(txtPlaca.getText());
-        
-        buttonEditar.setEnabled(false);
-        
-        // trata a tabela
-        DefaultTableModel model = new DefaultTableModel();
-        model.addColumn("Placa de Carro");
-        model.addColumn("Chassi");
-        model.addColumn("Modelo");
-        model.addColumn("Cor");
-        model.addColumn("Ano");
-        if(carroControl.setCarro(aux)){
-            JOptionPane.showMessageDialog(this, "Cadastro de Carro feito com sucesso!", "", JOptionPane.OK_OPTION);
-            txtPlaca.setEnabled(false);
-            txtChassi.setEnabled(false);
-            txtAno.setEnabled(false);
-            txtModel.setEnabled(false);
-            txtCor.setEnabled(false);
-            txtPlaca.setText("");
-            txtChassi.setText("");
-            txtAno.setText("");
-            txtModel.setText("");
-            txtCor.setText("");
-            buttonADD.setVisible(false);
-            buttonADD1.setVisible(true);
-            Integer i = 0;
-            
+        String mensagem = checkCarro();
+        if(mensagem.compareTo("") == 0)
+        {
+            aux.setCPF(cliente.getCPF().replaceAll("[(-.]",""));
+            aux.setAno(parseInt(txtAno.getText()));
+            aux.setChassi(txtChassi.getText());
+            aux.setCor(txtCor.getText());
+            aux.setModelo(txtModel.getText());
+            aux.setPlacaCarro(txtPlaca.getText().replaceAll("[(-.]",""));
 
-            
-            listaCarros = carroControl.getCarros(cliente.getCPF());
-            while (i < listaCarros.size()) {
-                aux = new Carro();
-                if (aux.isRemovido() != true) {
-                    aux = listaCarros.get(i);
-                    model.addRow(new Object[]{aux.getPlacaCarro(), aux.getChassi(), aux.getModelo(), aux.getCor(), aux.getAno().toString()});
+            buttonEditar.setEnabled(false);
 
+            // trata a tabela
+            DefaultTableModel model = new DefaultTableModel();
+            model.addColumn("Placa de Carro");
+            model.addColumn("Chassi");
+            model.addColumn("Modelo");
+            model.addColumn("Cor");
+            model.addColumn("Ano");
+            if(carroControl.setCarro(aux)){
+                JOptionPane.showMessageDialog(this, "Cadastro de Carro feito com sucesso!", "", JOptionPane.OK_OPTION);
+                txtPlaca.setEnabled(false);
+                txtChassi.setEnabled(false);
+                txtAno.setEnabled(false);
+                txtModel.setEnabled(false);
+                txtCor.setEnabled(false);
+                txtPlaca.setText("");
+                txtChassi.setText("");
+                txtAno.setText("");
+                txtModel.setText("");
+                txtCor.setText("");
+                buttonADD.setVisible(false);
+                buttonADD1.setVisible(true);
+                Integer i = 0;
+
+
+
+                listaCarros = carroControl.getCarros(cliente.getCPF());
+                while (i < listaCarros.size()) {
+                    aux = new Carro();
+                    if (aux.isRemovido() != true) {
+                        aux = listaCarros.get(i);
+                        model.addRow(new Object[]{aux.getPlacaCarro(), aux.getChassi(), aux.getModelo(), aux.getCor(), aux.getAno().toString()});
+
+                    }
+                    i++;
                 }
-                i++;
-            }
 
-            tblCarro.setModel(model);            
-        }else{
-            JOptionPane.showMessageDialog(this, "Não foi possível cadastar o carro! Tente novamente.", "Erro!", JOptionPane.OK_OPTION);
-            
-        }  
+                tblCarro.setModel(model);            
+            }else{
+                JOptionPane.showMessageDialog(this, "Não foi possível cadastar o carro! Tente novamente.", "Erro!", JOptionPane.OK_OPTION);
+
+            }
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(this, "Você precisa completar o(s) seguinte(s) campo(s):\n\n" + mensagem, "Erro!", JOptionPane.OK_OPTION);    
+        }
     }//GEN-LAST:event_buttonADDActionPerformed
 
     private void buttonEDITActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEDITActionPerformed
@@ -1030,12 +1038,9 @@ public class FormControleCliente extends javax.swing.JFrame {
             i++;
         }
 
-        if (txtPlaca.getText().trim().length() != 0
-                && txtChassi.getText().trim().length() != 0
-                && txtModel.getText().trim().length() != 0
-                && txtCor.getText().trim().length() != 0
-                && txtAno.getText().trim().length() != 0) {
-            aux.setPlacaCarro(txtPlaca.getText());
+        String mensagem = checkCarro();
+        if (mensagem.compareTo("") == 0) {
+            aux.setPlacaCarro(txtPlaca.getText().replaceAll("[(-.]",""));
             aux.setCor(txtCor.getText());
             if (carroControl.updateCarro(aux)) {
                 tblCarro.setValueAt(txtPlaca.getText(), i, 0);
@@ -1043,13 +1048,13 @@ public class FormControleCliente extends javax.swing.JFrame {
                 tblCarro.setValueAt(txtModel.getText(), i, 2);
                 tblCarro.setValueAt(txtCor.getText(), i, 3);
                 tblCarro.setValueAt(txtAno.getText(), i, 4);
-                JOptionPane.showMessageDialog(this, "Edição feito com sucesso!", "", JOptionPane.OK_OPTION);
+                JOptionPane.showMessageDialog(this, "Edição feito com sucesso!", "Sucesso!", JOptionPane.OK_OPTION);
             } else {
-                JOptionPane.showMessageDialog(this, "Não foi possível editar!", "", JOptionPane.OK_OPTION);
+                JOptionPane.showMessageDialog(this, "Não foi possível editar!", "ERRO!", JOptionPane.OK_OPTION);
             }
             buttonLimpar.setEnabled(true);
         } else {
-            JOptionPane.showMessageDialog(this, "Não pode existir campos em branco!", "Erro!", JOptionPane.OK_OPTION);
+            JOptionPane.showMessageDialog(this, "Você precisa completar o(s) seguinte(s) campo(s):\n\n" + mensagem, "Erro!", JOptionPane.OK_OPTION);
         }
     }//GEN-LAST:event_buttonEDITActionPerformed
 
@@ -1074,7 +1079,7 @@ public class FormControleCliente extends javax.swing.JFrame {
                 model.addColumn("Cor");
                 model.addColumn("Ano");
                 listaCarros = carroControl.getCarros(cliente.getCPF());
-                Carro aux = new Carro();
+                Carro aux;
                 while (i < listaCarros.size()) {
                     aux = new Carro();
                     if (aux.isRemovido() != true) {
@@ -1181,7 +1186,7 @@ public class FormControleCliente extends javax.swing.JFrame {
         } else {
             if (salvar != 0) {
                 String mensagem = checkCliente();
-                if (mensagem.compareTo("") == 1) {
+                if (!(mensagem.compareTo("") == 0)) {
                     JOptionPane.showMessageDialog(this, "Você precisa completar o(s) seguinte(s) campo(s):\n\n" + mensagem, "Erro!", JOptionPane.OK_OPTION);
                 } else {
                     Cliente aux = new Cliente();
@@ -1284,7 +1289,7 @@ public class FormControleCliente extends javax.swing.JFrame {
         if(txtNome.getText().trim().length() == 0)
         {
             txtNome.setBorder(aviso);
-            mensagem = "Nome\n";
+            mensagem += "Nome\n";
         }
         else
         {
@@ -1370,7 +1375,7 @@ public class FormControleCliente extends javax.swing.JFrame {
         Border aviso = BorderFactory.createLineBorder(Color.red);
         Border original = txtEmp.getBorder();
         
-        if(txtPlaca.getText().trim().length() == 0)
+        if(txtPlaca.getText().replaceAll("[(-.]","").trim().length() == 0)
         {
             txtPlaca.setBorder(aviso);
             mensagem = "Placa\n";

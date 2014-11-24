@@ -65,7 +65,7 @@ create table Revisao2 (
     codRevisao smallint PRIMARY KEY,
     kmAtual       smallint,
     dataRevisao date,
-    hora       varchar(10)  
+    hora       time  
 );
 
 create table TipoDeServico (
@@ -78,7 +78,7 @@ create table TipoDeServico (
 create table Peca (
     codPeca smallint PRIMARY KEY,
     nome      varchar(50),
-    vencimento date
+    vencimento integer
 );
 
 create table RevisaoTipoDeServico (
@@ -114,19 +114,26 @@ create table TipoRevisao (
     FOREIGN KEY (codServico) REFERENCES TipoDeServico(codServico),
     CONSTRAINT codTipoRevisao PRIMARY KEY (codPeca, codServico)
 );
-	
+
+------------------------------------------
+--Inserindo dados nas tabelas para testes:
+------------------------------------------
+
+--Tabela Cliente
 INSERT INTO Cliente VALUES('16640124432','João da Silva Pereira','Rua Gonçalves Roberto',205,'Apto. 235', 'Jardim Aquidaban', 'São Paulo', 'SP');
 INSERT INTO Cliente VALUES('24391956853','Gustavo de Almeida', 'Av. Zhoeiras Flamejantes', 222, '', 'Jardim Bandeirantes', 'São Paulo', 'SP'); 
 INSERT INTO Cliente VALUES('15898450998','Machado de Assis', 'Rua Senador Barroso', 4353, '', 'Alameda dos Anjos', 'São Paulo', 'SP');
 INSERT INTO Cliente VALUES('59372476633','Denis Felipe de Alcantra', 'Rua Plano Cartesianos', 3231,'', 'Jardim Maria Eugênia', 'Sorocaba', 'SP'); 
 INSERT INTO Cliente VALUES('08111639708','Christopher Alesund', 'Rua Gal. Ace M. Puppets',16,'','Jardim dos Neides' , 'São Paulo', 'SP'); 
 
+--Tabela Telefone
 INSERT INTO Telefone('16640124432', '1533457899', '15999009900', '');
 INSERT INTO Telefone('24391956853', '1532345489', '15997884567', '1134532345');
 INSERT INTO Telefone('15898450998', '1138456754', '11983456509', '1138756490');
 INSERT INTO Telefone('59372476633', '1533345543', '15988345601', '');
 INSERT INTO Telefone('08111639708', '1532894958', '15991479812', '12384657493');
 
+--Tabela Carrro
 INSERT INTO Carro VALUES('15898450998','DOM-2586', '7SWHG25AX24558915', 'preto', 2015, 'S10',false); 
 INSERT INTO Carro VALUES('59372476633','URR-2011', '2UEXA35LK15987460', 'amarelo', 2013, 'Camaro',false);
 INSERT INTO Carro VALUES('08111639708','ALC-4020', '9BWHE21JX24060960', 'azul', 2013, 'Astra',false);
@@ -135,35 +142,73 @@ INSERT INTO Carro VALUES('16640124432','FFF-1111', '5DWBD24JD01234512', 'preto',
 INSERT INTO Carro VALUES('24391956853','GAY-2424', '8AJXV69DF12345694', 'verde', 2015, 'Montana', false);
 INSERT INTO Carro VALUES('24391956853','ABC-4532', '5DWBD24JD01234512', 'prata', 2014, 'Capitiva', false);
 
+--Tabela Garantia
 INSERT INTO Garantia VALUES('1','2014-10-20','2019-10-20'); 
 INSERT INTO Garantia VALUES('2','2014-10-22','2019-10-22');
 INSERT INTO Garantia VALUES('3','2014-01-14','2018-11-15');
 INSERT INTO Garantia VALUES('4','2014-05-06','2020-01-10');
 INSERT INTO Garantia VALUES('5','2014-11-24','2020-01-01');
 
+--Tabela CarroGarantia
 INSERT INTO CarroGarantia VALUES('08111639708', 'VAC-2014', '1'); 
 INSERT INTO CarroGarantia VALUES('59372476633', 'URR-2011', '2');
 INSERT INTO CarroGarantia VALUES('15898450998', 'DOM-2586', '3');
 INSERT INTO CarroGarantia VALUES('08111639708', 'ALC-4020', '4'); 
 INSERT INTO CarroGarantia VALUES('24391956853', 'GAY-2424', '5'); 
 
-INSERT INTO Funcionario VALUES('16640124432','Marcello','1234','caco',true);
+--Tabela Funcionario
+INSERT INTO Funcionario VALUES('34512343990','Marcello','1234','caco',true);
 INSERT INTO Funcionario VALUES('12345678941','Henrique','1234','snd',true);
 INSERT INTO Funcionario VALUES('90134578459','Joao','4321','estrela',false); 
 INSERT INTO Funcionario VALUES('42312309878','Gustavo','2341','scarface',false);
 
+--Tabela FuncionarioRevisao
 INSERT INTO FuncionarioRevisao VALUES('90134578459', '2014-11-21', 1);
 INSERT INTO FuncionarioRevisao VALUES('90134578459', '2014-11-22', 2);
 INSERT INTO FuncionarioRevisao VALUES('42312309878', '2014-11-21', 3);
 INSERT INTO FuncionarioRevisao VALUES('42312309878', '2014-11-22', 4);
 
+--Tabela Revisao2
 INSERT INTO Revisao2 VALUES(1, 11534, '2014-11-25', '8:00');
 INSERT INTO Revisao2 VALUES(2, 15334, '2014-11-26', '8:00');
 INSERT INTO Revisao2 VALUES(3, 38999, '2014-11-25', '10:00');
 INSERT INTO Revisao2 VALUES(4, 44098, '2014-11-26', '10:00');
 
+--Tabela TipoDeServico
+INSERT INTO TipoDeServico VALUES(1, 'troca de oleo', 100.00, 100);
+INSERT INTO TipoDeServico VALUES(2, 'filtro de ar', 50.00, 30);
+INSERT INTO TipoDeServico VALUES(3, 'pastilha de freio', 200.00, 60);
+INSERT INTO TipoDeServico VALUES(4, 'correia dentada', 150.00, 150);
+INSERT INTO TipoDeServico VALUES(5, 'retrovisor', 200.00, 100);
+INSERT INTO TipoDeServico VALUES(6, 'troca das velas', 200.00, 180);
 
-INSERT INTO TipoDeServico VALUES();
+--Tabela Peca
+INSERT INTO Peca VALUES(1, 'correia dentada', 120);
+INSERT INTO Peca VALUES(2, 'pastiha de freio', 100);
+INSERT INTO Peca VALUES(3, 'filtro de ar', 50);
+INSERT INTO Peca VALUES(4, 'vela', 90);
+INSERT INTO Peca VALUES(5, 'catalisador', 60);
+INSERT INTO Peca VALUES(5, 'filtro de oleo', 60);
+
+--Tabela RevisaoTipoDeServico
+INSET INTO RevisaoTipoDeServico VALUES(1, 4, 1, 1);
+INSET INTO RevisaoTipoDeServico VALUES(2, 1, 6, 1);
+INSET INTO RevisaoTipoDeServico VALUES(3, 2, 3, 1);
+INSET INTO RevisaoTipoDeServico VALUES(4, 6, 4, 4);
+
+--Tabela Revisao
+INSERT INTO Revisao VALEUS(1, '34512343990', 'VAC-2014', '08111639708', 1);
+INSERT INTO Revisao VALEUS(2, '12345678941', 'URR-2011', '59372476633', 2);
+INSERT INTO Revisao VALEUS(3, '12345678941', 'GAY-2424', '24391956853', 3);
+INSERT INTO Revisao VALEUS(4, '34512343990', 'DOM-2586', '15898450998', 4);
+
+--Tabela TipoRevisao
+INSERT INTO TipoRevisao VALUES(1, 5, 10000);
+INSERT INTO TipoRevisao VALUES(4, 1, 60000);
+INSERT INTO TipoRevisao VALUES(2, 3, 10000);
+INSERT INTO TipoRevisao VALUES(3, 2, 30000);
+INSERT INTO TipoRevisao VALUES(6, 4, 40000);
+
 
 
 
