@@ -63,7 +63,7 @@ create table FuncionarioRevisao (
 
 create table Revisao2 (
     codRevisao smallint PRIMARY KEY,
-    kmAtual       smallint,
+    kmAtual    integer,
     dataRevisao date,
     hora       time  
 );
@@ -109,7 +109,7 @@ create table Revisao (
 create table TipoRevisao (
     codPeca smallint,
     codServico smallint,
-    quilometragem smallint,
+    quilometragem integer,
     FOREIGN KEY (codPeca) REFERENCES Peca(codPeca),
     FOREIGN KEY (codServico) REFERENCES TipoDeServico(codServico),
     CONSTRAINT codTipoRevisao PRIMARY KEY (codPeca, codServico)
