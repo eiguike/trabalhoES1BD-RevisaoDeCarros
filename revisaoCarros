@@ -77,16 +77,8 @@ create table TipoDeServico (
 
 create table Peca (
     codPeca smallint PRIMARY KEY,
-    nome      varchar(50)
-);
-
-create table GarantiaPeca (
-    codPeca smallint,
-    codGarantia smallint,
-    duracao varchar(10),
-    FOREIGN KEY (codPeca) REFERENCES Peca(codPeca), --ON DELETE
-    FOREIGN KEY (codGarantia) REFERENCES Garantia(codGarantia), --ON DELETE
-    CONSTRAINT codigoGarantiaPeca PRIMARY KEY (codPeca, codGarantia)
+    nome      varchar(50),
+    vencimento date
 );
 
 create table RevisaoTipoDeServico (
