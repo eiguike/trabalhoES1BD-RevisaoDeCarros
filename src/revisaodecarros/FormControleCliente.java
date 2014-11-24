@@ -1181,7 +1181,7 @@ public class FormControleCliente extends javax.swing.JFrame {
         } else {
             if (salvar != 0) {
                 String mensagem = checkCliente();
-                if (mensagem.compareTo("") == 1) {
+                if (!(mensagem.compareTo("") == 0)) {
                     JOptionPane.showMessageDialog(this, "Você precisa completar o(s) seguinte(s) campo(s):\n\n" + mensagem, "Erro!", JOptionPane.OK_OPTION);
                 } else {
                     Cliente aux = new Cliente();
@@ -1284,7 +1284,7 @@ public class FormControleCliente extends javax.swing.JFrame {
         if(txtNome.getText().trim().length() == 0)
         {
             txtNome.setBorder(aviso);
-            mensagem = "Nome\n";
+            mensagem += "Nome\n";
         }
         else
         {
