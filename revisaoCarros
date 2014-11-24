@@ -114,7 +114,7 @@ create table TipoRevisao (
     FOREIGN KEY (codServico) REFERENCES TipoDeServico(codServico),
     CONSTRAINT codTipoRevisao PRIMARY KEY (codPeca, codServico)
 );
-
+	
 INSERT INTO Cliente VALUES('16640124432','João da Silva Pereira','Rua Gonçalves Roberto',205,'Apto. 235', 'Jardim Aquidaban', 'São Paulo', 'SP');
 INSERT INTO Cliente VALUES('24391956853','Gustavo de Almeida', 'Av. Zhoeiras Flamejantes', 222, '', 'Jardim Bandeirantes', 'São Paulo', 'SP'); 
 INSERT INTO Cliente VALUES('15898450998','Machado de Assis', 'Rua Senador Barroso', 4353, '', 'Alameda dos Anjos', 'São Paulo', 'SP');
@@ -152,7 +152,6 @@ INSERT INTO Funcionario VALUES('12345678941','Henrique','1234','snd',true);
 INSERT INTO Funcionario VALUES('90134578459','Joao','4321','estrela',false); 
 INSERT INTO Funcionario VALUES('42312309878','Gustavo','2341','scarface',false);
 
-
 INSERT INTO FuncionarioRevisao VALUES('90134578459', '2014-11-21', 1);
 INSERT INTO FuncionarioRevisao VALUES('90134578459', '2014-11-22', 2);
 INSERT INTO FuncionarioRevisao VALUES('42312309878', '2014-11-21', 3);
@@ -164,3 +163,30 @@ INSERT INTO Revisao2 VALUES(3, 38999, '2014-11-25', '10:00');
 INSERT INTO Revisao2 VALUES(4, 44098, '2014-11-26', '10:00');
 
 INSERT INTO TipoDeServico VALUES();
+
+
+
+
+Quantidade de Carros
+SELECT COUNT(*) FROM CARRO WHERE REMOVIDO=false
+
+Quantidade de Carros removidos
+SELECT COUNT(*) FROM CARRO WHERE REMOVIDO=true
+
+Quantidade de Carros por CPF
+SELECT CPF, COUNT(*) FROM CARRO GROUP BY CARRO.CPF
+
+Quantidade de mecânicos cadastrados
+SELECT COUNT(*) AS MECANICO FROM FUNCIONARIO WHERE MECANICO=TRUE
+
+Horários Livres
+SELECT oitoHoras AS (
+	SELECT COUNT(*) FROM FUNCIONARIOREVISAO
+
+
+
+
+
+
+
+>>>>>>> 8cf4e871f72e1ec2167c398c562d9d1bd01d086c
