@@ -57,7 +57,7 @@ create table FuncionarioRevisao (
     dataAgendamento    date,
     codRevisao smallint,
     FOREIGN KEY (CPF) REFERENCES Funcionario(CPF), --ON DELETE
-    FOREIGN KEY (codRevisao) REFERENCES Revisao2(codServico),
+    FOREIGN KEY (codRevisao) REFERENCES Revisao2(codRevisao),
     CONSTRAINT codigoFuncionarioRevisao PRIMARY KEY (CPF, codRevisao)
 );
 
@@ -127,11 +127,11 @@ INSERT INTO Cliente VALUES('59372476633','Denis Felipe de Alcantra', 'Rua Plano 
 INSERT INTO Cliente VALUES('08111639708','Christopher Alesund', 'Rua Gal. Ace M. Puppets',16,'','Jardim dos Neides' , 'São Paulo', 'SP'); 
 
 --Tabela Telefone
-INSERT INTO Telefone('16640124432', '1533457899', '15999009900', '');
-INSERT INTO Telefone('24391956853', '1532345489', '15997884567', '1134532345');
-INSERT INTO Telefone('15898450998', '1138456754', '11983456509', '1138756490');
-INSERT INTO Telefone('59372476633', '1533345543', '15988345601', '');
-INSERT INTO Telefone('08111639708', '1532894958', '15991479812', '12384657493');
+INSERT INTO Telefone VALUES('16640124432', '1533457899', '15999009900', '');
+INSERT INTO Telefone VALUES('24391956853', '1532345489', '15997884567', '1134532345');
+INSERT INTO Telefone VALUES('15898450998', '1138456754', '11983456509', '1138756490');
+INSERT INTO Telefone VALUES('59372476633', '1533345543', '15988345601', '');
+INSERT INTO Telefone VALUES('08111639708', '1532894958', '15991479812', '12384657493');
 
 --Tabela Carrro
 INSERT INTO Carro VALUES('15898450998','DOM-2586', '7SWHG25AX24558915', 'preto', 2015, 'S10',false); 
@@ -162,17 +162,17 @@ INSERT INTO Funcionario VALUES('12345678941','Henrique','1234','snd',true);
 INSERT INTO Funcionario VALUES('90134578459','Joao','4321','estrela',false); 
 INSERT INTO Funcionario VALUES('42312309878','Gustavo','2341','scarface',false);
 
---Tabela FuncionarioRevisao
-INSERT INTO FuncionarioRevisao VALUES('90134578459', '2014-11-21', 1);
-INSERT INTO FuncionarioRevisao VALUES('90134578459', '2014-11-22', 2);
-INSERT INTO FuncionarioRevisao VALUES('42312309878', '2014-11-21', 3);
-INSERT INTO FuncionarioRevisao VALUES('42312309878', '2014-11-22', 4);
-
 --Tabela Revisao2
 INSERT INTO Revisao2 VALUES(1, 11534, '2014-11-25', '8:00');
 INSERT INTO Revisao2 VALUES(2, 15334, '2014-11-26', '8:00');
 INSERT INTO Revisao2 VALUES(3, 38999, '2014-11-25', '10:00');
 INSERT INTO Revisao2 VALUES(4, 44098, '2014-11-26', '10:00');
+
+--Tabela FuncionarioRevisao
+INSERT INTO FuncionarioRevisao VALUES('90134578459', '2014-11-21', 1);
+INSERT INTO FuncionarioRevisao VALUES('90134578459', '2014-11-22', 2);
+INSERT INTO FuncionarioRevisao VALUES('42312309878', '2014-11-21', 3);
+INSERT INTO FuncionarioRevisao VALUES('42312309878', '2014-11-22', 4);
 
 --Tabela TipoDeServico
 INSERT INTO TipoDeServico VALUES(1, 'troca de oleo', 100.00, 100);
@@ -188,13 +188,13 @@ INSERT INTO Peca VALUES(2, 'pastiha de freio', 100);
 INSERT INTO Peca VALUES(3, 'filtro de ar', 50);
 INSERT INTO Peca VALUES(4, 'vela', 90);
 INSERT INTO Peca VALUES(5, 'catalisador', 60);
-INSERT INTO Peca VALUES(5, 'filtro de oleo', 60);
+INSERT INTO Peca VALUES(6, 'filtro de oleo', 60);
 
 --Tabela RevisaoTipoDeServico
-INSET INTO RevisaoTipoDeServico VALUES(1, 4, 1, 1);
-INSET INTO RevisaoTipoDeServico VALUES(2, 1, 6, 1);
-INSET INTO RevisaoTipoDeServico VALUES(3, 2, 3, 1);
-INSET INTO RevisaoTipoDeServico VALUES(4, 6, 4, 4);
+INSERT INTO RevisaoTipoDeServico VALUES(1, 4, 1, 1);
+INSERT INTO RevisaoTipoDeServico VALUES(2, 1, 6, 1);
+INSERT INTO RevisaoTipoDeServico VALUES(3, 2, 3, 1);
+INSERT INTO RevisaoTipoDeServico VALUES(4, 6, 4, 4);
 
 --Tabela Revisao
 INSERT INTO Revisao VALUES(1, '34512343990', 'VAC-2014', '08111639708', 1);
