@@ -12,9 +12,12 @@ import Control.ClienteControl;
 import Control.CarroControl;
 import Model.Cliente;
 import Model.Carro;
+import java.awt.Color;
 import static java.lang.Integer.parseInt;
 import java.util.ArrayList;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
+import javax.swing.border.Border;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
 
@@ -57,12 +60,11 @@ public class FormControleCliente extends javax.swing.JFrame {
         edicao = 0;
 
         buttonLimpar.setEnabled(false);
-            txtPlaca.setEnabled(false);
-            txtChassi.setEnabled(false);
-            txtModel.setEnabled(false);
-            txtCor.setEnabled(false);
-            txtAno.setEnabled(false);           
-
+        txtPlaca.setEnabled(false);
+        txtChassi.setEnabled(false);
+        txtModel.setEnabled(false);
+        txtCor.setEnabled(false);
+        txtAno.setEnabled(false);
     }
 
     class Table extends AbstractTableModel {
@@ -124,6 +126,12 @@ public class FormControleCliente extends javax.swing.JFrame {
         lblModelo = new javax.swing.JLabel();
         txtNome = new javax.swing.JTextField();
         txtCPF = new javax.swing.JTextField();
+        try{  
+            javax.swing.text.MaskFormatter cpf = new javax.swing.text.MaskFormatter("###.###.###-##");  
+            txtCPF = new javax.swing.JFormattedTextField(cpf);  
+        }  
+        catch (Exception e){  
+        }
         txtTelefone = new javax.swing.JTextField();
         txtRua = new javax.swing.JTextField();
         txtBairro = new javax.swing.JTextField();
@@ -319,6 +327,7 @@ public class FormControleCliente extends javax.swing.JFrame {
         });
 
         cmbEstado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { " ", "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO" }));
+        cmbEstado.setFocusable(false);
 
         try{  
             javax.swing.text.MaskFormatter placa = new javax.swing.text.MaskFormatter("???-####");  
@@ -772,6 +781,7 @@ public class FormControleCliente extends javax.swing.JFrame {
             buttonDEL.setEnabled(false);
             buttonAdicionar.setEnabled(false);
             buttonEditar.setEnabled(true);
+            buttonLimpar.setEnabled(true);
 
             // trata a tabela
             DefaultTableModel model = new DefaultTableModel();
@@ -834,45 +844,53 @@ public class FormControleCliente extends javax.swing.JFrame {
         } else {
             Cliente cliente = new Cliente();
             ClienteControl conexao_cliente = new ClienteControl();
+            String mensagem = checkCliente();
 
-            cliente.setNome(txtNome.getText());
-            cliente.setCPF(txtCPF.getText());
-            cliente.setTelefone(txtTelefone.getText());
-            cliente.setCelular(txtCelular.getText());
-            cliente.setEmpresarial(txtEmp.getText());
-            cliente.setRua(txtRua.getText());
-            cliente.setBairro(txtBairro.getText());
-            cliente.setNumero(Integer.parseInt(txtNumero.getText()));
-            cliente.setEstado(cmbEstado.getSelectedItem().toString());
-            cliente.setCidade(txtCidade.getText());
-            cliente.setComplemento(txtComplemento.getText());
+            if(mensagem.compareTo("") == 0)
+            {
+                cliente.setNome(txtNome.getText());
+                cliente.setCPF(txtCPF.getText().replaceAll("[(-.]",""));
+                cliente.setTelefone(txtTelefone.getText().replaceAll("[(-.]",""));
+                cliente.setCelular(txtCelular.getText().replaceAll("[(-.]",""));
+                cliente.setEmpresarial(txtEmp.getText().replaceAll("[(-.]",""));
+                cliente.setRua(txtRua.getText());
+                cliente.setBairro(txtBairro.getText());
+                cliente.setNumero(Integer.parseInt(txtNumero.getText()));
+                cliente.setEstado(cmbEstado.getSelectedItem().toString());
+                cliente.setCidade(txtCidade.getText());
+                cliente.setComplemento(txtComplemento.getText());
 
-            if (conexao_cliente.updateCliente(cliente)) {
-                JOptionPane.showMessageDialog(this, "Edição feita com êxito!", "", JOptionPane.OK_OPTION);
-                buttonEditar.setText("Editar Cliente");
-                buttonAdicionar.setEnabled(true);
-                buttonProcura.setEnabled(true);
-                buttonLimpar.setEnabled(false);
+                if (conexao_cliente.updateCliente(cliente)) {
+                    JOptionPane.showMessageDialog(this, "Edição feita com êxito!");
+                    buttonEditar.setText("Editar Cliente");
+                    buttonAdicionar.setEnabled(true);
+                    buttonProcura.setEnabled(true);
+                    buttonLimpar.setEnabled(true);
 
-                txtNome.setEditable(false);
-                txtTelefone.setEditable(false);
-                txtCelular.setEditable(false);
-                txtEmp.setEditable(false);
-                txtRua.setEditable(false);
-                txtNumero.setEditable(false);
-                txtBairro.setEditable(false);
-                txtComplemento.setEditable(false);
-                txtCidade.setEditable(false);
-                cmbEstado.setEditable(false);
-                txtPlaca.setEditable(false);
-                txtChassi.setEditable(false);
-                txtModel.setEditable(false);
-                txtCor.setEditable(false);
-                txtAno.setEditable(false);
-                buttonAdicionar.setEnabled(true);
-                edicao = 0;
-            } else {
-                JOptionPane.showMessageDialog(this, "Não foi possível a edição do cliente.", "Erro!", JOptionPane.OK_OPTION);
+                    txtNome.setEditable(false);
+                    txtTelefone.setEditable(false);
+                    txtCelular.setEditable(false);
+                    txtEmp.setEditable(false);
+                    txtRua.setEditable(false);
+                    txtNumero.setEditable(false);
+                    txtBairro.setEditable(false);
+                    txtComplemento.setEditable(false);
+                    txtCidade.setEditable(false);
+                    cmbEstado.setEditable(false);
+                    txtPlaca.setEditable(false);
+                    txtChassi.setEditable(false);
+                    txtModel.setEditable(false);
+                    txtCor.setEditable(false);
+                    txtAno.setEditable(false);
+                    buttonAdicionar.setEnabled(true);
+                    edicao = 0;
+                } else {
+                    JOptionPane.showMessageDialog(this, "Não foi possível a edição do cliente.", "Erro!", JOptionPane.OK_OPTION);
+                }
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(this, "Você precisa completar o(s) seguinte(s) campo(s):\n\n" + mensagem, "Erro!", JOptionPane.OK_OPTION);
             }
         }
     }//GEN-LAST:event_buttonEditarActionPerformed
@@ -898,25 +916,28 @@ public class FormControleCliente extends javax.swing.JFrame {
         lblExemploCPF.setText("");
         lblExemploTelefone.setText("");
         lblExemploPlaca.setText("");
-        /*txtNome.setEditable(true);
-         txtCPF.setEditable(true);
-         txtTelefone.setEditable(true);
-         txtCelular.setEditable(true);
-         txtEmp.setEditable(true);
-         txtRua.setEditable(true);
-         txtNumero.setEditable(true);
-         txtBairro.setEditable(true);
-         txtComplemento.setEditable(true);
-         txtCidade.setEditable(true);
-         cmbEstado.setEditable(true);
-         txtPlaca.setEditable(true);
-         txtChassi.setEditable(true);
-         txtModel.setEditable(true);
-         txtCor.setEditable(true);
-         txtAno.setEditable(true);*/
+        txtNome.setEditable(true);
+        txtCPF.setEditable(true);
+        txtTelefone.setEditable(true);
+        txtCelular.setEditable(true);
+        txtEmp.setEditable(true);
+        txtRua.setEditable(true);
+        txtNumero.setEditable(true);
+        txtBairro.setEditable(true);
+        txtComplemento.setEditable(true);
+        txtCidade.setEditable(true);
+        cmbEstado.setEditable(true);
+        txtPlaca.setEditable(true);
+        txtChassi.setEditable(true);
+        txtModel.setEditable(true);
+        txtCor.setEditable(true);
+        txtAno.setEditable(true);
         buttonADD.setEnabled(false);
         buttonDEL.setEnabled(false);
         buttonEDIT.setEnabled(false);
+        buttonADD1.setEnabled(false);
+        buttonADD.setVisible(false);
+        buttonADD1.setVisible(true);
 
         Table resetada = new Table();
 
@@ -925,6 +946,12 @@ public class FormControleCliente extends javax.swing.JFrame {
         if (buttonEditar.isEnabled() == true) {
             buttonEditar.enable(false);
         }
+        buttonLimpar.setEnabled(false);
+        buttonAdicionar.setEnabled(true);
+        buttonAdicionar.setText("Cadastrar Cliente");
+        buttonProcura.setEnabled(true);
+        limparBorders();
+        salvar = 0;
     }//GEN-LAST:event_buttonLimparActionPerformed
 
     private void tblCarroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCarroMouseClicked
@@ -990,7 +1017,7 @@ public class FormControleCliente extends javax.swing.JFrame {
 
             tblCarro.setModel(model);            
         }else{
-            JOptionPane.showMessageDialog(this, "Não foi possível cadastar o carro! Tente novamente...", "", JOptionPane.OK_OPTION);
+            JOptionPane.showMessageDialog(this, "Não foi possível cadastar o carro! Tente novamente.", "Erro!", JOptionPane.OK_OPTION);
             
         }  
     }//GEN-LAST:event_buttonADDActionPerformed
@@ -1020,7 +1047,7 @@ public class FormControleCliente extends javax.swing.JFrame {
             } else {
                 JOptionPane.showMessageDialog(this, "Não foi possível editar!", "", JOptionPane.OK_OPTION);
             }
-
+            buttonLimpar.setEnabled(true);
         } else {
             JOptionPane.showMessageDialog(this, "Não pode existir campos em branco!", "Erro!", JOptionPane.OK_OPTION);
         }
@@ -1153,15 +1180,16 @@ public class FormControleCliente extends javax.swing.JFrame {
 
         } else {
             if (salvar != 0) {
-                if (((txtNome.getText().compareTo("") == 0) || (txtCPF.getText().compareTo("") == 0) || (txtTelefone.getText().compareTo("") == 0) || (txtCelular.getText().compareTo("") == 0) || (txtEmp.getText().compareTo("") == 0) || (txtRua.getText().compareTo("") == 0) || (txtNumero.getText().compareTo("") == 0) || (txtBairro.getText().compareTo("") == 0) || (txtCidade.getText().compareTo("") == 0))) {
-                    JOptionPane.showMessageDialog(this, "Você precisa preencher todos os campos!", "Erro!", JOptionPane.OK_OPTION);
+                String mensagem = checkCliente();
+                if (mensagem.compareTo("") == 1) {
+                    JOptionPane.showMessageDialog(this, "Você precisa completar o(s) seguinte(s) campo(s):\n\n" + mensagem, "Erro!", JOptionPane.OK_OPTION);
                 } else {
                     Cliente aux = new Cliente();
                     aux.setNome(txtNome.getText());
-                    aux.setCPF(txtCPF.getText());
-                    aux.setTelefone(txtTelefone.getText());
-                    aux.setCelular(txtCelular.getText());
-                    aux.setEmpresarial(txtEmp.getText());
+                    aux.setCPF(txtCPF.getText().replaceAll("[(-.]",""));
+                    aux.setTelefone(txtTelefone.getText().replaceAll("[(-.]",""));
+                    aux.setCelular(txtCelular.getText().replaceAll("[(-.]",""));
+                    aux.setEmpresarial(txtEmp.getText().replaceAll("[(-.]",""));
                     aux.setRua(txtRua.getText());
                     aux.setNumero(parseInt(txtNumero.getText()));
                     aux.setBairro(txtBairro.getText());
@@ -1204,7 +1232,7 @@ public class FormControleCliente extends javax.swing.JFrame {
                         cmbEstado.setSelectedIndex(0);
                         salvar = 0;
                     } else {
-                        JOptionPane.showMessageDialog(this, "ERRO!", "", JOptionPane.OK_OPTION);
+                        JOptionPane.showMessageDialog(this, "ERRO!", "Não foi possível cadastrar o cliente!", JOptionPane.OK_OPTION);
                     }
                 }
             }
@@ -1244,7 +1272,175 @@ public class FormControleCliente extends javax.swing.JFrame {
     private void tblCarroFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tblCarroFocusLost
 
     }//GEN-LAST:event_tblCarroFocusLost
-
+    
+    private String checkCliente()
+    {
+        String mensagem = "";
+        Border aviso = BorderFactory.createLineBorder(Color.red);
+        Border original = txtEmp.getBorder();
+        Border cmbOriginal = new javax.swing.JComboBox().getBorder();
+        Border cmbAviso = BorderFactory.createLineBorder(Color.red);
+        
+        if(txtNome.getText().trim().length() == 0)
+        {
+            txtNome.setBorder(aviso);
+            mensagem = "Nome\n";
+        }
+        else
+        {
+            txtNome.setBorder(original);
+        }
+        
+        if(txtCPF.getText().replaceAll("[(-.]","").trim().length() == 0)
+        {
+            txtNome.setBorder(aviso);
+            mensagem += "CPF\n";
+        }
+        else
+        {
+            txtNome.setBorder(original);
+        }
+        
+        if(txtTelefone.getText().replaceAll("[(-.]","").trim().length() == 0)
+        {
+            txtTelefone.setBorder(aviso);
+            mensagem += "Telefone\n";
+        }
+        else
+        {
+            txtTelefone.setBorder(original);
+        }
+        
+        if(txtRua.getText().trim().length() == 0)
+        {
+            txtRua.setBorder(aviso);
+            mensagem += "Rua\n";
+        }
+        else
+        {
+            txtRua.setBorder(original);
+        }
+        
+        if(txtBairro.getText().trim().length() == 0)
+        {
+            txtBairro.setBorder(aviso);
+            mensagem += "Bairro\n";
+        }
+        else
+        {
+            txtBairro.setBorder(original);
+        }
+        
+        if(txtNumero.getText().trim().length() == 0)
+        {
+            txtNumero.setBorder(aviso);
+            mensagem += "Número\n";
+        }
+        else
+        {
+            txtNumero.setBorder(original);
+        }
+        
+        if(cmbEstado.getSelectedItem().toString().compareTo(" ") == 0)
+        {
+            cmbEstado.setBorder(cmbAviso);
+            mensagem += "Estado\n";
+        }
+        else
+        {
+            cmbEstado.setBorder(cmbOriginal);
+        }
+        
+        if(txtCidade.getText().trim().length() == 0)
+        {
+            txtCidade.setBorder(aviso);
+            mensagem += "Cidade";
+        }
+        else
+        {
+            txtCidade.setBorder(original);
+        }
+        
+        return mensagem;
+    }
+    
+    private String checkCarro()
+    {
+        String mensagem = "";
+        Border aviso = BorderFactory.createLineBorder(Color.red);
+        Border original = txtEmp.getBorder();
+        
+        if(txtPlaca.getText().trim().length() == 0)
+        {
+            txtPlaca.setBorder(aviso);
+            mensagem = "Placa\n";
+        }
+        else
+        {
+            txtPlaca.setBorder(original);
+        }
+        
+        if(txtChassi.getText().trim().length() == 0)
+        {
+            txtChassi.setBorder(aviso);
+            mensagem += "Chassi \n";
+        }
+        else
+        {
+            txtChassi.setBorder(original);
+        }
+        
+        if(txtAno.getText().trim().length() == 0)
+        {
+            txtAno.setBorder(aviso);
+            mensagem += "Ano\n";
+        }
+        else
+        {
+            txtAno.setBorder(original);
+        }
+        
+        if(txtModel.getText().trim().length() == 0)
+        {
+            txtModel.setBorder(aviso);
+            mensagem += "Modelo\n";
+        }
+        else
+        {
+            txtModel.setBorder(original);
+        }
+        
+        if(txtCor.getText().trim().length() == 0)
+        {
+            txtCor.setBorder(aviso);
+            mensagem += "Cor\n";
+        }
+        else
+        {
+            txtCor.setBorder(original);
+        }
+        
+        return mensagem;
+    }
+    
+    private void limparBorders()
+    {
+        Border original = txtEmp.getBorder();
+        
+        txtNome.setBorder(original);
+        txtCPF.setBorder(original);
+        txtTelefone.setBorder(original);
+        txtRua.setBorder(original);
+        txtBairro.setBorder(original);
+        txtNumero.setBorder(original);
+        cmbEstado.setBorder(original);
+        txtCidade.setBorder(original);
+        txtPlaca.setBorder(original);
+        txtChassi.setBorder(original);
+        txtModel.setBorder(original);
+        txtCor.setBorder(original);
+        txtAno.setBorder(original);
+    }
     /**
      * @param args the command line arguments
      */
