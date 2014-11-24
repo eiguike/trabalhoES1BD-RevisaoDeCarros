@@ -108,7 +108,7 @@ create table Revisao (
 create table TipoRevisao (
     codPeca smallint,
     codServico smallint,
-    quilometragem smallint
+    quilometragem smallint,
     FOREIGN KEY (codPeca) REFERENCES Peca(codPeca),
     FOREIGN KEY (codServico) REFERENCES TipoDeServico(codServico),
     CONSTRAINT codTipoRevisao PRIMARY KEY (codPeca, codServico)
