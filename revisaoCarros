@@ -113,7 +113,7 @@ create table TipoRevisao (
     FOREIGN KEY (codServico) REFERENCES TipoDeServico(codServico),
     CONSTRAINT codTipoRevisao PRIMARY KEY (codPeca, codServico)
 );
-
+	
 INSERT INTO Cliente VALUES('16640124432','João da Silva Pereira','Rua Gonçalves Roberto',205,'Apto. 235', 'Jardim Aquidaban', 'São Paulo', 'SP');
 INSERT INTO Cliente VALUES('24391956853','Dionísio Falces Laae', 'Av. Zhoeiras Flamejantes', 222, '', 'Jardim Bandeirantes', 'São Paulo', 'SP'); 
 INSERT INTO Cliente VALUES('15898450998','Machado de Assis', 'Rua Senador Barroso', 4353, '', 'Alameda dos Anjos', 'São Paulo', 'SP');
@@ -139,5 +139,26 @@ INSERT INTO Funcionario VALUES('16640124432','Marcello','1234','caco',true);
 INSERT INTO Funcionario VALUES('12345678941','Henrique','1234','snd',true);
 INSERT INTO Funcionario VALUES('90134578459','Joao','4321','estrela',false); 
 INSERT INTO Funcionario VALUES('42312309878','Gustavo','2341','scarface',false);
+
+
+
+Quantidade de Carros
+SELECT COUNT(*) FROM CARRO WHERE REMOVIDO=false
+
+Quantidade de Carros removidos
+SELECT COUNT(*) FROM CARRO WHERE REMOVIDO=true
+
+Quantidade de Carros por CPF
+SELECT CPF, COUNT(*) FROM CARRO GROUP BY CARRO.CPF
+
+Quantidade de mecânicos cadastrados
+SELECT COUNT(*) AS MECANICO FROM FUNCIONARIO WHERE MECANICO=TRUE
+
+Horários Livres
+SELECT oitoHoras AS (
+	SELECT COUNT(*) FROM FUNCIONARIOREVISAO
+
+
+
 
 
