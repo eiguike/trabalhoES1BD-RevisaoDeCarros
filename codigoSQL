@@ -1,0 +1,218 @@
+﻿create table Cliente (
+    CPF    varchar(11)PRIMARY KEY,
+    nome    varchar(100)NOT NULL,
+    rua    varchar(50)NOT NULL,
+    numero    smallint,
+    complemento    varchar(50),
+    bairro    varchar(50)NOT NULL,
+    cidade    varchar(50)NOT NULL,
+    estado    varchar(20)NOT NULL
+);
+
+create table Telefone (
+    CPF    varchar(11) PRIMARY KEY,
+    telefone varchar(20)NOT NULL,
+    celular    varchar(20)NOT NULL,
+    empresarial varchar(20),
+    FOREIGN KEY (CPF) REFERENCES Cliente(CPF) --ON DELETE
+);
+
+create table Carro (
+    CPF    varchar(11),
+    placaCarro    varchar(8),
+    chassi    varchar(20),
+    cor    varchar(10),
+    ano    smallint,
+    modelo    varchar(20),
+    removido boolean,
+    CONSTRAINT codigoCarro PRIMARY KEY (CPF, placaCarro),
+    FOREIGN KEY (CPF) REFERENCES Cliente(CPF) --ON DELETE
+);
+
+create table Garantia (
+    codGarantia    smallint PRIMARY KEY,
+    dataInicio    date,
+    dataFim        date
+);
+
+create table CarroGarantia (
+    CPF    varchar(11),
+    placaCarro    varchar(8),
+    codGarantia    smallint,
+    FOREIGN KEY (CPF, placaCarro) REFERENCES Carro(CPF, placaCarro), --ON DELETE
+    FOREIGN KEY (codGarantia) REFERENCES Garantia(codGarantia), --ON DELETE
+    CONSTRAINT codigoCarroGarantia PRIMARY KEY (CPF, placaCarro, codGarantia)
+);
+
+create table Funcionario (
+    CPF    varchar(11) PRIMARY KEY,
+    nome    varchar(100),
+    senha    varchar(10),
+    login    varchar(20),
+    mecanico boolean
+);
+
+create table Revisao2 (
+    codRevisao smallint PRIMARY KEY,
+    kmAtual    integer,
+    dataRevisao date,
+    hora       time  
+);
+
+create table FuncionarioRevisao (
+    CPF    varchar(11),
+    dataAgendamento    date,
+    codRevisao smallint,
+    FOREIGN KEY (CPF) REFERENCES Funcionario(CPF), --ON DELETE
+    FOREIGN KEY (codRevisao) REFERENCES Revisao2(codRevisao),
+    CONSTRAINT codigoFuncionarioRevisao PRIMARY KEY (CPF, codRevisao)
+);
+
+
+create table TipoDeServico (
+    codServico smallint PRIMARY KEY,
+    descricao      varchar(50),
+    preco    real,
+    tempoMedio  real
+);
+
+create table Peca (
+    codPeca smallint PRIMARY KEY,
+    nome      varchar(50),
+    vencimento integer
+);
+
+create table RevisaoTipoDeServico (
+    codRevisao smallint,
+    codServico smallint,
+    codPeca smallint,
+    quantidade smallint,
+    FOREIGN KEY (codRevisao) REFERENCES Revisao2(codRevisao), --ON DELETE
+    FOREIGN KEY (codServico) REFERENCES TipoDeServico(codServico), --ON DELETE
+    FOREIGN KEY (codPeca) REFERENCES Peca(codPeca), --ON DELETE
+    CONSTRAINT codigoRevisaoTipoDeServico PRIMARY KEY (codRevisao, codServico, codPeca)
+
+);
+
+create table Revisao (
+    codRevisao smallint,
+    CPFMecanico varchar(11),
+    placaCarro  varchar(8),
+    CPFCliente  varchar(11),
+    codServico smallint,
+    FOREIGN KEY (codRevisao) REFERENCES Revisao2(codRevisao), --ON DELETE
+    FOREIGN KEY (codServico) REFERENCES TipoDeServico(codServico), --ON DELETE
+    FOREIGN KEY (CPFMecanico) REFERENCES Funcionario(CPF), --ON DELETE
+    FOREIGN KEY (CPFCliente, placaCarro) REFERENCES Carro(CPF, placaCarro), --ON DELETE
+    CONSTRAINT ordemDeServico PRIMARY KEY (codRevisao, CPFMecanico, placaCarro, CPFCliente, codServico)
+);
+
+create table TipoRevisao (
+    codPeca smallint,
+    codServico smallint,
+    quilometragem integer,
+    FOREIGN KEY (codPeca) REFERENCES Peca(codPeca),
+    FOREIGN KEY (codServico) REFERENCES TipoDeServico(codServico),
+    CONSTRAINT codTipoRevisao PRIMARY KEY (codPeca, codServico)
+);
+
+------------------------------------------
+--Inserindo dados nas tabelas para testes:
+------------------------------------------
+
+--Tabela Cliente
+INSERT INTO Cliente VALUES('16640124432','João da Silva Pereira','Rua Gonçalves Roberto',205,'Apto. 235', 'Jardim Aquidaban', 'São Paulo', 'SP');
+INSERT INTO Cliente VALUES('24391956853','Gustavo de Almeida', 'Av. Zhoeiras Flamejantes', 222, '', 'Jardim Bandeirantes', 'São Paulo', 'SP'); 
+INSERT INTO Cliente VALUES('15898450998','Machado de Assis', 'Rua Senador Barroso', 4353, '', 'Alameda dos Anjos', 'São Paulo', 'SP');
+INSERT INTO Cliente VALUES('59372476633','Denis Felipe de Alcantra', 'Rua Plano Cartesianos', 3231,'', 'Jardim Maria Eugênia', 'Sorocaba', 'SP'); 
+INSERT INTO Cliente VALUES('08111639708','Christopher Alesund', 'Rua Gal. Ace M. Puppets',16,'','Jardim dos Neides' , 'São Paulo', 'SP'); 
+
+--Tabela Telefone
+INSERT INTO Telefone VALUES('16640124432', '1533457899', '15999009900', '');
+INSERT INTO Telefone VALUES('24391956853', '1532345489', '15997884567', '1134532345');
+INSERT INTO Telefone VALUES('15898450998', '1138456754', '11983456509', '1138756490');
+INSERT INTO Telefone VALUES('59372476633', '1533345543', '15988345601', '');
+INSERT INTO Telefone VALUES('08111639708', '1532894958', '15991479812', '12384657493');
+
+--Tabela Carrro
+INSERT INTO Carro VALUES('15898450998','DOM-2586', '7SWHG25AX24558915', 'preto', 2015, 'S10',false); 
+INSERT INTO Carro VALUES('59372476633','URR-2011', '2UEXA35LK15987460', 'amarelo', 2013, 'Camaro',false);
+INSERT INTO Carro VALUES('08111639708','ALC-4020', '9BWHE21JX24060960', 'azul', 2013, 'Astra',false);
+INSERT INTO Carro VALUES('08111639708','VAC-2014', '1DWXW23JD36960250', 'prata', 2014, 'Corsa', false);
+INSERT INTO Carro VALUES('16640124432','FFF-1111', '5DWBD24JD01234512', 'preto', 2015, 'Agile', false);
+INSERT INTO Carro VALUES('24391956853','GAY-2424', '8AJXV69DF12345694', 'verde', 2015, 'Montana', false);
+INSERT INTO Carro VALUES('24391956853','ABC-4532', '5DWBD24JD01234512', 'prata', 2014, 'Capitiva', false);
+
+--Tabela Garantia
+INSERT INTO Garantia VALUES('1','2014-10-20','2019-10-20'); 
+INSERT INTO Garantia VALUES('2','2014-10-22','2019-10-22');
+INSERT INTO Garantia VALUES('3','2014-01-14','2018-11-15');
+INSERT INTO Garantia VALUES('4','2014-05-06','2020-01-10');
+INSERT INTO Garantia VALUES('5','2014-11-24','2020-01-01');
+
+--Tabela CarroGarantia
+INSERT INTO CarroGarantia VALUES('08111639708', 'VAC-2014', '1'); 
+INSERT INTO CarroGarantia VALUES('59372476633', 'URR-2011', '2');
+INSERT INTO CarroGarantia VALUES('15898450998', 'DOM-2586', '3');
+INSERT INTO CarroGarantia VALUES('08111639708', 'ALC-4020', '4'); 
+INSERT INTO CarroGarantia VALUES('24391956853', 'GAY-2424', '5'); 
+
+--Tabela Funcionario
+INSERT INTO Funcionario VALUES('34512343990','Marcello','1234','caco',true);
+INSERT INTO Funcionario VALUES('12345678941','Henrique','1234','snd',true);
+INSERT INTO Funcionario VALUES('90134578459','Joao','4321','estrela',false); 
+INSERT INTO Funcionario VALUES('42312309878','Gustavo','2341','scarface',false);
+
+--Tabela Revisao2
+INSERT INTO Revisao2 VALUES(1, 11534, '2014-11-25', '8:00');
+INSERT INTO Revisao2 VALUES(2, 15334, '2014-11-26', '8:00');
+INSERT INTO Revisao2 VALUES(3, 38999, '2014-11-25', '10:00');
+INSERT INTO Revisao2 VALUES(4, 44098, '2014-11-26', '10:00');
+INSERT INTO Revisao2 VALUES(5, 12300, '2014-11-26', '8:00');
+INSERT INTO Revisao2 VALUES(6, 59000, '2014-11-25', '10:00');
+
+--Tabela FuncionarioRevisao
+INSERT INTO FuncionarioRevisao VALUES('90134578459', '2014-11-21', 1);
+INSERT INTO FuncionarioRevisao VALUES('90134578459', '2014-11-22', 2);
+INSERT INTO FuncionarioRevisao VALUES('42312309878', '2014-11-21', 3);
+INSERT INTO FuncionarioRevisao VALUES('42312309878', '2014-11-22', 4);
+INSERT INTO FuncionarioRevisao VALUES('90134578459', '2014-11-22', 5);
+INSERT INTO FuncionarioRevisao VALUES('90134578459', '2014-11-23', 6);
+
+--Tabela TipoDeServico
+INSERT INTO TipoDeServico VALUES(1, 'troca de oleo', 100.00, 100);
+INSERT INTO TipoDeServico VALUES(2, 'filtro de ar', 50.00, 30);
+INSERT INTO TipoDeServico VALUES(3, 'pastilha de freio', 200.00, 60);
+INSERT INTO TipoDeServico VALUES(4, 'correia dentada', 150.00, 150);
+INSERT INTO TipoDeServico VALUES(5, 'retrovisor', 200.00, 100);
+INSERT INTO TipoDeServico VALUES(6, 'troca das velas', 200.00, 180);
+
+--Tabela Peca
+INSERT INTO Peca VALUES(1, 'correia dentada', 120);
+INSERT INTO Peca VALUES(2, 'pastiha de freio', 100);
+INSERT INTO Peca VALUES(3, 'filtro de ar', 50);
+INSERT INTO Peca VALUES(4, 'vela', 90);
+INSERT INTO Peca VALUES(5, 'catalisador', 60);
+INSERT INTO Peca VALUES(6, 'filtro de oleo', 60);
+
+--Tabela RevisaoTipoDeServico
+INSERT INTO RevisaoTipoDeServico VALUES(1, 4, 1, 1);
+INSERT INTO RevisaoTipoDeServico VALUES(2, 1, 6, 1);
+INSERT INTO RevisaoTipoDeServico VALUES(3, 2, 3, 1);
+INSERT INTO RevisaoTipoDeServico VALUES(4, 6, 4, 4);
+INSERT INTO RevisaoTipoDeServico VALUES(5, 6, 1, 1);
+
+--Tabela Revisao
+INSERT INTO Revisao VALUES(1, '34512343990', 'VAC-2014', '08111639708', 1);
+INSERT INTO Revisao VALUES(2, '12345678941', 'URR-2011', '59372476633', 2);
+INSERT INTO Revisao VALUES(3, '12345678941', 'GAY-2424', '24391956853', 3);
+INSERT INTO Revisao VALUES(4, '34512343990', 'DOM-2586', '15898450998', 4);
+INSERT INTO Revisao VALUES(5, '34512343990', 'DOM-2586', '15898450998', 5);
+
+--Tabela TipoRevisao
+INSERT INTO TipoRevisao VALUES(1, 5, 10000);
+INSERT INTO TipoRevisao VALUES(4, 1, 60000);
+INSERT INTO TipoRevisao VALUES(2, 3, 10000);
+INSERT INTO TipoRevisao VALUES(3, 2, 30000);
+INSERT INTO TipoRevisao VALUES(6, 4, 40000);
+
