@@ -8,6 +8,7 @@ import Control.ConexaoBD;
 import Model.Cliente;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 
 /**
@@ -64,22 +65,15 @@ public class ClienteControl{
         return true;
     }
     // consultas
-    public Cliente getCliente(String CPF, String nome){
+    public Cliente getCliente(String CPF){
         Cliente retCliente = new Cliente();
         ResultSet rs = null;  
         String texto_consulta = null;
-
-        if(CPF != null){
-            //texto_consulta = "SELECT * FROM CLIENTE, TELEFONE, ENDERECO WHERE CPF = '";
-            texto_consulta = "SELECT CLIENTE.CPF, CLIENTE.NOME, CLIENTE.RUA, CLIENTE.NUMERO, CLIENTE.COMPLEMENTO"
-                    + ", CLIENTE.BAIRRO, CLIENTE.CIDADE, CLIENTE.ESTADO, TELEFONE.TELEFONE, TELEFONE.CELULAR"
-                    + ", TELEFONE.EMPRESARIAL  FROM CLIENTE, TELEFONE WHERE CLIENTE.CPF = '"+CPF+ "' AND TELEFONE.CPF ='" + CPF+"'";   
-        }
-        if(nome != null){
-            texto_consulta = "SELECT CLIENTE.CPF, CLIENTE.NOME, CLIENTE.RUA, CLIENTE.NUMERO, CLIENTE.COMPLEMENTO"
-                    + ", CLIENTE.BAIRRO, CLIENTE.CIDADE, CLIENTE.ESTADO, TELEFONE.TELEFONE, TELEFONE.CELULAR"
-                    + ", TELEFONE.EMPRESARIAL  FROM CLIENTE, TELEFONE WHERE CLIENTE.NOME = '"+nome+ "%' AND TELEFONE.CPF =CLIENTE.CPF";           
-        } 
+        
+        //texto_consulta = "SELECT * FROM CLIENTE, TELEFONE, ENDERECO WHERE CPF = '";
+        texto_consulta = "SELECT CLIENTE.CPF, CLIENTE.NOME, CLIENTE.RUA, CLIENTE.NUMERO, CLIENTE.COMPLEMENTO"
+                + ", CLIENTE.BAIRRO, CLIENTE.CIDADE, CLIENTE.ESTADO, TELEFONE.TELEFONE, TELEFONE.CELULAR"
+                + ", TELEFONE.EMPRESARIAL  FROM CLIENTE, TELEFONE WHERE CLIENTE.CPF = '"+CPF+ "' AND TELEFONE.CPF ='" + CPF+"'";
        
         System.out.println(texto_consulta);
         try{
@@ -105,4 +99,37 @@ public class ClienteControl{
         return retCliente;  
     }
     
+    public ArrayList<Cliente> getClientes(String nome) {
+        ArrayList<Cliente> retCliente = new ArrayList<Cliente>();
+        ResultSet rs = null;  
+        String texto_consulta = null;
+
+        texto_consulta = "SELECT CLIENTE.CPF, CLIENTE.NOME, CLIENTE.RUA, CLIENTE.NUMERO, CLIENTE.COMPLEMENTO"
+                + ", CLIENTE.BAIRRO, CLIENTE.CIDADE, CLIENTE.ESTADO, TELEFONE.TELEFONE, TELEFONE.CELULAR"
+                    + ", TELEFONE.EMPRESARIAL  FROM CLIENTE, TELEFONE WHERE CLIENTE.NOME = '"+nome+ "%' AND TELEFONE.CPF =CLIENTE.CPF";           
+ 
+       
+        System.out.println(texto_consulta);
+        try{
+          con.st.execute(texto_consulta);
+          rs = con.st.getResultSet();
+          rs.next();
+//          retCliente.setCPF(rs.getString(1));          
+//          retCliente.setNome(rs.getString(2));
+//          retCliente.setRua(rs.getString(3));
+//          retCliente.setNumero(Integer.parseInt(rs.getString(4)));
+//          retCliente.setComplemento(rs.getString(5));
+//          retCliente.setBairro(rs.getString(6));
+//          retCliente.setCidade(rs.getString(7));
+//          retCliente.setEstado(rs.getString(8));
+//          retCliente.setTelefone(rs.getString(9));
+//          retCliente.setCelular(rs.getString(10));
+//          retCliente.setEmpresarial(rs.getString(11));                
+                   
+        }catch(SQLException e){
+          return null;
+        }
+
+        return retCliente;
+    }
 }

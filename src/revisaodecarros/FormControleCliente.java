@@ -29,6 +29,7 @@ public class FormControleCliente extends javax.swing.JFrame {
 
     ClockTest clock;
     private Cliente cliente;
+    private ArrayList<Cliente> arrayCliente;
     private ClienteControl conexao;
     private CarroControl carroControl;
     public Integer salvar;
@@ -719,7 +720,7 @@ public class FormControleCliente extends javax.swing.JFrame {
                     null,
                     "");
 
-            cliente = conexao.getCliente(s, null);
+            cliente = conexao.getCliente(s);
         }
         if (opcao.compareTo("Nome") == 0) {
             String s = (String) JOptionPane.showInputDialog(
@@ -730,7 +731,7 @@ public class FormControleCliente extends javax.swing.JFrame {
                     null,
                     null,
                     "");
-            cliente = conexao.getCliente(null, s);
+            arrayCliente = conexao.getClientes(s);
         }
 
         if (cliente != null) {
