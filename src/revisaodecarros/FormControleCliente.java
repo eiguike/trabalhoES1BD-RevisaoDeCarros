@@ -732,6 +732,8 @@ public class FormControleCliente extends javax.swing.JFrame {
                     null,
                     "");
             arrayCliente = conexao.getClientes(s);
+            
+            //tratamento do cliente escolhido
         }
 
         if (cliente != null) {

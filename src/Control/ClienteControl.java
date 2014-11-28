@@ -101,6 +101,7 @@ public class ClienteControl{
     
     public ArrayList<Cliente> getClientes(String nome) {
         ArrayList<Cliente> retCliente = new ArrayList<Cliente>();
+        Cliente aux = null;
         ResultSet rs = null;  
         String texto_consulta = null;
 
@@ -114,18 +115,26 @@ public class ClienteControl{
           con.st.execute(texto_consulta);
           rs = con.st.getResultSet();
           rs.next();
-//          retCliente.setCPF(rs.getString(1));          
-//          retCliente.setNome(rs.getString(2));
-//          retCliente.setRua(rs.getString(3));
-//          retCliente.setNumero(Integer.parseInt(rs.getString(4)));
-//          retCliente.setComplemento(rs.getString(5));
-//          retCliente.setBairro(rs.getString(6));
-//          retCliente.setCidade(rs.getString(7));
-//          retCliente.setEstado(rs.getString(8));
-//          retCliente.setTelefone(rs.getString(9));
-//          retCliente.setCelular(rs.getString(10));
-//          retCliente.setEmpresarial(rs.getString(11));                
-                   
+          
+          while(rs.isAfterLast() == false)
+          {
+            aux.setCPF(rs.getString(1));          
+            aux.setNome(rs.getString(2));
+            aux.setRua(rs.getString(3));
+            aux.setNumero(Integer.parseInt(rs.getString(4)));
+            aux.setComplemento(rs.getString(5));
+            aux.setBairro(rs.getString(6));
+            aux.setCidade(rs.getString(7));
+            aux.setEstado(rs.getString(8));
+            aux.setTelefone(rs.getString(9));
+            aux.setCelular(rs.getString(10));
+            aux.setEmpresarial(rs.getString(11));                
+            
+            retCliente.add(aux);
+            
+            aux = null;
+            rs.next();
+          }
         }catch(SQLException e){
           return null;
         }
