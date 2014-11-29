@@ -107,7 +107,7 @@ public class ClienteControl{
 
         texto_consulta = "SELECT CLIENTE.CPF, CLIENTE.NOME, CLIENTE.RUA, CLIENTE.NUMERO, CLIENTE.COMPLEMENTO"
                 + ", CLIENTE.BAIRRO, CLIENTE.CIDADE, CLIENTE.ESTADO, TELEFONE.TELEFONE, TELEFONE.CELULAR"
-                    + ", TELEFONE.EMPRESARIAL  FROM CLIENTE, TELEFONE WHERE CLIENTE.NOME = '"+nome+ "%' AND TELEFONE.CPF =CLIENTE.CPF";           
+                    + ", TELEFONE.EMPRESARIAL  FROM CLIENTE, TELEFONE WHERE UPPER(CLIENTE.NOME) LIKE '"+nome.toUpperCase()+"%' AND TELEFONE.CPF=CLIENTE.CPF";           
  
        
         System.out.println(texto_consulta);
@@ -118,7 +118,7 @@ public class ClienteControl{
           
           while(rs.isAfterLast() == false)
           {
-            aux.setCPF(rs.getString(1));          
+            aux.setCPF(rs.getString(1));
             aux.setNome(rs.getString(2));
             aux.setRua(rs.getString(3));
             aux.setNumero(Integer.parseInt(rs.getString(4)));
@@ -128,17 +128,15 @@ public class ClienteControl{
             aux.setEstado(rs.getString(8));
             aux.setTelefone(rs.getString(9));
             aux.setCelular(rs.getString(10));
-            aux.setEmpresarial(rs.getString(11));                
+            aux.setEmpresarial(rs.getString(11));
             
             retCliente.add(aux);
-            
-            aux = null;
             rs.next();
           }
         }catch(SQLException e){
           return null;
         }
-
+       
         return retCliente;
     }
 }

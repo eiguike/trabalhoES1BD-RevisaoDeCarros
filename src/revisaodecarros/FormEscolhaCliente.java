@@ -13,7 +13,7 @@ import java.util.ArrayList;
  * @author Charizard
  */
 public class FormEscolhaCliente extends javax.swing.JFrame {
-    ArrayList<Cliente> Clientes;
+    ArrayList<Cliente> Clientes = new ArrayList<Cliente>();
     
     public FormEscolhaCliente() {
         initComponents();
@@ -25,12 +25,11 @@ public class FormEscolhaCliente extends javax.swing.JFrame {
         FormControleCliente formulario = form;
         Clientes = aux;
         cmbNomes.addItem(" ");
-        
-        Integer i = 0;
-        while (i < Clientes.size()) {
-            cmbNomes.addItem(Clientes.get(i).getNome());
-            i++;
-        }
+//        Integer i = 0;
+//        while (i < Clientes.size()) {
+//            cmbNomes.addItem(Clientes.get(i).getNome());
+//            i++;
+//        }
     }
 
     @SuppressWarnings("unchecked")
@@ -52,12 +51,6 @@ public class FormEscolhaCliente extends javax.swing.JFrame {
         buttonCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        cmbNomes.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                cmbNomesItemStateChanged(evt);
-            }
-        });
 
         lblNome.setText("Nome");
 
@@ -145,16 +138,6 @@ public class FormEscolhaCliente extends javax.swing.JFrame {
     private void buttonOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonOKActionPerformed
         //Aqui a gente utiliza o this.aux pra acessar e completar os campos do outro form
     }//GEN-LAST:event_buttonOKActionPerformed
-
-    private void cmbNomesItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbNomesItemStateChanged
-        ArrayList<Cliente> Clientes = this.Clientes;
-        Cliente cliente = new Cliente();
-        Integer i = cmbNomes.getSelectedIndex();
-        
-        cliente = Clientes.get(i);
-        txtNome.setText(cliente.getNome());
-        txtCPF.setText(cliente.getCPF());
-    }//GEN-LAST:event_cmbNomesItemStateChanged
 
     /**
      * @param args the command line arguments

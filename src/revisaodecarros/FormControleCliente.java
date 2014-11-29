@@ -29,7 +29,7 @@ public class FormControleCliente extends javax.swing.JFrame {
 
     ClockTest clock;
     private Cliente cliente;
-    private ArrayList<Cliente> arrayCliente;
+
     private ClienteControl conexao;
     private CarroControl carroControl;
     public Integer salvar;
@@ -37,6 +37,7 @@ public class FormControleCliente extends javax.swing.JFrame {
 
     private boolean verificacao;
     ArrayList<Carro> listaCarros;
+    ArrayList<Cliente> arrayCliente;
 
     public FormPrincipalFuncionario formPrincipal;
 
@@ -732,7 +733,8 @@ public class FormControleCliente extends javax.swing.JFrame {
                     null,
                     "");
             arrayCliente = conexao.getClientes(s);
-            new FormEscolhaCliente(this, arrayCliente).setVisible(true);
+            if(arrayCliente != null)
+                new FormEscolhaCliente(this, arrayCliente).setVisible(true);
             //tratamento do cliente escolhido
         }
 
