@@ -732,7 +732,7 @@ public class FormControleCliente extends javax.swing.JFrame {
                     null,
                     "");
             arrayCliente = conexao.getClientes(s);
-            
+            new FormEscolhaCliente(arrayCliente).setVisible(true);
             //tratamento do cliente escolhido
         }
 
