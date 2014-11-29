@@ -52,6 +52,13 @@ create table Funcionario (
     mecanico boolean
 );
 
+create table Revisao2 (
+    codRevisao smallint PRIMARY KEY,
+    kmAtual    integer,
+    dataRevisao date,
+    hora       time  
+);
+
 create table FuncionarioRevisao (
     CPF    varchar(11),
     dataAgendamento    date,
@@ -59,13 +66,6 @@ create table FuncionarioRevisao (
     FOREIGN KEY (CPF) REFERENCES Funcionario(CPF), --ON DELETE
     FOREIGN KEY (codRevisao) REFERENCES Revisao2(codRevisao),
     CONSTRAINT codigoFuncionarioRevisao PRIMARY KEY (CPF, codRevisao)
-);
-
-create table Revisao2 (
-    codRevisao smallint PRIMARY KEY,
-    kmAtual    integer,
-    dataRevisao date,
-    hora       time  
 );
 
 create table TipoDeServico (
@@ -157,10 +157,10 @@ INSERT INTO CarroGarantia VALUES('08111639708', 'ALC-4020', '4');
 INSERT INTO CarroGarantia VALUES('24391956853', 'GAY-2424', '5'); 
 
 --Tabela Funcionario
-INSERT INTO Funcionario VALUES('34512343990','Marcello','1234','caco',true);
-INSERT INTO Funcionario VALUES('12345678941','Henrique','1234','snd',true);
-INSERT INTO Funcionario VALUES('90134578459','Joao','4321','estrela',false); 
-INSERT INTO Funcionario VALUES('42312309878','Gustavo','2341','scarface',false);
+INSERT INTO Funcionario VALUES('34512343990','Marcello','1111','caco',true);
+INSERT INTO Funcionario VALUES('12345678941','Henrique','1111','snd',true);
+INSERT INTO Funcionario VALUES('90134578459','Joao','1111','estrela',false); 
+INSERT INTO Funcionario VALUES('42312309878','Gustavo','1111','scarface',false);
 
 --Tabela Revisao2
 INSERT INTO Revisao2 VALUES(1, 11534, '2014-11-25', '8:00');
@@ -237,3 +237,16 @@ SELECT oitoHoras AS (
 
 
 
+DROP TABLE IF EXISTS CLIENTE CASCADE;
+DROP TABLE IF EXISTS TELEFONE CASCADE;
+DROP TABLE IF EXISTS CARRO CASCADE;
+DROP TABLE IF EXISTS GARANTIA CASCADE;
+DROP TABLE IF EXISTS CARROGARANTIA CASCADE;
+DROP TABLE IF EXISTS FUNCIONARIO CASCADE;
+DROP TABLE IF EXISTS FUNCIONARIOREVISAO CASCADE;
+DROP TABLE IF EXISTS REVISAO2 CASCADE;
+DROP TABLE IF EXISTS TIPODESERVICO CASCADE;
+DROP TABLE IF EXISTS PECA CASCADE;
+DROP TABLE IF EXISTS REVISAOTIPODESERVICO CASCADE;
+DROP TABLE IF EXISTS REVISAO CASCADE;
+DROP TABLE IF EXISTS TIPOREVISAO CASCADE;
