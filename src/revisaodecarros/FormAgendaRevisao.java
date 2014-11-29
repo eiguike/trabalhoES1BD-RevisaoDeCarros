@@ -9,6 +9,8 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import Model.Carro;
 import Model.Cliente;
+import Model.Funcionario;
+import Model.Agenda;
 import Control.TipoDeServicoControl;
 import Control.ClienteControl;
 import Control.CarroControl;
@@ -30,6 +32,10 @@ public class FormAgendaRevisao extends javax.swing.JFrame {
     Cliente cliente;
     Carro carro;
     ArrayList<TipoDeServico> tipoDeServico;
+    
+    //ArrayList<Funcionario> mecanicos;
+    ArrayList<String> mecanicos;
+    Agenda agenda;
 
     TipoDeServicoControl tipoDeServicoControl;
     ClienteControl clienteControl;
@@ -51,6 +57,7 @@ public class FormAgendaRevisao extends javax.swing.JFrame {
         clienteControl = new ClienteControl();
         carroControl = new CarroControl();
         agendaControl = new AgendaControl();
+        agenda = new Agenda();
 
         jCalendar1.addPropertyChangeListener("calendar", new PropertyChangeListener() {
             public void propertyChange(PropertyChangeEvent e) {
@@ -284,6 +291,11 @@ public class FormAgendaRevisao extends javax.swing.JFrame {
                 jTextField12FocusLost(evt);
             }
         });
+        jTextField12.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                jTextField12PropertyChange(evt);
+            }
+        });
 
         jLabel14.setText("Tipo de Serviço:");
 
@@ -365,18 +377,19 @@ public class FormAgendaRevisao extends javax.swing.JFrame {
                             .addComponent(jTextField4)
                             .addComponent(jTextField6)
                             .addComponent(jTextField5)))
-                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel1)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -484,10 +497,10 @@ public class FormAgendaRevisao extends javax.swing.JFrame {
             }
         });
         jCalendar1.addInputMethodListener(new java.awt.event.InputMethodListener() {
-            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
-            }
             public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
                 jCalendar1CaretPositionChanged(evt);
+            }
+            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
             }
         });
 
@@ -502,6 +515,16 @@ public class FormAgendaRevisao extends javax.swing.JFrame {
                 "Horários Livres"
             }
         ));
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jTable1MousePressed(evt);
+            }
+        });
+        jTable1.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                jTable1PropertyChange(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -613,10 +636,9 @@ public class FormAgendaRevisao extends javax.swing.JFrame {
                 "");
 
         carro = carroControl.getCarro(s, null);
-        System.out.println(carro.getCPF() + "HUEHEUHUEHUEHUEHUEHUEHUE");
-        cliente = clienteControl.getCliente(carro.getCPF());
 
         if (carro != null) {
+            cliente = clienteControl.getCliente(carro.getCPF());
             jTextField1.setText(carro.getPlacaCarro());
             jTextField2.setText(carro.getModelo());
             jTextField3.setText(carro.getAno().toString());
@@ -644,8 +666,19 @@ public class FormAgendaRevisao extends javax.swing.JFrame {
                 i++;
                 
             }
-            jTextField12.requestFocus();
+            Date data = new Date();
+            
+            if(carro.getGarantia().before(data)){
+                JOptionPane.showMessageDialog(this, "Garantia vencida! Não é possível agendar uma revisão.");
+            }else{
+                jTextField12.requestFocus();
+            }
+            
+            
+            
 
+        }else{
+            JOptionPane.showMessageDialog(this, "Placa do Carro não encontrado!.");
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -654,7 +687,6 @@ public class FormAgendaRevisao extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField6ActionPerformed
 
     private void jCalendar1CaretPositionChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_jCalendar1CaretPositionChanged
-
     }//GEN-LAST:event_jCalendar1CaretPositionChanged
 
     private void jCalendar1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jCalendar1MousePressed
@@ -670,9 +702,38 @@ public class FormAgendaRevisao extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void jTextField12FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField12FocusLost
-
+        
 
     }//GEN-LAST:event_jTextField12FocusLost
+
+    private void jTable1PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jTable1PropertyChange
+
+    }//GEN-LAST:event_jTable1PropertyChange
+
+    private void jTable1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MousePressed
+        int n = JOptionPane.showConfirmDialog(
+                this,
+                "Você tem certeza que gostaria de agendar nesta data?",
+                "Sair",
+                JOptionPane.YES_NO_OPTION);
+        if (n == 0) {
+            mecanicos = agendaControl.getMecanicoLivre(jCalendar1.getDate(), jTable1.getValueAt(jTable1.getSelectedRow(), 1).toString());
+            if(agendaControl.setAgendamento(carro, cliente, jCalendar1.getDate(), mecanicos, jComboBox2.getSelectedItem().toString())){
+                JOptionPane.showMessageDialog(this, "Agendamento feito com êxito!");
+            }else{
+                JOptionPane.showMessageDialog(this, "Agendamento não foi feito com sucesso!");
+            }
+            
+            
+        }else{
+            //nao
+            JOptionPane.showMessageDialog(this, "nao.");
+        }
+    }//GEN-LAST:event_jTable1MousePressed
+
+    private void jTextField12PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jTextField12PropertyChange
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField12PropertyChange
 
     /**
      * @param args the command line arguments

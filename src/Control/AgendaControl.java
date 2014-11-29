@@ -8,6 +8,8 @@ package Control;
 import java.util.ArrayList;
 import java.util.Date;
 import java.sql.*;
+import Model.Carro;
+import Model.Cliente;
 
 /**
  *
@@ -90,6 +92,20 @@ public class AgendaControl {
         }        
         
         
+    }
+    
+    public boolean setAgendamento(Carro carro, Cliente cliente, Date data, String CPFMecanico, String TipoDeRevisao){
+        String texto_consulta =
+                "";
+                
+        System.out.println(texto_consulta);
+        
+        try{
+            con.st.execute(texto_consulta);
+        }catch(SQLException e){
+          return false;
+        }           
+        return true;        
     }
     
     public ArrayList<Integer> getHorarioLivre(Date aux){
