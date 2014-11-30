@@ -275,7 +275,7 @@ public class FormPrincipalMecanico extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        new FormProcurarCarro(this).setVisible(true);
+        new FormProcurarCarro(jLabel3.getText(), this).setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jButton2ActionPerformed
 
