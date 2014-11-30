@@ -148,13 +148,13 @@ public class FormAgendaRevisao extends javax.swing.JFrame {
         jTextField6 = new javax.swing.JTextField();
         jPanel5 = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
-        jTextField12 = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
         jComboBox2 = new javax.swing.JComboBox();
         jLabel15 = new javax.swing.JLabel();
         jTextField13 = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
         jTextField14 = new javax.swing.JTextField();
+        jTextField12 = new javax.swing.JFormattedTextField();
         jPanel4 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jTextField7 = new javax.swing.JTextField();
@@ -287,17 +287,6 @@ public class FormAgendaRevisao extends javax.swing.JFrame {
 
         jLabel13.setText("Quilometragem Atual:");
 
-        jTextField12.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                jTextField12FocusLost(evt);
-            }
-        });
-        jTextField12.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                jTextField12PropertyChange(evt);
-            }
-        });
-
         jLabel14.setText("Tipo de Serviço:");
 
         jComboBox2.setEnabled(false);
@@ -311,6 +300,16 @@ public class FormAgendaRevisao extends javax.swing.JFrame {
 
         jLabel16.setText("Estimativa:");
 
+        jTextField12.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
+        jTextField12.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTextField12FocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextField12FocusLost(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -321,9 +320,9 @@ public class FormAgendaRevisao extends javax.swing.JFrame {
                     .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel15, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextField12, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE)
-                    .addComponent(jTextField13))
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jTextField13, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel14)
@@ -339,9 +338,9 @@ public class FormAgendaRevisao extends javax.swing.JFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel13)
-                    .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel14)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel15)
@@ -492,6 +491,7 @@ public class FormAgendaRevisao extends javax.swing.JFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Informações do Agendamento"));
 
+        jCalendar1.setEnabled(false);
         jCalendar1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jCalendar1MousePressed(evt);
@@ -516,6 +516,7 @@ public class FormAgendaRevisao extends javax.swing.JFrame {
                 "Horários Livres"
             }
         ));
+        jTable1.setEnabled(false);
         jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jTable1MousePressed(evt);
@@ -702,47 +703,53 @@ public class FormAgendaRevisao extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
-    private void jTextField12FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField12FocusLost
-        
-
-    }//GEN-LAST:event_jTextField12FocusLost
-
     private void jTable1PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jTable1PropertyChange
 
     }//GEN-LAST:event_jTable1PropertyChange
 
     private void jTable1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MousePressed
-        int n = JOptionPane.showConfirmDialog(
-                this,
-                "Você tem certeza que gostaria de agendar nesta data?",
-                "Sair",
-                JOptionPane.YES_NO_OPTION);
-        if (n == 0) {
-            agenda.setCarro(carro);
-            agenda.setCliente(cliente);
-            agenda.setData(jCalendar1.getDate());
-            agenda.setHora(jTable1.getValueAt(jTable1.getSelectedRow(), 1).toString());
-            agenda.setKmatual(parseInt(jTextField12.getText()));
-            agenda.setTipoDeRevisao(jComboBox2.getItemAt(jComboBox2.getSelectedIndex()).toString());
-            agenda.setTipoDeRevisao2(jComboBox2.getSelectedIndex());
-            agenda.setUsuarioFuncionario(txtUser.getText());
-            mecanicos = agendaControl.getMecanicoLivre(jCalendar1.getDate(), jTable1.getValueAt(jTable1.getSelectedRow(), 1).toString());
-            if(agendaControl.setAgendamento(mecanicos, agenda)){
-                JOptionPane.showMessageDialog(this, "Agendamento feito com êxito!");
-            }else{
-                JOptionPane.showMessageDialog(this, "Agendamento não foi feito com sucesso!");
+        if (jTable1.isEnabled()) {
+            int n = JOptionPane.showConfirmDialog(
+                    this,
+                    "Você tem certeza que gostaria de agendar nesta data?",
+                    "Sair",
+                    JOptionPane.YES_NO_OPTION);
+            if (n == 0) {
+                agenda.setCarro(carro);
+                agenda.setCliente(cliente);
+                agenda.setData(jCalendar1.getDate());
+                agenda.setHora(jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString());
+                agenda.setKmatual(parseInt(jTextField12.getText()));
+                agenda.setTipoDeRevisao(jComboBox2.getItemAt(jComboBox2.getSelectedIndex()).toString());
+                agenda.setTipoDeRevisao2(jComboBox2.getSelectedIndex());
+                agenda.setUsuarioFuncionario(txtUser.getText());
+                mecanicos = agendaControl.getMecanicoLivre(jCalendar1.getDate(), jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString());
+                if (agendaControl.setAgendamento(mecanicos, agenda)) {
+                    JOptionPane.showMessageDialog(this, "Agendamento feito com êxito!");
+                } else {
+                    JOptionPane.showMessageDialog(this, "Agendamento não foi feito com sucesso!");
+                }
+
+            } else {
+                //nao
+                JOptionPane.showMessageDialog(this, "nao.");
             }
-            
-            
-        }else{
-            //nao
-            JOptionPane.showMessageDialog(this, "nao.");
         }
     }//GEN-LAST:event_jTable1MousePressed
 
-    private void jTextField12PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jTextField12PropertyChange
+    private void jTextField12FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField12FocusGained
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField12PropertyChange
+    }//GEN-LAST:event_jTextField12FocusGained
+
+    private void jTextField12FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField12FocusLost
+        if(jTextField12.getText().compareTo("") == 0){
+            jCalendar1.setEnabled(false);
+            jTable1.setEnabled(false);
+        }else{
+            jCalendar1.setEnabled(true);
+            jTable1.setEnabled(true);            
+        }
+    }//GEN-LAST:event_jTextField12FocusLost
 
     /**
      * @param args the command line arguments
@@ -811,7 +818,7 @@ public class FormAgendaRevisao extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField10;
     private javax.swing.JTextField jTextField11;
-    private javax.swing.JTextField jTextField12;
+    private javax.swing.JFormattedTextField jTextField12;
     private javax.swing.JTextField jTextField13;
     private javax.swing.JTextField jTextField14;
     private javax.swing.JTextField jTextField2;

@@ -22,7 +22,7 @@ public class AgendaControl {
     
     public ArrayList<String> getTipoRevisao(){
         ResultSet rs = null;
-        String texto_consulta = "SELECT quilometragem FROM TipoRevisao";
+        String texto_consulta = "SELECT quilometragem FROM TipoRevisao GROUP BY quilometragem ORDER BY quilometragem";
         ArrayList<String> revisoesRet = new ArrayList<String>();
         
         try{
@@ -99,12 +99,12 @@ public class AgendaControl {
             
         }else{
             if(numPecas == -1){
-                String text_consulta = "SELECT COUNT("
+                //String text_consulta = "SELECT COUNT("
             }else{
                 String texto_consulta = "";
             }
         }
-        return false;// pensando em como fazer ainda... :P
+        return 0;// pensando em como fazer ainda... :P
     }
     
     public boolean setAgendamento(ArrayList<String> CPFMecanico, Agenda agenda){
@@ -112,10 +112,10 @@ public class AgendaControl {
         String texto_consulta =
                 " INSERT INTO REVISAO2 (kmatual, datarevisao, hora) VALUES ("+agenda.getKmatual()+",'"+ agenda.getData()+"','"+ agenda.getHora() +"');"
                 + "INSERT INTO REVISAO VALUES((SELECT MAX(CODREVISAO) FROM REVISAO2), '" +CPFMecanico.get(0)+ "', '" +agenda.getCarro().getPlacaCarro()+ "',"
-                + "'"+agenda.getCliente().getCPF()+"', (SELECT CODSERVICO FROM TipoRevisao WHERE quilometragem = '" +agenda.getTipoDeRevisao().substring(0, 4) +"'));"
+                + "'"+agenda.getCliente().getCPF()+"', (SELECT CODSERVICO FROM TipoRevisao WHERE quilometragem = '" +agenda.getTipoDeRevisao().substring(0, 5) +"'));"
                 + "INSERT INTO FuncionarioRevisao VALUES((SELECT CPF FROM FUNCIONARIO WHERE login = '"+agenda.getUsuarioFuncionario()+"'), "
                 + "'" +date+ "', (SELECT MAX(codrevisao) FROM REVISAO2))";
-       
+       System.out.println(texto_consulta);
         System.out.println(agenda.getTipoDeRevisao().substring(0, 4) );
         System.out.println(texto_consulta);
         
