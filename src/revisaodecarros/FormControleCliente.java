@@ -204,6 +204,7 @@ public class FormControleCliente extends javax.swing.JFrame {
         buttonEditar.setText("Editar Cliente");
         buttonEditar.setActionCommand("");
         buttonEditar.setEnabled(false);
+        buttonEditar.setRolloverEnabled(false);
         buttonEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonEditarActionPerformed(evt);
@@ -282,27 +283,28 @@ public class FormControleCliente extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        lblNome.setText("Nome");
+        lblNome.setText("Nome*");
 
-        lblCPF.setText("CPF");
+        lblCPF.setText("CPF*");
 
-        lblTel.setText("Telefone");
+        lblTel.setText("Telefone*");
+        lblTel.setToolTipText("");
 
         lblCelular.setText("Celular");
 
         lblEmp.setText("Empresarial");
 
-        lblEstado.setText("Estado");
+        lblEstado.setText("Estado*");
 
-        lblCidade.setText("Cidade");
+        lblCidade.setText("Cidade*");
 
-        lblNumero.setText("Número");
+        lblNumero.setText("Número*");
 
-        lblPlaca.setText("Placa");
+        lblPlaca.setText("Placa*");
 
-        lblChassi.setText("Chassi");
+        lblChassi.setText("Chassi*");
 
-        lblModelo.setText("Modelo");
+        lblModelo.setText("Modelo*");
 
         txtNome.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -369,8 +371,8 @@ public class FormControleCliente extends javax.swing.JFrame {
         });
 
         try{  
-            javax.swing.text.MaskFormatter emp = new javax.swing.text.MaskFormatter("(##)#####-####");  
-            txtEmp = new javax.swing.JFormattedTextField(emp);  
+            javax.swing.text.MaskFormatter emp = new javax.swing.text.MaskFormatter("(##)####-####");
+            txtEmp = new javax.swing.JFormattedTextField(emp);
         }  
         catch (Exception e){  
         }
@@ -383,15 +385,15 @@ public class FormControleCliente extends javax.swing.JFrame {
             }
         });
 
-        lblRua.setText("Rua");
+        lblRua.setText("Rua*");
 
-        lblBairro.setText("Bairro");
+        lblBairro.setText("Bairro*");
 
         lblComp.setText("Compl.");
 
-        lblAno.setText("Ano");
+        lblAno.setText("Ano*");
 
-        lblCor.setText("Cor");
+        lblCor.setText("Cor*");
 
         tblCarro.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -451,6 +453,8 @@ public class FormControleCliente extends javax.swing.JFrame {
 
         buttonDEL.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/1416530067_Delete.png"))); // NOI18N
         buttonDEL.setEnabled(false);
+        buttonDEL.setFocusPainted(false);
+        buttonDEL.setFocusable(false);
         buttonDEL.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonDELActionPerformed(evt);
@@ -535,7 +539,7 @@ public class FormControleCliente extends javax.swing.JFrame {
                                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                                 .addComponent(txtNumero, javax.swing.GroupLayout.Alignment.LEADING)
                                                 .addComponent(cmbEstado, javax.swing.GroupLayout.Alignment.LEADING, 0, 71, Short.MAX_VALUE)))))
-                                .addGap(0, 188, Short.MAX_VALUE))
+                                .addGap(0, 196, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lblPlaca)
@@ -735,8 +739,6 @@ public class FormControleCliente extends javax.swing.JFrame {
             arrayCliente = conexao.getClientes(s);
             cliente = new Cliente();
             if(arrayCliente != null){
-                //new FormEscolhaCliente(this, arrayCliente, cliente).setVisible(true);
-                //Options for the combo box dialog
                 ArrayList<String> lista = new ArrayList<String>();
                 Integer j = 0;
                 while(j < arrayCliente.size()){
@@ -746,8 +748,8 @@ public class FormControleCliente extends javax.swing.JFrame {
                 Object [] choices = lista.toArray();
 
                 //Input dialog with a combo box 
-                String picked = (String)JOptionPane.showInputDialog(this, "Pick a Day:"
-                                , "ComboBox Dialog", JOptionPane.QUESTION_MESSAGE
+                String picked = (String)JOptionPane.showInputDialog(this, "Escolha um nome:"
+                                , "Nomes encontrados", JOptionPane.QUESTION_MESSAGE
                                 , null, choices, choices[0]);
                 j=0;
                 while(j < arrayCliente.size()){
@@ -758,11 +760,8 @@ public class FormControleCliente extends javax.swing.JFrame {
                 }
                 cliente = arrayCliente.get(j);
             }else{
-                System.out.println("SOU NULLLLLLL!!!");
+                cliente = null;
             }
-            
-            //tratamento do cliente escolhido
-
         }
 
         if (cliente != null) {
@@ -795,7 +794,7 @@ public class FormControleCliente extends javax.swing.JFrame {
                 i++;
             }
             cmbEstado.setSelectedIndex(i);
-            cmbEstado.setEditable(false);
+            cmbEstado.setEnabled(false);
 
             //Editar a tabela com os valores atuais do carro
             txtPlaca.setEnabled(true);
@@ -1130,27 +1129,45 @@ public class FormControleCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonDELActionPerformed
 
     private void txtNomeFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNomeFocusGained
-        lblExemploNome.setText("Ex.: Alberto Souza");
+        if(txtNome.isEditable())
+        {
+            lblExemploNome.setText("Ex.: Alberto Souza");
+        }
     }//GEN-LAST:event_txtNomeFocusGained
 
     private void txtCPFFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCPFFocusGained
-        lblExemploCPF.setText("Ex.: 421.110.688-02");
+        if(txtCPF.isEditable())
+        {
+            lblExemploCPF.setText("Ex.: 421.110.688-02");
+        }
     }//GEN-LAST:event_txtCPFFocusGained
 
     private void txtTelefoneFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTelefoneFocusGained
-        lblExemploTelefone.setText("Ex.: (15)3224-6474");
+        if(txtTelefone.isEditable())
+        {
+            lblExemploTelefone.setText("Ex.: (15)3224-6474");
+        }
     }//GEN-LAST:event_txtTelefoneFocusGained
 
     private void txtCelularFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCelularFocusGained
-        lblExemploTelefone.setText("Ex.: (15)99651-7922");
+        if(txtCelular.isEditable())
+        {
+            lblExemploTelefone.setText("Ex.: (15)99651-7922");
+        }
     }//GEN-LAST:event_txtCelularFocusGained
 
     private void txtEmpFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEmpFocusGained
-        lblExemploTelefone.setText("Ex.: (15)99651-7922");
+        if(txtEmp.isEditable())
+        {
+            lblExemploTelefone.setText("Ex.: (15)99651-7922");
+        }
     }//GEN-LAST:event_txtEmpFocusGained
 
     private void txtPlacaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPlacaFocusGained
-        lblExemploPlaca.setText("Ex.: AAA-0000");
+        if(txtPlaca.isEditable())
+        {
+            lblExemploPlaca.setText("Ex.: AAA-0000");
+        }
     }//GEN-LAST:event_txtPlacaFocusGained
 
     private void txtNomeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNomeFocusLost
@@ -1321,6 +1338,7 @@ public class FormControleCliente extends javax.swing.JFrame {
         if(txtNome.getText().trim().length() == 0)
         {
             txtNome.setBorder(aviso);
+            lblNome.setText("Nome *");
             mensagem += "Nome\n";
         }
         else

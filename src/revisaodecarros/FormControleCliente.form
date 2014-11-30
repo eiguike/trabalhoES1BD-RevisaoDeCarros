@@ -57,7 +57,7 @@
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                          <Group type="102" attributes="0">
+                                          <Group type="102" alignment="1" attributes="0">
                                               <Component id="lblCelular" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace max="32767" attributes="0"/>
                                               <Component id="txtCelular" min="-2" pref="163" max="-2" attributes="0"/>
@@ -111,7 +111,7 @@
                                       </Group>
                                   </Group>
                               </Group>
-                              <EmptySpace min="0" pref="188" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="196" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
@@ -364,6 +364,7 @@
             <Property name="text" type="java.lang.String" value="Editar Cliente"/>
             <Property name="actionCommand" type="java.lang.String" value=""/>
             <Property name="enabled" type="boolean" value="false"/>
+            <Property name="rolloverEnabled" type="boolean" value="false"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonEditarActionPerformed"/>
@@ -441,17 +442,18 @@
     </Container>
     <Component class="javax.swing.JLabel" name="lblNome">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Nome"/>
+        <Property name="text" type="java.lang.String" value="Nome*"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lblCPF">
       <Properties>
-        <Property name="text" type="java.lang.String" value="CPF"/>
+        <Property name="text" type="java.lang.String" value="CPF*"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lblTel">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Telefone"/>
+        <Property name="text" type="java.lang.String" value="Telefone*"/>
+        <Property name="toolTipText" type="java.lang.String" value=""/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lblCelular">
@@ -466,32 +468,32 @@
     </Component>
     <Component class="javax.swing.JLabel" name="lblEstado">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Estado"/>
+        <Property name="text" type="java.lang.String" value="Estado*"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lblCidade">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Cidade"/>
+        <Property name="text" type="java.lang.String" value="Cidade*"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lblNumero">
       <Properties>
-        <Property name="text" type="java.lang.String" value="N&#xfa;mero"/>
+        <Property name="text" type="java.lang.String" value="N&#xfa;mero*"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lblPlaca">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Placa"/>
+        <Property name="text" type="java.lang.String" value="Placa*"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lblChassi">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Chassi"/>
+        <Property name="text" type="java.lang.String" value="Chassi*"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lblModelo">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Modelo"/>
+        <Property name="text" type="java.lang.String" value="Modelo*"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtNome">
@@ -602,17 +604,17 @@
         <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtTelefoneFocusLost"/>
       </Events>
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="try{  &#xd;&#xa;   javax.swing.text.MaskFormatter emp = new javax.swing.text.MaskFormatter(&quot;(##)#####-####&quot;);  &#xd;&#xa;   txtEmp = new javax.swing.JFormattedTextField(emp);  &#xd;&#xa;}  &#xd;&#xa;   catch (Exception e){  &#xd;&#xa;}"/>
+        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="try{  &#xd;&#xa;   javax.swing.text.MaskFormatter emp = new javax.swing.text.MaskFormatter(&quot;(##)####-####&quot;);&#xd;&#xa;   txtEmp = new javax.swing.JFormattedTextField(emp);&#xd;&#xa;}  &#xd;&#xa;   catch (Exception e){  &#xd;&#xa;}"/>
       </AuxValues>
     </Component>
     <Component class="javax.swing.JLabel" name="lblRua">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Rua"/>
+        <Property name="text" type="java.lang.String" value="Rua*"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lblBairro">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Bairro"/>
+        <Property name="text" type="java.lang.String" value="Bairro*"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lblComp">
@@ -622,12 +624,12 @@
     </Component>
     <Component class="javax.swing.JLabel" name="lblAno">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Ano"/>
+        <Property name="text" type="java.lang.String" value="Ano*"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lblCor">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Cor"/>
+        <Property name="text" type="java.lang.String" value="Cor*"/>
       </Properties>
     </Component>
     <Container class="javax.swing.JPanel" name="pnlCarro">
@@ -704,6 +706,8 @@
           <Image iconType="3" name="/Icon/1416530067_Delete.png"/>
         </Property>
         <Property name="enabled" type="boolean" value="false"/>
+        <Property name="focusPainted" type="boolean" value="false"/>
+        <Property name="focusable" type="boolean" value="false"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonDELActionPerformed"/>
