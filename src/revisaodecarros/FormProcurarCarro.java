@@ -30,6 +30,8 @@ import javax.swing.table.DefaultTableModel;
 public class FormProcurarCarro extends javax.swing.JFrame {
     ClockTest clock;
     
+    Integer flag = 0;
+    
     Cliente cliente;
     Carro carro;
     ArrayList<Pecas> pecas;
@@ -57,6 +59,8 @@ public class FormProcurarCarro extends javax.swing.JFrame {
 
         limpar.setEnabled(false);
         cancelar.setEnabled(false);
+        
+        quilometragem.setEnabled(false);
 
         // trata a tabela
         model = new DefaultTableModel();
@@ -65,7 +69,6 @@ public class FormProcurarCarro extends javax.swing.JFrame {
 
         tblPecas.setModel(model);
         tblPecas.setEnabled(true);
-
     }
     public FormProcurarCarro() {
         initComponents();
@@ -108,7 +111,7 @@ public class FormProcurarCarro extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblPecas = new javax.swing.JTable();
         jLabel11 = new javax.swing.JLabel();
-        txtTipoServico = new javax.swing.JTextField();
+        quilometragem = new javax.swing.JComboBox();
         jPanel4 = new javax.swing.JPanel();
         procuraCarro = new javax.swing.JButton();
         limpar = new javax.swing.JButton();
@@ -178,7 +181,7 @@ public class FormProcurarCarro extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
                     .addComponent(ano))
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Informações da Revisão"));
@@ -211,11 +214,28 @@ public class FormProcurarCarro extends javax.swing.JFrame {
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 302, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         jLabel11.setText("Tipo de Serviço:");
+
+        quilometragem.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "10000", "20000", "30000", "40000", "50000", "60000" }));
+        quilometragem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                quilometragemActionPerformed(evt);
+            }
+        });
+        quilometragem.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                quilometragemFocusLost(evt);
+            }
+        });
+        quilometragem.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                quilometragemPropertyChange(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -227,18 +247,18 @@ public class FormProcurarCarro extends javax.swing.JFrame {
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel11)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtTipoServico, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 267, Short.MAX_VALUE)))
+                        .addGap(4, 4, 4)
+                        .addComponent(quilometragem, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 174, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(7, 7, 7)
+                .addGap(4, 4, 4)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
-                    .addComponent(txtTipoServico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(quilometragem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -282,7 +302,7 @@ public class FormProcurarCarro extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(sairSalvar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(procuraCarro, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)
+                    .addComponent(procuraCarro, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
                     .addComponent(limpar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(cancelar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -358,8 +378,8 @@ public class FormProcurarCarro extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 393, Short.MAX_VALUE))
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 521, Short.MAX_VALUE))
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 392, Short.MAX_VALUE))
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 524, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -387,7 +407,7 @@ public class FormProcurarCarro extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosing
 
     private void procuraCarroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_procuraCarroActionPerformed
-        Integer i;
+      
         String s = (String) JOptionPane.showInputDialog(
                 this,
                 "Entre com a placa do Carro:\n",
@@ -407,20 +427,8 @@ public class FormProcurarCarro extends javax.swing.JFrame {
             
             limpar.setEnabled(true);
             cancelar.setEnabled(true);
-            
-            i = 0;
-            
-            pecas = pecaControl.getPecas();
-            while(i < pecas.size()){
-                Pecas aux = new Pecas();
-                aux = pecas.get(i);
-                model.addRow(new Object[]{aux.getDescricao(), aux.getGarantia()});
-                i++;                
-            }
-            
-            tblPecas.setModel(model);
-            tblPecas.setEnabled(true);
-            
+            quilometragem.setEnabled(true);    
+            flag = 1;
         }else{
             JOptionPane.showMessageDialog(this, "Placa do Carro não encontrado!.");
         }
@@ -446,6 +454,33 @@ public class FormProcurarCarro extends javax.swing.JFrame {
         ano.setText("");
         nome.setText("");
     }//GEN-LAST:event_limparActionPerformed
+
+    private void quilometragemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quilometragemActionPerformed
+        
+    }//GEN-LAST:event_quilometragemActionPerformed
+
+    private void quilometragemPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_quilometragemPropertyChange
+        Integer i;
+       
+        if(flag == 1){
+            i = 0;
+
+            pecas = pecaControl.getPecas(carro.getPlacaCarro(),  parseInt(quilometragem.getSelectedItem().toString()));
+            while (i < pecas.size()) {
+                Pecas aux = new Pecas();
+                aux = pecas.get(i);
+                model.addRow(new Object[]{aux.getDescricao(), aux.getGarantia()});
+                i++;
+            }
+
+            tblPecas.setModel(model);
+            tblPecas.setEnabled(true);
+        }
+    }//GEN-LAST:event_quilometragemPropertyChange
+
+    private void quilometragemFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_quilometragemFocusLost
+       
+    }//GEN-LAST:event_quilometragemFocusLost
 
     /**
      * @param args the command line arguments
@@ -504,9 +539,9 @@ public class FormProcurarCarro extends javax.swing.JFrame {
     private javax.swing.JLabel nome;
     private javax.swing.JLabel placa;
     private javax.swing.JButton procuraCarro;
+    private javax.swing.JComboBox quilometragem;
     private javax.swing.JLabel relogio;
     private javax.swing.JButton sairSalvar;
     private javax.swing.JTable tblPecas;
-    private javax.swing.JTextField txtTipoServico;
     // End of variables declaration//GEN-END:variables
 }
