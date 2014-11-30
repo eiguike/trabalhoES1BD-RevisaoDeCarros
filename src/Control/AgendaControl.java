@@ -8,8 +8,7 @@ package Control;
 import java.util.ArrayList;
 import java.util.Date;
 import java.sql.*;
-import Model.Carro;
-import Model.Cliente;
+import Model.Agenda;
 
 /**
  *
@@ -94,10 +93,30 @@ public class AgendaControl {
         
     }
     
-    public boolean setAgendamento(Carro carro, Cliente cliente, Date data, String CPFMecanico, String TipoDeRevisao){
+    public int setPecasDefinidas(Integer codservico, Integer numPecas){
+        if (numPecas == null){
+            numPecas = setPecasDefinidas(codservico,-1);
+            
+        }else{
+            if(numPecas == -1){
+                String text_consulta = "SELECT COUNT("
+            }else{
+                String texto_consulta = "";
+            }
+        }
+        return false;// pensando em como fazer ainda... :P
+    }
+    
+    public boolean setAgendamento(ArrayList<String> CPFMecanico, Agenda agenda){
+        Date date = new Date();
         String texto_consulta =
-                "";
-                
+                " INSERT INTO REVISAO2 (kmatual, datarevisao, hora) VALUES ("+agenda.getKmatual()+",'"+ agenda.getData()+"','"+ agenda.getHora() +"');"
+                + "INSERT INTO REVISAO VALUES((SELECT MAX(CODREVISAO) FROM REVISAO2), '" +CPFMecanico.get(0)+ "', '" +agenda.getCarro().getPlacaCarro()+ "',"
+                + "'"+agenda.getCliente().getCPF()+"', (SELECT CODSERVICO FROM TipoRevisao WHERE quilometragem = '" +agenda.getTipoDeRevisao().substring(0, 4) +"'));"
+                + "INSERT INTO FuncionarioRevisao VALUES((SELECT CPF FROM FUNCIONARIO WHERE login = '"+agenda.getUsuarioFuncionario()+"'), "
+                + "'" +date+ "', (SELECT MAX(codrevisao) FROM REVISAO2))";
+       
+        System.out.println(agenda.getTipoDeRevisao().substring(0, 4) );
         System.out.println(texto_consulta);
         
         try{

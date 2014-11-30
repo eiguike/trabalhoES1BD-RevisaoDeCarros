@@ -101,7 +101,7 @@ public class ClienteControl{
     
     public ArrayList<Cliente> getClientes(String nome) {
         ArrayList<Cliente> retCliente = new ArrayList<Cliente>();
-        Cliente aux = null;
+        Cliente aux = new Cliente();
         ResultSet rs = null;  
         String texto_consulta = null;
 

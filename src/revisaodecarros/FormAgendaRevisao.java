@@ -18,6 +18,7 @@ import Control.AgendaControl;
 import Model.TipoDeServico;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import static java.lang.Integer.parseInt;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.table.DefaultTableModel;
@@ -717,8 +718,16 @@ public class FormAgendaRevisao extends javax.swing.JFrame {
                 "Sair",
                 JOptionPane.YES_NO_OPTION);
         if (n == 0) {
+            agenda.setCarro(carro);
+            agenda.setCliente(cliente);
+            agenda.setData(jCalendar1.getDate());
+            agenda.setHora(jTable1.getValueAt(jTable1.getSelectedRow(), 1).toString());
+            agenda.setKmatual(parseInt(jTextField12.getText()));
+            agenda.setTipoDeRevisao(jComboBox2.getItemAt(jComboBox2.getSelectedIndex()).toString());
+            agenda.setTipoDeRevisao2(jComboBox2.getSelectedIndex());
+            agenda.setUsuarioFuncionario(txtUser.getText());
             mecanicos = agendaControl.getMecanicoLivre(jCalendar1.getDate(), jTable1.getValueAt(jTable1.getSelectedRow(), 1).toString());
-            if(agendaControl.setAgendamento(carro, cliente, jCalendar1.getDate(), mecanicos, jComboBox2.getSelectedItem().toString())){
+            if(agendaControl.setAgendamento(mecanicos, agenda)){
                 JOptionPane.showMessageDialog(this, "Agendamento feito com êxito!");
             }else{
                 JOptionPane.showMessageDialog(this, "Agendamento não foi feito com sucesso!");
