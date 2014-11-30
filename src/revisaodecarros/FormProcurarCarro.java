@@ -51,15 +51,15 @@ public class FormProcurarCarro extends javax.swing.JFrame {
         initComponents();
         login.setText(nomeUsuario);
         clock = new ClockTest(relogio);
-        
+         tblPecas.setModel(model);
+        tblPecas.setEnabled(true);
         carroControl = new CarroControl();
         clienteControl = new ClienteControl();
         pecaControl = new PecasControl();
         pecas = new ArrayList<Pecas>();
 
         limpar.setEnabled(false);
-        cancelar.setEnabled(false);
-        
+              
         quilometragem.setEnabled(false);
 
         // trata a tabela
@@ -115,8 +115,7 @@ public class FormProcurarCarro extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         procuraCarro = new javax.swing.JButton();
         limpar = new javax.swing.JButton();
-        cancelar = new javax.swing.JButton();
-        sairSalvar = new javax.swing.JButton();
+        sair = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
         login = new javax.swing.JLabel();
@@ -214,13 +213,18 @@ public class FormProcurarCarro extends javax.swing.JFrame {
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 302, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 304, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         jLabel11.setText("Tipo de Serviço:");
 
         quilometragem.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "10000", "20000", "30000", "40000", "50000", "60000" }));
+        quilometragem.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                quilometragemMouseClicked(evt);
+            }
+        });
         quilometragem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 quilometragemActionPerformed(evt);
@@ -280,17 +284,10 @@ public class FormProcurarCarro extends javax.swing.JFrame {
             }
         });
 
-        cancelar.setText("Cancelar");
-        cancelar.addActionListener(new java.awt.event.ActionListener() {
+        sair.setText("Sair");
+        sair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cancelarActionPerformed(evt);
-            }
-        });
-
-        sairSalvar.setText("Sair e Salvar");
-        sairSalvar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                sairSalvarActionPerformed(evt);
+                sairActionPerformed(evt);
             }
         });
 
@@ -301,10 +298,9 @@ public class FormProcurarCarro extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(sairSalvar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(sair, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(procuraCarro, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
-                    .addComponent(limpar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(cancelar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(limpar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -314,10 +310,8 @@ public class FormProcurarCarro extends javax.swing.JFrame {
                 .addComponent(procuraCarro)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(limpar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cancelar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(sairSalvar)
+                .addComponent(sair)
                 .addContainerGap())
         );
 
@@ -388,7 +382,7 @@ public class FormProcurarCarro extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void sairSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sairSalvarActionPerformed
+    private void sairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sairActionPerformed
         int n = JOptionPane.showConfirmDialog(
             this,
             "Você tem certeza que gostaria de sair?",
@@ -400,7 +394,7 @@ public class FormProcurarCarro extends javax.swing.JFrame {
             this.dispose();
 
         }
-    }//GEN-LAST:event_sairSalvarActionPerformed
+    }//GEN-LAST:event_sairActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         fecharFormulario();
@@ -426,7 +420,6 @@ public class FormProcurarCarro extends javax.swing.JFrame {
             nome.setText(cliente.getNome());
             
             limpar.setEnabled(true);
-            cancelar.setEnabled(true);
             quilometragem.setEnabled(true);    
             flag = 1;
         }else{
@@ -434,25 +427,19 @@ public class FormProcurarCarro extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_procuraCarroActionPerformed
 
-    private void cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarActionPerformed
-         int n = JOptionPane.showConfirmDialog(
-            this,
-            "Você tem certeza que gostaria de cancelar e sair sem salvar?",
-            "Sair",
-            JOptionPane.YES_NO_OPTION);
-        if(n==0){
-            formPrincipal.setVisible(true);
-            clock.stop();
-            this.dispose();
-
-        }
-    }//GEN-LAST:event_cancelarActionPerformed
-
     private void limparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limparActionPerformed
         placa.setText("");
         modelo.setText("");
         ano.setText("");
         nome.setText("");
+        
+        // trata a tabela
+        model = new DefaultTableModel();
+        model.addColumn("Peça");
+        model.addColumn("Garantia");
+        
+        tblPecas.setModel(model);
+        tblPecas.setEnabled(true);
     }//GEN-LAST:event_limparActionPerformed
 
     private void quilometragemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quilometragemActionPerformed
@@ -481,6 +468,10 @@ public class FormProcurarCarro extends javax.swing.JFrame {
     private void quilometragemFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_quilometragemFocusLost
        
     }//GEN-LAST:event_quilometragemFocusLost
+
+    private void quilometragemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_quilometragemMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_quilometragemMouseClicked
 
     /**
      * @param args the command line arguments
@@ -519,7 +510,6 @@ public class FormProcurarCarro extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel ano;
-    private javax.swing.JButton cancelar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -541,7 +531,7 @@ public class FormProcurarCarro extends javax.swing.JFrame {
     private javax.swing.JButton procuraCarro;
     private javax.swing.JComboBox quilometragem;
     private javax.swing.JLabel relogio;
-    private javax.swing.JButton sairSalvar;
+    private javax.swing.JButton sair;
     private javax.swing.JTable tblPecas;
     // End of variables declaration//GEN-END:variables
 }
