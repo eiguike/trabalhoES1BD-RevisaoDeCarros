@@ -28,7 +28,7 @@ import javax.swing.table.DefaultTableModel;
 public class FormControleCliente extends javax.swing.JFrame {
 
     ClockTest clock;
-    private Cliente cliente;
+    protected Cliente cliente;
 
     private ClienteControl conexao;
     private CarroControl carroControl;
@@ -735,7 +735,6 @@ public class FormControleCliente extends javax.swing.JFrame {
             arrayCliente = conexao.getClientes(s);
             if(arrayCliente != null)
                 new FormEscolhaCliente(this, arrayCliente).setVisible(true);
-            //tratamento do cliente escolhido
         }
 
         if (cliente != null) {
