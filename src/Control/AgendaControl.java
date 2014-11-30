@@ -20,6 +20,11 @@ public class AgendaControl {
         con = new ConexaoBD();
     }
     
+    public boolean getRevisaoAtual(){
+        ResultSet rs = null;
+        String texto_consulta = "";
+    }
+    
     public ArrayList<String> getTipoRevisao(){
         ResultSet rs = null;
         String texto_consulta = "SELECT quilometragem FROM TipoRevisao GROUP BY quilometragem ORDER BY quilometragem";

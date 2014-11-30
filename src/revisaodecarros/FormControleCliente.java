@@ -733,8 +733,34 @@ public class FormControleCliente extends javax.swing.JFrame {
                     null,
                     "");
             arrayCliente = conexao.getClientes(s);
-            if(arrayCliente != null)
-                new FormEscolhaCliente(this, arrayCliente).setVisible(true);
+            cliente = new Cliente();
+            if(arrayCliente != null){
+                //new FormEscolhaCliente(this, arrayCliente, cliente).setVisible(true);
+                //Options for the combo box dialog
+                ArrayList<String> lista = new ArrayList<String>();
+                Integer j = 0;
+                while(j < arrayCliente.size()){
+                    lista.add(arrayCliente.get(j).getNome());
+                    j++;
+                }
+                Object [] choices = lista.toArray();
+
+                //Input dialog with a combo box 
+                String picked = (String)JOptionPane.showInputDialog(this, "Pick a Day:"
+                                , "ComboBox Dialog", JOptionPane.QUESTION_MESSAGE
+                                , null, choices, choices[0]);
+                j=0;
+                while(j < arrayCliente.size()){
+                    if(picked.compareTo(arrayCliente.get(j).getNome()) == 0)
+                        break;
+                    else
+                        j++;
+                }
+                cliente = arrayCliente.get(j);
+            }else{
+                System.out.println("SOU NULLLLLLL!!!");
+            }
+            
             //tratamento do cliente escolhido
         }
 

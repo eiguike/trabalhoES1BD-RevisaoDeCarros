@@ -14,22 +14,23 @@ import java.util.ArrayList;
  */
 public class FormEscolhaCliente extends javax.swing.JFrame {
     ArrayList<Cliente> Clientes = new ArrayList<Cliente>();
+    Cliente cliente;
     
     public FormEscolhaCliente() {
         initComponents();
     }
     
-    public FormEscolhaCliente(FormControleCliente form, ArrayList<Cliente> aux)
+    public FormEscolhaCliente(FormControleCliente form, ArrayList<Cliente> aux, Cliente aux2)
     {
+        cliente = aux2;
         initComponents();
         FormControleCliente formulario = form;
         Clientes = aux;
-        cmbNomes.addItem(" ");
-//        Integer i = 0;
-//        while (i < Clientes.size()) {
-//            cmbNomes.addItem(Clientes.get(i).getNome());
-//            i++;
-//        }
+        Integer i = 0;
+        while (i < Clientes.size()) {
+            cmbNomes.addItem(Clientes.get(i).getNome());
+            i++;
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -137,6 +138,31 @@ public class FormEscolhaCliente extends javax.swing.JFrame {
 
     private void buttonOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonOKActionPerformed
         //Aqui a gente utiliza o this.aux pra acessar e completar os campos do outro form
+System.out.println(Clientes.get(cmbNomes.getSelectedIndex()).getBairro());
+System.out.println(Clientes.get(cmbNomes.getSelectedIndex()).getCPF());
+System.out.println(Clientes.get(cmbNomes.getSelectedIndex()).getCelular());
+System.out.println(Clientes.get(cmbNomes.getSelectedIndex()).getCidade());
+System.out.println(Clientes.get(cmbNomes.getSelectedIndex()).getComplemento());
+System.out.println(Clientes.get(cmbNomes.getSelectedIndex()).getEmpresarial());
+System.out.println(Clientes.get(cmbNomes.getSelectedIndex()).getEstado());
+System.out.println(Clientes.get(cmbNomes.getSelectedIndex()).getNome());
+System.out.println(Clientes.get(cmbNomes.getSelectedIndex()).getNumero());
+System.out.println(Clientes.get(cmbNomes.getSelectedIndex()).getRua());
+System.out.println(Clientes.get(cmbNomes.getSelectedIndex()).getTelefone());
+
+        cliente.setBairro(Clientes.get(cmbNomes.getSelectedIndex()).getBairro());
+        cliente.setCPF(Clientes.get(cmbNomes.getSelectedIndex()).getCPF());
+        cliente.setCelular(Clientes.get(cmbNomes.getSelectedIndex()).getCelular());
+        cliente.setCidade(Clientes.get(cmbNomes.getSelectedIndex()).getCidade());
+        cliente.setComplemento(Clientes.get(cmbNomes.getSelectedIndex()).getComplemento());
+        cliente.setEmpresarial(Clientes.get(cmbNomes.getSelectedIndex()).getEmpresarial());
+        cliente.setEstado(Clientes.get(cmbNomes.getSelectedIndex()).getEstado());
+        cliente.setNome(Clientes.get(cmbNomes.getSelectedIndex()).getNome());
+        cliente.setNumero(Clientes.get(cmbNomes.getSelectedIndex()).getNumero());
+        cliente.setRua(Clientes.get(cmbNomes.getSelectedIndex()).getRua());
+        cliente.setTelefone(Clientes.get(cmbNomes.getSelectedIndex()).getTelefone());
+
+
     }//GEN-LAST:event_buttonOKActionPerformed
 
     /**

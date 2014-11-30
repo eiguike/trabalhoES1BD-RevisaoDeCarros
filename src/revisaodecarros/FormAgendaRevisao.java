@@ -747,7 +747,8 @@ public class FormAgendaRevisao extends javax.swing.JFrame {
             jTable1.setEnabled(false);
         }else{
             jCalendar1.setEnabled(true);
-            jTable1.setEnabled(true);            
+            jTable1.setEnabled(true);   
+            
         }
     }//GEN-LAST:event_jTextField12FocusLost
 
