@@ -64,7 +64,12 @@ public class FormAgendaRevisao extends javax.swing.JFrame {
 
         jCalendar1.addPropertyChangeListener("calendar", new PropertyChangeListener() {
             public void propertyChange(PropertyChangeEvent e) {
-                Date data = new Date();
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(new Date());
+                cal.add(Calendar.DATE,-2);
+                System.out.println(cal.toString());
+                
+                Date data = cal.getTime();
                 
                 if (jCalendar1.getDate().before(data)) {
                     jCalendar1.setDate(data);
