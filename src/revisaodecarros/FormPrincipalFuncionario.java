@@ -345,6 +345,7 @@ public class FormPrincipalFuncionario extends javax.swing.JFrame {
         JDateChooser fim = new JDateChooser();
         ArrayList<Agenda> agenda = new ArrayList<Agenda>();
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+        Date today = new Date();
                
         //Criação da mensagem com o txtField
         Object[] mensagem = {
@@ -355,21 +356,23 @@ public class FormPrincipalFuncionario extends javax.swing.JFrame {
         //Mostra o field
         int response = JOptionPane.showConfirmDialog(null, mensagem, "Pesquisa", JOptionPane.OK_CANCEL_OPTION);
         
+        //verifica se o usuário inseriu as datas
         if(inicio.getDate() != null && fim.getDate() != null)
         {
             //Verifica se a data vêm antes da data de inicio
             if(fim.getDate().before(inicio.getDate()))   
             {
-                //mensagem de erro caso verdadeira
+                JOptionPane.showMessageDialog(this, "A data de início não pode ser uma data posterior à de fim!", "Erro!", JOptionPane.OK_OPTION);
             }
             //verifica se a data é igual a de inicio
-            else if (fim.getDate().equals(inicio.getDate()))
+            else if(inicio.getDate().before(today) || fim.getDate().before(today))
             {
-
+                JOptionPane.showMessageDialog(this, "Você não pode escolher uma data anterior à hoje!", "Erro!", JOptionPane.OK_OPTION);
             }
             //caso a data seja maior que a de inicio
             else
             {
+                //caso o usuário tenha apertado ok
                 if(response == JOptionPane.OK_OPTION)
                 {
                     String stringInicio, stringFim;
@@ -378,6 +381,7 @@ public class FormPrincipalFuncionario extends javax.swing.JFrame {
                     stringFim = formato.format(fim.getDate());
 
                     agenda = conexao.getRevisaoPorPeriodo(stringInicio, stringFim);
+                    //caso a agenda não seja nulo, continua
                     if(agenda != null)
                     {
                         //Montagem da tabela
@@ -401,15 +405,16 @@ public class FormPrincipalFuncionario extends javax.swing.JFrame {
                         txtInicio.setText(stringInicio.replaceAll("[/]", ""));
                         txtFim.setText(stringFim.replaceAll("[/]", ""));
                     }
-                    else
+                    else //caso a agenda esteja nula, avisa
                     {
-
+                        JOptionPane.showMessageDialog(this, "Não foram encontradas revisões no período informado!", "Erro!", JOptionPane.OK_OPTION);
                     }
                 }
             }
         }
-        else
+        else //mensagem de erro caso ele não tenha inserido as datas
         {
+            JOptionPane.showMessageDialog(this, "Você precisa inserir uma data!", "Erro!", JOptionPane.OK_OPTION);
         }
     }//GEN-LAST:event_buttonPesquisaActionPerformed
 
