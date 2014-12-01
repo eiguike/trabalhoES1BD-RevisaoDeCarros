@@ -277,12 +277,35 @@ public class FormAdicionarPecas extends javax.swing.JFrame {
     private void jbSalvarSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalvarSairActionPerformed
         int n = JOptionPane.showConfirmDialog(
             this,
-            "Você tem certeza que gostaria de sair sem salvar?",
-            "Sair",
+            "Você tem certeza que gostaria de salvar?",
+            "Salvar e Sair",
             JOptionPane.YES_NO_OPTION);
         if(n==0){
             //add mais coisas aqui antes de sair
             // para retornar as pecas adicionadas
+            ArrayList<Pecas> listapecas = new ArrayList<Pecas>();
+            Pecas auxPeca = null;
+            Integer i=numpecas;
+            Integer j =0;
+            while(i<tblPecas.getRowCount()){
+                auxPeca = new Pecas();
+                j=0;
+                while(j<1){
+                    switch(j){
+                        case 0:
+                            auxPeca.setDescricao(tblPecas.getValueAt(i, j).toString());
+                            break;
+                        case 1:
+                            auxPeca.setGarantia(parseInt(tblPecas.getValueAt(i, j).toString()));
+                            break;
+                        default:
+                            break;
+                    }
+                    j++;
+                }
+                listapecas.add(auxPeca);                
+                i++;
+            }
             formPrincipal.setVisible(true);
             clock.stop();
             this.dispose();
