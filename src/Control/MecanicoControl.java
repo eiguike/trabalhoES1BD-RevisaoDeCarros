@@ -23,6 +23,35 @@ public class MecanicoControl {
         con = new ConexaoBD();
     }
     
+    public AgendaMecanico getRevisao(String login, String placaCarro, String quilometragem){
+        String texto_consulta = 
+                "SELECT REVISAOPRINCIPAL.DATAREVISAO, REVISAOPRINCIPAL.HORA, AUX.NOME, REVISAO.PLACACARRO, REVISAO.QUILOMETRAGEM "
+                + "FROM REVISAO, REVISAOPRINCIPAL, CARRO, (SELECT NOME FROM CLIENTE WHERE CPF = "
+                + "(SELECT CPFCLIENTE FROM REVISAO WHERE PLACACARRO='"+placaCarro+"' AND QUILOMETRAGEM='"+quilometragem+"')"
+                + ") AS AUX WHERE REVISAO.CODREVISAO = REVISAOPRINCIPAL.CODREVISAO "
+                + "AND REVISAO.quilometragem = '"+quilometragem+"' AND REVISAO.placaCarro='"+placaCarro+"'";
+        ResultSet rs = null;
+        
+        System.out.println(texto_consulta);
+        
+        try{
+            con.st.execute(texto_consulta);
+            rs = con.st.getResultSet();
+            rs.next();
+            AgendaMecanico aux = new AgendaMecanico();
+            aux.setData(rs.getDate(1));
+            aux.setHora(rs.getString(2));
+            aux.setCliente(new Cliente());
+            aux.getCliente().setNome(rs.getString(3));
+            aux.setCarro(new Carro());
+            aux.getCarro().setPlacaCarro(rs.getString(4));
+            
+            return aux;
+        }catch(SQLException e){
+            return null;
+        }
+    }
+    
     public ArrayList<AgendaMecanico> getCarrosSemana(String login, Date dataAtual, Date fim){
         System.out.println(dataAtual);
         String texto_consulta = 
