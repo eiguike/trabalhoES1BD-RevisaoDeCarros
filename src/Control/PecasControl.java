@@ -73,12 +73,45 @@ public class PecasControl {
 
     }
     
-    public ArrayList getTodasPecas(String placaCarro, Integer quilometragem){
+    public ArrayList getPecasRevisao(Integer codPeca, Integer quilometragem){
         ArrayList<Pecas> pecas = new ArrayList<Pecas>();
         Pecas aux;
 
         ResultSet rs = null;
-        String texto_consulta = "SELECT NOME, VENCIMENTO FROM PECA";
+        String texto_consulta = "SELECT Peca.nome, Peca.vencimento FROM Peca, TipoRevisao \n" +
+                    " WHERE TipoRevisao.quilometragem = " + quilometragem + "AND TipoRevisao.codPeca = ' " + codPeca + "';";
+        
+        System.out.println(texto_consulta);
+        
+        try {
+            con.st.execute(texto_consulta);
+            rs = con.st.getResultSet();
+            rs.next();
+            
+            while(rs.isAfterLast() == false){
+                aux = new Pecas();
+                aux.setDescricao(rs.getString(1));
+                aux.setGarantia(rs.getInt(2));
+                                   
+                pecas.add(aux);
+                
+                rs.next();
+              }
+
+            return pecas;
+        } catch (SQLException e) {
+            return null;
+        }
+
+    }
+    
+    public ArrayList getPecasDemais(Integer codPeca, Integer quilometragem){
+        ArrayList<Pecas> pecas = new ArrayList<Pecas>();
+        Pecas aux;
+
+        ResultSet rs = null;
+        String texto_consulta = "SELECT Peca.nome, Peca.vencimento FROM Peca, TipoRevisao \n" +
+                    " WHERE TipoRevisao.quilometragem <> " + quilometragem + "AND TipoRevisao.codPeca <> ' " + codPeca + "';";
         
         System.out.println(texto_consulta);
         

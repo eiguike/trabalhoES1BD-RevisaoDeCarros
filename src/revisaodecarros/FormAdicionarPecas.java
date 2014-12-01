@@ -7,6 +7,18 @@ package revisaodecarros;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import Control.CarroControl;
+import Control.PecasControl;
+import Model.Pecas;
+import Model.Carro;
+import java.awt.Color;
+import static java.lang.Integer.parseInt;
+import java.util.ArrayList;
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.border.Border;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -15,8 +27,10 @@ import javax.swing.table.DefaultTableModel;
 public class FormAdicionarPecas extends javax.swing.JFrame {
     ClockTest clock;
     
-     DefaultTableModel model;
-
+    DefaultTableModel model;
+    ArrayList<Pecas> pecas;
+    PecasControl pecaControl;
+    
     public FormPrincipalMecanico formPrincipal;
     /**
      * Creates new form FormAdicionarPecas
@@ -25,12 +39,13 @@ public class FormAdicionarPecas extends javax.swing.JFrame {
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         initComponents();
     }
-    public FormAdicionarPecas(FormPrincipalMecanico form) {
-        
+    public FormAdicionarPecas(FormPrincipalMecanico form, Carro carro, Integer quilometragem, String nomeUsuario) {
+        Integer i;
         formPrincipal = form;
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         initComponents();
         clock = new ClockTest(lbdataHora);  
+        nomeLogin.setText(nomeUsuario);
         
         // trata a tabela
         model = new DefaultTableModel();
@@ -39,6 +54,15 @@ public class FormAdicionarPecas extends javax.swing.JFrame {
 
         tblPecas.setModel(model);
         tblPecas.setEnabled(true);
+        
+        i = 0;
+        pecas = pecaControl.getPecasRevisao(carro.getPlacaCarro(), quilometragem);
+        while (i < pecas.size()) {
+            Pecas aux = new Pecas();
+            aux = pecas.get(i);
+            model.addRow(new Object[]{aux.getDescricao(), aux.getGarantia()});
+            i++;
+        }
     }
     
     private void fecharFormulario(){
