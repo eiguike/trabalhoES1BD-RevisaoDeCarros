@@ -73,13 +73,13 @@ public class PecasControl {
 
     }
     
-    public ArrayList getPecasRevisao(Integer codPeca, Integer quilometragem){
+    public ArrayList getPecasRevisao(Integer quilometragem){
         ArrayList<Pecas> pecas = new ArrayList<Pecas>();
         Pecas aux;
 
         ResultSet rs = null;
         String texto_consulta = "SELECT Peca.nome, Peca.vencimento FROM Peca, TipoRevisao \n" +
-                    " WHERE TipoRevisao.quilometragem = " + quilometragem + "AND TipoRevisao.codPeca = ' " + codPeca + "';";
+                    " WHERE TipoRevisao.quilometragem = " + quilometragem;
         
         System.out.println(texto_consulta);
         
@@ -111,7 +111,7 @@ public class PecasControl {
 
         ResultSet rs = null;
         String texto_consulta = "SELECT Peca.nome, Peca.vencimento FROM Peca, TipoRevisao \n" +
-                    " WHERE TipoRevisao.quilometragem <> " + quilometragem + "AND TipoRevisao.codPeca <> ' " + codPeca + "';";
+                    " WHERE TipoRevisao.quilometragem <> " + quilometragem;
         
         System.out.println(texto_consulta);
         
