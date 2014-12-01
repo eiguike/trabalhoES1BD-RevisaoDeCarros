@@ -6,6 +6,7 @@ package revisaodecarros;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -13,6 +14,8 @@ import javax.swing.JOptionPane;
  */
 public class FormAdicionarPecas extends javax.swing.JFrame {
     ClockTest clock;
+    
+     DefaultTableModel model;
 
     public FormPrincipalMecanico formPrincipal;
     /**
@@ -28,6 +31,14 @@ public class FormAdicionarPecas extends javax.swing.JFrame {
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         initComponents();
         clock = new ClockTest(lbdataHora);  
+        
+        // trata a tabela
+        model = new DefaultTableModel();
+        model.addColumn("Peça");
+        model.addColumn("Garantia");
+
+        tblPecas.setModel(model);
+        tblPecas.setEnabled(true);
     }
     
     private void fecharFormulario(){
@@ -59,7 +70,7 @@ public class FormAdicionarPecas extends javax.swing.JFrame {
         jbSalvarSair = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        TabelasPecas = new javax.swing.JTable();
+        tblPecas = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
         Login = new javax.swing.JLabel();
         nomeLogin = new javax.swing.JLabel();
@@ -70,9 +81,6 @@ public class FormAdicionarPecas extends javax.swing.JFrame {
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
-            }
-            public void windowClosed(java.awt.event.WindowEvent evt) {
-                formWindowClosed(evt);
             }
         });
 
@@ -121,7 +129,7 @@ public class FormAdicionarPecas extends javax.swing.JFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Tabela Peças", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 10))); // NOI18N
 
-        TabelasPecas.setModel(new javax.swing.table.DefaultTableModel(
+        tblPecas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -132,7 +140,7 @@ public class FormAdicionarPecas extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(TabelasPecas);
+        jScrollPane1.setViewportView(tblPecas);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -223,12 +231,8 @@ public class FormAdicionarPecas extends javax.swing.JFrame {
         fecharFormulario();
     }//GEN-LAST:event_jbSairSemSalvarActionPerformed
 
-    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-
-    }//GEN-LAST:event_formWindowClosed
-
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-
+        fecharFormulario();
     }//GEN-LAST:event_formWindowClosing
 
     /**
@@ -267,7 +271,6 @@ public class FormAdicionarPecas extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Login;
-    private javax.swing.JTable TabelasPecas;
     private javax.swing.JLabel dataHora;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -279,5 +282,6 @@ public class FormAdicionarPecas extends javax.swing.JFrame {
     private javax.swing.JButton jbSalvarSair;
     private javax.swing.JLabel lbdataHora;
     private javax.swing.JLabel nomeLogin;
+    private javax.swing.JTable tblPecas;
     // End of variables declaration//GEN-END:variables
 }

@@ -72,4 +72,35 @@ public class PecasControl {
         }
 
     }
+    
+    public ArrayList getTodasPecas(String placaCarro, Integer quilometragem){
+        ArrayList<Pecas> pecas = new ArrayList<Pecas>();
+        Pecas aux;
+
+        ResultSet rs = null;
+        String texto_consulta = "SELECT NOME, VENCIMENTO FROM PECA";
+        
+        System.out.println(texto_consulta);
+        
+        try {
+            con.st.execute(texto_consulta);
+            rs = con.st.getResultSet();
+            rs.next();
+            
+            while(rs.isAfterLast() == false){
+                aux = new Pecas();
+                aux.setDescricao(rs.getString(1));
+                aux.setGarantia(rs.getInt(2));
+                                   
+                pecas.add(aux);
+                
+                rs.next();
+              }
+
+            return pecas;
+        } catch (SQLException e) {
+            return null;
+        }
+
+    }
 }
