@@ -7,9 +7,14 @@ package revisaodecarros;
 import Control.AgendaControl;
 import Model.Agenda;
 import com.toedter.calendar.JDateChooser;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -97,6 +102,7 @@ public class FormPrincipalFuncionario extends javax.swing.JFrame {
         buttonControle = new javax.swing.JButton();
         buttonPesquisa = new javax.swing.JButton();
         buttonHistorico = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         panelInfo = new javax.swing.JPanel();
         lblUser = new javax.swing.JLabel();
         txtUser = new javax.swing.JLabel();
@@ -155,17 +161,17 @@ public class FormPrincipalFuncionario extends javax.swing.JFrame {
             panelRevisaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelRevisaoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtFim, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(111, Short.MAX_VALUE))
-            .addGroup(panelRevisaoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(scrRevisao, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addGroup(panelRevisaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelRevisaoLayout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtFim, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 101, Short.MAX_VALUE))
+                    .addComponent(scrRevisao, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())
         );
         panelRevisaoLayout.setVerticalGroup(
@@ -220,6 +226,13 @@ public class FormPrincipalFuncionario extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setText("Backup");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelAcaoLayout = new javax.swing.GroupLayout(panelAcao);
         panelAcao.setLayout(panelAcaoLayout);
         panelAcaoLayout.setHorizontalGroup(
@@ -230,10 +243,11 @@ public class FormPrincipalFuncionario extends javax.swing.JFrame {
                     .addComponent(buttonSair, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(buttonControle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(buttonPesquisa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(buttonHistorico, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(panelAcaoLayout.createSequentialGroup()
                         .addComponent(buttonRevisao)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(buttonHistorico, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         panelAcaoLayout.setVerticalGroup(
@@ -247,7 +261,9 @@ public class FormPrincipalFuncionario extends javax.swing.JFrame {
                 .addComponent(buttonPesquisa)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buttonHistorico)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 258, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 229, Short.MAX_VALUE)
                 .addComponent(buttonSair)
                 .addContainerGap())
         );
@@ -442,6 +458,29 @@ public class FormPrincipalFuncionario extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_formWindowClosing
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        Runtime r = Runtime.getRuntime();
+        try {
+            Process p = r.exec(" \"C:\\Program Files\\PostgreSQL\\9.3\\bin\\pg_dump.exe\" -i -h localhost -p 5432 -U postgres -F c -b -v -f \"C:\\backup.sql\" postgres");
+            if (p != null) {
+                OutputStream outputStream = p.getOutputStream();
+                outputStream.write("postgres\r\n".getBytes());
+                outputStream.flush();
+                outputStream.close();
+                InputStreamReader streamReader = new InputStreamReader(p.getErrorStream());
+                BufferedReader reader = new BufferedReader(streamReader);
+                String linha;
+                while ((linha = reader.readLine()) != null) {
+                    System.out.println(linha);
+                }
+            }
+            JOptionPane.showMessageDialog(this, "Backup feito em C:\\backup.sql com sucesso!", "Backup com êxito!", JOptionPane.OK_OPTION);
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Backup não foi feito com sucesso!", "Erro!", JOptionPane.OK_OPTION);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -482,6 +521,7 @@ public class FormPrincipalFuncionario extends javax.swing.JFrame {
     private javax.swing.JButton buttonPesquisa;
     private javax.swing.JButton buttonRevisao;
     private javax.swing.JButton buttonSair;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel lblDate;
