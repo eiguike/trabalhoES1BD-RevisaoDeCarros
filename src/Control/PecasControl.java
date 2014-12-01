@@ -37,7 +37,7 @@ public class PecasControl {
         return true;        
     }
     
-    public ArrayList getPecas(String placaCarro, Integer quilometragem){
+    public ArrayList<Pecas> getPecas(String placaCarro, Integer quilometragem){
         ArrayList<Pecas> pecas = new ArrayList<Pecas>();
         Pecas aux;
 
@@ -73,7 +73,7 @@ public class PecasControl {
 
     }
     
-    public ArrayList getPecasRevisao(Integer quilometragem){
+    public ArrayList<Pecas> getPecasRevisao(Integer quilometragem){
         ArrayList<Pecas> pecas = new ArrayList<Pecas>();
         Pecas aux;
 
@@ -105,7 +105,7 @@ public class PecasControl {
 
     }
     
-    public ArrayList getPecasDemais(Integer codPeca, Integer quilometragem){
+    public ArrayList<Pecas> getPecasDemais(Integer quilometragem){
         ArrayList<Pecas> pecas = new ArrayList<Pecas>();
         Pecas aux;
 
@@ -136,4 +136,5 @@ public class PecasControl {
         }
 
     }
+    
 }
