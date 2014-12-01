@@ -4,8 +4,22 @@
  */
 package revisaodecarros;
 
+import Control.ConexaoBD;
+import java.sql.*;
+import java.util.Date;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import Control.MecanicoControl;
+import Model.AgendaMecanico;
+import com.toedter.calendar.JDateChooser;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import static java.lang.Integer.parseInt;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import javax.swing.Timer;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -13,7 +27,16 @@ import javax.swing.JOptionPane;
  */
 public class FormPrincipalMecanico extends javax.swing.JFrame {
     ClockTest clock;
-
+    MecanicoControl mecanicoControl;
+    ArrayList<AgendaMecanico> lista;
+  
+    ActionListener actListner = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent event) {
+            atualizarInstancia();
+        }
+    };
+    Timer timer = new Timer(5*1000, actListner);
     /**
      * Creates new form FormPrincipalMecanico
      */
@@ -21,9 +44,82 @@ public class FormPrincipalMecanico extends javax.swing.JFrame {
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         initComponents();
         jLabel3.setText(nomeUsuario);
-        clock = new ClockTest(relogio);         
+        clock = new ClockTest(relogio); 
+        
+        mecanicoControl = new MecanicoControl();
+        lista = atualizarTabela(new Date(), new Date());
+        if(lista != null){
+            jLabel6.setText(lista.get(0).getCliente().getNome());
+        }else{
+            jLabel6.setText("Nenhum agendamento");            
+        }
+
+
+        timer.start();       
+
+    }
+    public void atualizarInstancia(){
+        Date data = new Date();
+        Integer i;
+        if(lista != null){
+            if(data.getHours() >= 8 && data.getHours() < 10){
+                for(i=0;i<lista.size();i++){
+                    if(parseInt(lista.get(i).getHora().substring(0, 2))==8){
+                        jLabel6.setText(lista.get(i).getCliente().getNome());
+                        return;
+                    }
+                }
+            }
+            if(data.getHours() >= 10 && data.getHours() < 12){
+                for(i=0;i<lista.size();i++){
+                    if(parseInt(lista.get(i).getHora().substring(0, 2))==10){
+                        jLabel6.setText(lista.get(i).getCliente().getNome());
+                        return;
+                    }
+                }            
+            }
+            if(data.getHours() >= 14 && data.getHours() < 16){
+                for(i=0;i<lista.size();i++){
+                    if(parseInt(lista.get(i).getHora().substring(0, 2))==12){
+                        jLabel6.setText(lista.get(i).getCliente().getNome());
+                        return;
+                    }
+                }            
+            }
+            if(data.getHours() >= 16 && data.getHours() < 18){
+                for(i=0;i<lista.size();i++){
+                    if(parseInt(lista.get(i).getHora().substring(0, 2))==16){
+                        jLabel6.setText(lista.get(i).getCliente().getNome());
+                        return;
+                    }
+                }            
+            }
+        }
+        jLabel6.setText("Nenhum agendamento");
+   
+    }
+    public ArrayList<AgendaMecanico> atualizarTabela(Date aux, Date fim){
+        ArrayList<AgendaMecanico> lista = mecanicoControl.getCarrosSemana(jLabel3.getText(),aux, fim);
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("Data Revisao");
+        model.addColumn("Hora");
+        model.addColumn("Nome do Cliente");
+        model.addColumn("Placa do Carro");
+           
+        if(lista != null){
+            Integer i=0;
+            while (i < lista.size()) {
+                    model.addRow(new Object[]{lista.get(i).getData(),lista.get(i).getHora(),lista.get(i).getCliente().getNome(),lista.get(i).getCarro().getPlacaCarro()});
+                    i++;
+            }        
+        }
+        jTable2.setModel(model);
+        jTable2.setEnabled(true);
+        
+        return lista;
         
     }
+    
     public FormPrincipalMecanico() {
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         initComponents();
@@ -118,7 +214,7 @@ public class FormPrincipalMecanico extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
                     .addComponent(jButton4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -169,7 +265,7 @@ public class FormPrincipalMecanico extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 544, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 540, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -261,17 +357,19 @@ public class FormPrincipalMecanico extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
-        String s = (String)JOptionPane.showInputDialog(
-            this,
-            "Colocar o período\nOpção vazia é a semana atual",
-            "Customized Dialog",
-            JOptionPane.PLAIN_MESSAGE,
-            null,
-            null,
-            "20/12/2014");
-
-        // realizar a pesquisa
+        JDateChooser inicio = new JDateChooser();
+        JDateChooser fim = new JDateChooser();
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+               
+        //Criação da mensagem com o txtField
+        Object[] mensagem = {
+            "Data do Inicio do período: ", inicio,
+            "Data do Fim do período: ", fim,
+        };
+        
+        //Mostra o field
+        int response = JOptionPane.showConfirmDialog(null, mensagem, "Pesquisa", JOptionPane.OK_CANCEL_OPTION);
+        atualizarTabela(inicio.getDate(),fim.getDate());
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -284,7 +382,7 @@ public class FormPrincipalMecanico extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosing
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        new FormAdicionarPecas(this).setVisible(true);
+        new FormAdicionarPecas(this, jLabel3.getText()).setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jButton3ActionPerformed
 

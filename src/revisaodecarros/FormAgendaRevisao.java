@@ -16,10 +16,12 @@ import Control.ClienteControl;
 import Control.CarroControl;
 import Control.AgendaControl;
 import Model.TipoDeServico;
+import com.toedter.calendar.JCalendar;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import static java.lang.Integer.parseInt;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import javax.swing.table.DefaultTableModel;
 
@@ -63,10 +65,8 @@ public class FormAgendaRevisao extends javax.swing.JFrame {
         jCalendar1.addPropertyChangeListener("calendar", new PropertyChangeListener() {
             public void propertyChange(PropertyChangeEvent e) {
                 Date data = new Date();
+                
                 if (jCalendar1.getDate().before(data)) {
-                //if (false) {
-                    // TODO 
-                    // colocar um aviso...
                     jCalendar1.setDate(data);
                 } else {
                     Integer i;
@@ -111,6 +111,10 @@ public class FormAgendaRevisao extends javax.swing.JFrame {
 
                 }
 
+            }
+
+            private Date DateUtil() {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
             }
         });
     }
