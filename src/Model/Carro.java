@@ -20,6 +20,15 @@ public class Carro {
     private Integer ano;
     private String modelo;
     private boolean removido;
+    private String horario; // usado nos form de mecanico
+
+    public String getHorario() {
+        return horario;
+    }
+
+    public void setHorario(String horario) {
+        this.horario = horario;
+    }
 
     public boolean isRemovido() {
         return removido;
