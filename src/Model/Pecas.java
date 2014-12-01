@@ -12,6 +12,7 @@ import java.util.Date;
  * @author marcello
  */
 public class Pecas {
+    private Date data;
     private String descricao;
     private Integer garantia;
     
@@ -31,6 +32,13 @@ public class Pecas {
         this.descricao = descricao;
     }
     
+    public Date getData() {
+        return data;
+    }
+
+    public void setData(Date data) {
+        this.data =data;
+    }    
     
     
 }

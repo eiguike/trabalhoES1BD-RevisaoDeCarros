@@ -42,7 +42,11 @@ public class PecasControl {
         Pecas aux;
 
         ResultSet rs = null;
-        String texto_consulta = "select nome, vencimento from peca, revisaotipodeservico, revisao where revisao.placaCarro = '" + placaCarro + "' and revisaotipodeservico.codservico = revisao.codservico and peca.codpeca = revisaotipodeservico.codpeca and tiporevisao.quilometragem = " + quilometragem + ";" ;
+        String texto_consulta = "SELECT REVISAOPRINCIPAL.DATAREVISAO, PECA.NOME, PECA.VENCIMENTO FROM REVISAOPRINCIPAL, \n" +
+"(SELECT PECA.CODPECA,PECA.NOME,PECA.VENCIMENTO FROM TIPOREVISAO, PECA WHERE TIPOREVISAO.QUILOMETRAGEM = " + quilometragem +"\n" +
+              "AND TIPOREVISAO.CODPECA = PECA.CODPECA) AS PECA\n" +
+    "WHERE CODREVISAO = (\n" +
+        "SELECT CODREVISAO FROM REVISAO WHERE PLACACARRO = '" + placaCarro + "' AND QUILOMETRAGEM = " + quilometragem + ")";
         
         System.out.println(texto_consulta);
         
@@ -53,9 +57,10 @@ public class PecasControl {
             
             while(rs.isAfterLast() == false){
                 aux = new Pecas();
-                aux.setDescricao(rs.getString(1));
-                aux.setGarantia(rs.getInt(2));
-                   
+                aux.setData(rs.getDate(1));
+                aux.setDescricao(rs.getString(2));
+                aux.setGarantia(rs.getInt(3));
+                                   
                 pecas.add(aux);
                 
                 rs.next();

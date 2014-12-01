@@ -51,19 +51,18 @@ public class FormProcurarCarro extends javax.swing.JFrame {
         initComponents();
         login.setText(nomeUsuario);
         clock = new ClockTest(relogio);
-         tblPecas.setModel(model);
-        tblPecas.setEnabled(true);
         carroControl = new CarroControl();
         clienteControl = new ClienteControl();
         pecaControl = new PecasControl();
         pecas = new ArrayList<Pecas>();
 
         limpar.setEnabled(false);
-              
-        quilometragem.setEnabled(false);
+        pesquisar.setEnabled(false);
+        txtKm.setEnabled(false);
 
         // trata a tabela
         model = new DefaultTableModel();
+        model.addColumn("Data da revisão");
         model.addColumn("Peça");
         model.addColumn("Garantia");
 
@@ -111,7 +110,8 @@ public class FormProcurarCarro extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblPecas = new javax.swing.JTable();
         jLabel11 = new javax.swing.JLabel();
-        quilometragem = new javax.swing.JComboBox();
+        txtKm = new javax.swing.JTextField();
+        pesquisar = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         procuraCarro = new javax.swing.JButton();
         limpar = new javax.swing.JButton();
@@ -180,7 +180,7 @@ public class FormProcurarCarro extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
                     .addComponent(ano))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Informações da Revisão"));
@@ -213,31 +213,16 @@ public class FormProcurarCarro extends javax.swing.JFrame {
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 304, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 298, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         jLabel11.setText("Tipo de Serviço:");
 
-        quilometragem.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "10000", "20000", "30000", "40000", "50000", "60000" }));
-        quilometragem.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                quilometragemMouseClicked(evt);
-            }
-        });
-        quilometragem.addActionListener(new java.awt.event.ActionListener() {
+        pesquisar.setText("Pesquisar");
+        pesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                quilometragemActionPerformed(evt);
-            }
-        });
-        quilometragem.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                quilometragemFocusLost(evt);
-            }
-        });
-        quilometragem.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                quilometragemPropertyChange(evt);
+                pesquisarActionPerformed(evt);
             }
         });
 
@@ -248,13 +233,16 @@ public class FormProcurarCarro extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel11)
-                        .addGap(4, 4, 4)
-                        .addComponent(quilometragem, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 174, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtKm, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
+                        .addComponent(pesquisar)
+                        .addGap(27, 27, 27))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -262,7 +250,8 @@ public class FormProcurarCarro extends javax.swing.JFrame {
                 .addGap(4, 4, 4)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
-                    .addComponent(quilometragem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtKm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pesquisar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -372,7 +361,7 @@ public class FormProcurarCarro extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 392, Short.MAX_VALUE))
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 389, Short.MAX_VALUE))
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 524, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -420,7 +409,9 @@ public class FormProcurarCarro extends javax.swing.JFrame {
             nome.setText(cliente.getNome());
             
             limpar.setEnabled(true);
-            quilometragem.setEnabled(true);    
+            pesquisar.setEnabled(true);
+            txtKm.setEnabled(true);
+
             flag = 1;
         }else{
             JOptionPane.showMessageDialog(this, "Placa do Carro não encontrado!.");
@@ -433,45 +424,40 @@ public class FormProcurarCarro extends javax.swing.JFrame {
         ano.setText("");
         nome.setText("");
         
+        txtKm.setEnabled(false);
+        
+        limpar.setEnabled(false);
+        pesquisar.setEnabled(false);
+        
         // trata a tabela
         model = new DefaultTableModel();
+        model.addColumn("Data da revisão");
         model.addColumn("Peça");
-        model.addColumn("Garantia");
+        model.addColumn("Garantia em meses");
         
         tblPecas.setModel(model);
         tblPecas.setEnabled(true);
     }//GEN-LAST:event_limparActionPerformed
 
-    private void quilometragemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quilometragemActionPerformed
-        
-    }//GEN-LAST:event_quilometragemActionPerformed
-
-    private void quilometragemPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_quilometragemPropertyChange
+    private void pesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pesquisarActionPerformed
         Integer i;
-       
-        if(flag == 1){
-            i = 0;
-
-            pecas = pecaControl.getPecas(carro.getPlacaCarro(),  parseInt(quilometragem.getSelectedItem().toString()));
-            while (i < pecas.size()) {
+        Integer quilometragem;
+                
+        quilometragem = parseInt(txtKm.getText().toString());
+        pecas = pecaControl.getPecas(carro.getPlacaCarro(), quilometragem);
+        
+        if(pecas != null){
+            i=0;
+            while(i < pecas.size()){                
                 Pecas aux = new Pecas();
                 aux = pecas.get(i);
-                model.addRow(new Object[]{aux.getDescricao(), aux.getGarantia()});
+                model.addRow(new Object[]{aux.getDescricao(), aux.getGarantia(), aux.getData()});
                 i++;
             }
-
-            tblPecas.setModel(model);
-            tblPecas.setEnabled(true);
+        } else {
+            JOptionPane.showMessageDialog(this, "Esse carro não possui nenhuma revisão com " + quilometragem + "km!");
         }
-    }//GEN-LAST:event_quilometragemPropertyChange
-
-    private void quilometragemFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_quilometragemFocusLost
-       
-    }//GEN-LAST:event_quilometragemFocusLost
-
-    private void quilometragemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_quilometragemMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_quilometragemMouseClicked
+    }//GEN-LAST:event_pesquisarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -527,11 +513,12 @@ public class FormProcurarCarro extends javax.swing.JFrame {
     private javax.swing.JLabel login;
     private javax.swing.JLabel modelo;
     private javax.swing.JLabel nome;
+    private javax.swing.JButton pesquisar;
     private javax.swing.JLabel placa;
     private javax.swing.JButton procuraCarro;
-    private javax.swing.JComboBox quilometragem;
     private javax.swing.JLabel relogio;
     private javax.swing.JButton sair;
     private javax.swing.JTable tblPecas;
+    private javax.swing.JTextField txtKm;
     // End of variables declaration//GEN-END:variables
 }
