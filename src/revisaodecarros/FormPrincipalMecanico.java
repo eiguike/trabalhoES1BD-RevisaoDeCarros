@@ -394,7 +394,7 @@ public class FormPrincipalMecanico extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Nenhuma manutenção está sendo realizado no momento!", "Erro!", JOptionPane.OK_OPTION);
         }else{
             // carro e tiposerviço
-            new FormAdicionarPecas(this, instancia.getCarro(), instancia.getQuilometragem(), jLabel3.getText()).setVisible(true);
+            new FormAdicionarPecas(this, instancia.getCarro(), parseInt(instancia.getQuilometragem()), jLabel3.getText()).setVisible(true);
             this.setVisible(false);
         }                
     }//GEN-LAST:event_jButton3ActionPerformed
