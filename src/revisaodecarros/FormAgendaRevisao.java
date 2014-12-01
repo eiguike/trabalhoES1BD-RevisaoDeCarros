@@ -290,9 +290,23 @@ public class FormAgendaRevisao extends javax.swing.JFrame {
         jLabel14.setText("Tipo de Serviço:");
 
         jComboBox2.setEnabled(false);
+        jComboBox2.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
+                jComboBox2PopupMenuWillBecomeInvisible(evt);
+            }
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+            }
+        });
         jComboBox2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox2ActionPerformed(evt);
+            }
+        });
+        jComboBox2.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                jComboBox2PropertyChange(evt);
             }
         });
 
@@ -658,16 +672,10 @@ public class FormAgendaRevisao extends javax.swing.JFrame {
             jComboBox1.addItem(cliente.getEmpresarial() + " - Comercial");
             
             jComboBox1.setEnabled(true);
-            jComboBox2.setEnabled(true);
             
-            ArrayList<String> tipoRevisao = agendaControl.getTipoRevisao();
             
-            Integer i = 0;
-            while(i < tipoRevisao.size()){
-                jComboBox2.addItem(tipoRevisao.get(i).concat(" km"));
-                i++;
-                
-            }
+            //ArrayList<String> tipoRevisao = agendaControl.getTipoRevisao();
+            
             Date data = new Date();
             
             if(carro.getGarantia().before(data)){
@@ -732,7 +740,7 @@ public class FormAgendaRevisao extends javax.swing.JFrame {
 
             } else {
                 //nao
-                JOptionPane.showMessageDialog(this, "nao.");
+                //JOptionPane.showMessageDialog(this, "nao.");
             }
         }
     }//GEN-LAST:event_jTable1MousePressed
@@ -746,11 +754,34 @@ public class FormAgendaRevisao extends javax.swing.JFrame {
             jCalendar1.setEnabled(false);
             jTable1.setEnabled(false);
         }else{
-            jCalendar1.setEnabled(true);
-            jTable1.setEnabled(true);   
+            Integer kmAtual = parseInt(jTextField12.getText());
+            System.out.println(kmAtual);
             
+            ArrayList<String> TipoDeServicoLista = agendaControl.getRevisaoAtual(carro);
+            Integer i = 0;
+            while(i < TipoDeServicoLista.size()){
+                jComboBox2.addItem(TipoDeServicoLista.get(i).concat(" km"));
+                i++;    
+            }            
+            jComboBox2.setEnabled(true);
         }
     }//GEN-LAST:event_jTextField12FocusLost
+
+    private void jComboBox2PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jComboBox2PropertyChange
+
+    }//GEN-LAST:event_jComboBox2PropertyChange
+
+    private void jComboBox2PopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_jComboBox2PopupMenuWillBecomeInvisible
+        if(jComboBox2.isEnabled()){
+            jTextField13.setText(agendaControl.getPrecoTipoDeRevisao(jComboBox2.getSelectedItem().toString().substring(0, 5)).toString());
+            jTextField14.setText(agendaControl.getEstimativaRevisao(jComboBox2.getSelectedItem().toString().substring(0, 5)).toString());
+            jCalendar1.setEnabled(true);
+            jTable1.setEnabled(true);   
+        }else{
+            jCalendar1.setEnabled(false);
+            jTable1.setEnabled(false);   
+        }
+    }//GEN-LAST:event_jComboBox2PopupMenuWillBecomeInvisible
 
     /**
      * @param args the command line arguments

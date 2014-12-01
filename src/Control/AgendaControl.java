@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.sql.*;
 import Model.Agenda;
+import Model.Carro;
 
 /**
  *
@@ -20,9 +21,28 @@ public class AgendaControl {
         con = new ConexaoBD();
     }
     
-    public boolean getRevisaoAtual(){
+    public ArrayList<String> getRevisaoAtual(Carro aux){
         ResultSet rs = null;
-        String texto_consulta = "";
+        String texto_consulta = 
+                "select quilometragem from tiporevisao WHERE quilometragem NOT IN("
+                + "select quilometragem from revisao where placacarro='" +aux.getPlacaCarro()+ "')"
+                + "group by quilometragem order by quilometragem asc ";
+        
+        try{
+            con.st.execute(texto_consulta);
+            rs = con.st.getResultSet();
+            rs.next();
+            ArrayList<String> lista = new ArrayList<String>();
+            
+            while(rs.isAfterLast() == false){
+                lista.add(rs.getString(1));
+                rs.next();
+            }
+            return lista;
+            
+        }catch(SQLException e){
+            return null;
+        }
     }
     
     public ArrayList<String> getTipoRevisao(){
@@ -64,6 +84,38 @@ public class AgendaControl {
         }            
     }
     
+    public Integer getEstimativaRevisao(String quilometragem){
+        ResultSet rs = null;
+        String texto_consulta = 
+            "select sum(tempomedio) from tiporevisao, tipodeservico where quilometragem =" +quilometragem+ " and tipodeservico.codservico = tiporevisao.codservico";
+        System.out.println(texto_consulta);
+        
+        try{
+            con.st.execute(texto_consulta);
+            rs = con.st.getResultSet();
+            rs.next();
+            return rs.getInt(1);
+        }catch(SQLException e){
+            return -1;
+        }
+    }  
+    
+    public Integer getPrecoTipoDeRevisao(String quilometragem){
+        ResultSet rs = null;
+        String texto_consulta = 
+            "select sum(preco) from tiporevisao, tipodeservico where quilometragem ='" +quilometragem+ "' and tipodeservico.codservico = tiporevisao.codservico";
+        System.out.println(texto_consulta);
+        
+        try{
+            con.st.execute(texto_consulta);
+            rs = con.st.getResultSet();
+            rs.next();
+            return rs.getInt(1);
+        }catch(SQLException e){
+            return -1;
+        }
+    }
+    
     // recebe a data e o horário, retorna os cpfs
     public ArrayList<String> getMecanicoLivre(Date data, String horas){
         ArrayList<String> cpfRet = new ArrayList<String>();
@@ -72,10 +124,10 @@ public class AgendaControl {
         
         texto_consulta = 
         "SELECT CPF FROM FUNCIONARIO WHERE MECANICO ='t' AND CPF NOT IN (\n" +
-        "	SELECT CPFMECANICO as CPF FROM FuncionarioRevisao, Revisao, Revisao2\n" +
+        "	SELECT CPFMECANICO as CPF FROM FuncionarioRevisao, Revisao, RevisaoPrincipal\n" +
         "	WHERE FuncionarioRevisao.codRevisao = Revisao.codRevisao\n" +
-        "	AND Revisao.codRevisao = Revisao2.codRevisao\n" +
-        "	AND  Revisao2.dataRevisao = '"+ data +"' AND hora = '"+ horas +"'\n" +
+        "	AND Revisao.codRevisao = RevisaoPrincipal.codRevisao\n" +
+        "	AND  RevisaoPrincipal.dataRevisao = '"+ data +"' AND hora = '"+ horas +"'\n" +
         ")";
         
         System.out.println(texto_consulta);
@@ -111,27 +163,27 @@ public class AgendaControl {
         }
         return 0;// pensando em como fazer ainda... :P
     }
-    
-    public boolean setAgendamento(ArrayList<String> CPFMecanico, Agenda agenda){
+
+    public boolean setAgendamento(ArrayList<String> CPFMecanico, Agenda agenda) {
         Date date = new Date();
-        String texto_consulta =
-                " INSERT INTO REVISAO2 (kmatual, datarevisao, hora) VALUES ("+agenda.getKmatual()+",'"+ agenda.getData()+"','"+ agenda.getHora() +"');"
-                + "INSERT INTO REVISAO VALUES((SELECT MAX(CODREVISAO) FROM REVISAO2), '" +CPFMecanico.get(0)+ "', '" +agenda.getCarro().getPlacaCarro()+ "',"
-                + "'"+agenda.getCliente().getCPF()+"', (SELECT CODSERVICO FROM TipoRevisao WHERE quilometragem = '" +agenda.getTipoDeRevisao().substring(0, 5) +"'));"
-                + "INSERT INTO FuncionarioRevisao VALUES((SELECT CPF FROM FUNCIONARIO WHERE login = '"+agenda.getUsuarioFuncionario()+"'), "
-                + "'" +date+ "', (SELECT MAX(codrevisao) FROM REVISAO2))";
-       System.out.println(texto_consulta);
-        System.out.println(agenda.getTipoDeRevisao().substring(0, 4) );
+        String texto_consulta
+                = " INSERT INTO RevisaoPrincipal (kmatual, datarevisao, hora) VALUES (" + agenda.getKmatual() + ",'" + agenda.getData() + "','" + agenda.getHora() + "');"
+                + "INSERT INTO REVISAO VALUES((SELECT MAX(CODREVISAO) FROM RevisaoPrincipal), '" + CPFMecanico.get(0) + "', '" + agenda.getCarro().getPlacaCarro() + "',"
+                + "'" + agenda.getCliente().getCPF() + "', '" + agenda.getTipoDeRevisao().substring(0, 5) + "');"
+                + "INSERT INTO FuncionarioRevisao VALUES((SELECT CPF FROM FUNCIONARIO WHERE login = '" + agenda.getUsuarioFuncionario() + "'), "
+                + "'" + date + "', (SELECT MAX(codrevisao) FROM RevisaoPrincipal))";
         System.out.println(texto_consulta);
-        
-        try{
+        System.out.println(agenda.getTipoDeRevisao().substring(0, 4));
+        System.out.println(texto_consulta);
+
+        try {
             con.st.execute(texto_consulta);
-        }catch(SQLException e){
-          return false;
-        }           
-        return true;        
+        } catch (SQLException e) {
+            return false;
+        }
+        return true;
     }
-    
+
     public ArrayList<Integer> getHorarioLivre(Date aux){
         ArrayList<Integer> horarioRet = new ArrayList<Integer>();
         ResultSet rs = null;  
@@ -145,30 +197,30 @@ public class AgendaControl {
         texto_consulta = 
         
         "SELECT oitoHoras, dezHoras, dozeHoras, catorzeHoras, dezesseisHoras FROM(\n" +
-        "SELECT COUNT(Revisao2.codRevisao) as oitoHoras FROM FuncionarioRevisao, Revisao, Revisao2\n" +
+        "SELECT COUNT(RevisaoPrincipal.codRevisao) as oitoHoras FROM FuncionarioRevisao, Revisao, RevisaoPrincipal\n" +
         "WHERE FuncionarioRevisao.codRevisao = Revisao.codRevisao\n" +
-        "AND Revisao.codRevisao = Revisao2.codRevisao\n" +
-        "AND  Revisao2.dataRevisao = '"+ aux +"'\n" +
+        "AND Revisao.codRevisao = RevisaoPrincipal.codRevisao\n" +
+        "AND  RevisaoPrincipal.dataRevisao = '"+ aux +"'\n" +
         "AND hora = '8:00') AS oitoHoras,\n" +
-        "(SELECT COUNT(Revisao2.codRevisao) as dezHoras FROM FuncionarioRevisao, Revisao, Revisao2\n" +
+        "(SELECT COUNT(RevisaoPrincipal.codRevisao) as dezHoras FROM FuncionarioRevisao, Revisao, RevisaoPrincipal\n" +
         "WHERE FuncionarioRevisao.codRevisao = Revisao.codRevisao\n" +
-        "AND Revisao.codRevisao = Revisao2.codRevisao\n" +
-        "AND  Revisao2.dataRevisao = '"+ aux +"'\n" +
+        "AND Revisao.codRevisao = RevisaoPrincipal.codRevisao\n" +
+        "AND  RevisaoPrincipal.dataRevisao = '"+ aux +"'\n" +
         "AND hora = '10:00') AS dezHoras,\n" +
-        "(SELECT COUNT(Revisao2.codRevisao) as dozeHoras FROM FuncionarioRevisao, Revisao, Revisao2\n" +
+        "(SELECT COUNT(RevisaoPrincipal.codRevisao) as dozeHoras FROM FuncionarioRevisao, Revisao, RevisaoPrincipal\n" +
         "WHERE FuncionarioRevisao.codRevisao = Revisao.codRevisao\n" +
-        "AND Revisao.codRevisao = Revisao2.codRevisao\n" +
-        "AND  Revisao2.dataRevisao = '"+ aux +"'\n" +
+        "AND Revisao.codRevisao = RevisaoPrincipal.codRevisao\n" +
+        "AND  RevisaoPrincipal.dataRevisao = '"+ aux +"'\n" +
         "AND hora = '12:00') AS dozeHoras,\n" +
-        "(SELECT COUNT(Revisao2.codRevisao) as catorzeHoras FROM FuncionarioRevisao, Revisao, Revisao2\n" +
+        "(SELECT COUNT(RevisaoPrincipal.codRevisao) as catorzeHoras FROM FuncionarioRevisao, Revisao, RevisaoPrincipal\n" +
         "WHERE FuncionarioRevisao.codRevisao = Revisao.codRevisao\n" +
-        "AND Revisao.codRevisao = Revisao2.codRevisao\n" +
-        "AND  Revisao2.dataRevisao = '"+ aux +"'\n" +
+        "AND Revisao.codRevisao = RevisaoPrincipal.codRevisao\n" +
+        "AND  RevisaoPrincipal.dataRevisao = '"+ aux +"'\n" +
         "AND hora = '14:00') AS duasHoras,\n" +
-        "(SELECT COUNT(Revisao2.codRevisao) as dezesseisHoras FROM FuncionarioRevisao, Revisao, Revisao2\n" +
+        "(SELECT COUNT(RevisaoPrincipal.codRevisao) as dezesseisHoras FROM FuncionarioRevisao, Revisao, RevisaoPrincipal\n" +
         "WHERE FuncionarioRevisao.codRevisao = Revisao.codRevisao\n" +
-        "AND Revisao.codRevisao = Revisao2.codRevisao\n" +
-        "AND Revisao2.dataRevisao = '"+ aux +"'\n" +
+        "AND Revisao.codRevisao = RevisaoPrincipal.codRevisao\n" +
+        "AND RevisaoPrincipal.dataRevisao = '"+ aux +"'\n" +
         "AND hora = '16:00') AS quatroHoras;";
  
        
