@@ -31,6 +31,9 @@ public class FormAdicionarPecas extends javax.swing.JFrame {
     ArrayList<Pecas> pecas;
     PecasControl pecaControl;
     
+    Integer km;
+    Integer num_pecas;
+    
     public FormPrincipalMecanico formPrincipal;
     /**
      * Creates new form FormAdicionarPecas
@@ -63,6 +66,8 @@ public class FormAdicionarPecas extends javax.swing.JFrame {
             model.addRow(new Object[]{aux.getDescricao(), aux.getGarantia()});
             i++;
         }
+        num_pecas = i;
+        km = quilometragem;
     }
     
     private void fecharFormulario(){
@@ -118,6 +123,12 @@ public class FormAdicionarPecas extends javax.swing.JFrame {
         });
 
         jbRemover.setText("Remover");
+        jbRemover.setEnabled(false);
+        jbRemover.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbRemoverActionPerformed(evt);
+            }
+        });
 
         jbSairSemSalvar.setText("Sair sem salvar");
         jbSairSemSalvar.addActionListener(new java.awt.event.ActionListener() {
@@ -169,6 +180,11 @@ public class FormAdicionarPecas extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblPecas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tblPecasMousePressed(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblPecas);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -276,8 +292,78 @@ public class FormAdicionarPecas extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosing
 
     private void jbAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAdicionarActionPerformed
+        ArrayList<Pecas> pecas = new ArrayList<Pecas>();
+        Pecas peca = new Pecas();
         
+        pecas = pecaControl.getPecasDemais(km);
+        
+        if(pecas != null){
+            ArrayList<String> lista = new ArrayList<String>();
+            Integer j = 0;
+            while(j < pecas.size()){
+                lista.add(pecas.get(j).getDescricao());
+                j++;
+            }
+            Object [] choices = lista.toArray();
+
+            //Input dialog with a combo box 
+            String picked = (String)JOptionPane.showInputDialog(this, "Escolha a peça:"
+                            , "Peças encontrados", JOptionPane.QUESTION_MESSAGE
+                            , null, choices, choices[0]);
+            j=0;
+            while(j < pecas.size()){
+                if(picked.compareTo(pecas.get(j).getDescricao()) == 0)
+                    break;
+                else
+                    j++;
+            }
+            peca = pecas.get(j);
+            
+            model.addRow(new Object[]{peca.getDescricao(), peca.getGarantia()});
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(this, "O sistema não retornou nenhuma peça", "Erro!", JOptionPane.OK_OPTION);
+        }
     }//GEN-LAST:event_jbAdicionarActionPerformed
+
+    private void jbRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbRemoverActionPerformed
+        Integer i;
+
+        int n = JOptionPane.showConfirmDialog(
+                this,
+                "Você tem certeza que deseja excluir a peça selecionada?",
+                "Sair",
+                JOptionPane.YES_NO_OPTION);
+        if (n == JOptionPane.YES_OPTION) {
+            if(tblPecas.getSelectedRow() != -1)
+            {
+                if(tblPecas.getSelectedRow() > num_pecas-1)
+                {
+                    ((DefaultTableModel)tblPecas.getModel()).removeRow(tblPecas.getSelectedRow());
+                }
+                else
+                {
+                    JOptionPane.showMessageDialog(this, "Você não pode remover uma peça que faz parte da revisão que será feita!", "Erro!", JOptionPane.OK_OPTION);
+                }
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(this, "Você precisa escolher uma peça para ser excluída", "Erro!", JOptionPane.OK_OPTION);
+            }
+        }
+    }//GEN-LAST:event_jbRemoverActionPerformed
+
+    private void tblPecasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPecasMousePressed
+        if(tblPecas.getSelectedRow() != -1)
+        {
+            jbRemover.enable(true);
+        }
+        else
+        {
+            jbRemover.enable(true);
+        }
+    }//GEN-LAST:event_tblPecasMousePressed
 
     /**
      * @param args the command line arguments

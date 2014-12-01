@@ -104,7 +104,11 @@
         <Component class="javax.swing.JButton" name="jbRemover">
           <Properties>
             <Property name="text" type="java.lang.String" value="Remover"/>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbRemoverActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jbSairSemSalvar">
           <Properties>
@@ -170,6 +174,9 @@
                   </Table>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tblPecasMousePressed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
