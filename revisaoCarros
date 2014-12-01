@@ -158,12 +158,12 @@ INSERT INTO Funcionario VALUES('90134578459','Joao','1111','estrela',false);
 INSERT INTO Funcionario VALUES('42312309878','Gustavo','1111','scarface',false);
 
 --Tabela RevisaoPrincipal
-INSERT INTO RevisaoPrincipal VALUES(1, 11534, '2014-11-25', '8:00');
-INSERT INTO RevisaoPrincipal VALUES(2, 20334, '2014-11-26', '8:00');
-INSERT INTO RevisaoPrincipal VALUES(3, 38999, '2014-11-25', '10:00');
-INSERT INTO RevisaoPrincipal VALUES(4, 44098, '2014-11-26', '10:00');
-INSERT INTO RevisaoPrincipal VALUES(5, 10300, '2014-11-26', '8:00');
-INSERT INTO RevisaoPrincipal VALUES(6, 59000, '2014-11-25', '10:00');
+INSERT INTO RevisaoPrincipal (kmatual, datarevisao, hora) VALUES(11534, '2014-11-25', '8:00');
+INSERT INTO RevisaoPrincipal (kmatual, datarevisao, hora) VALUES(20334, '2014-11-26', '8:00');
+INSERT INTO RevisaoPrincipal (kmatual, datarevisao, hora) VALUES(38999, '2014-11-25', '10:00');
+INSERT INTO RevisaoPrincipal (kmatual, datarevisao, hora) VALUES(44098, '2014-11-26', '10:00');
+INSERT INTO RevisaoPrincipal (kmatual, datarevisao, hora) VALUES(10300, '2014-11-26', '8:00');
+INSERT INTO RevisaoPrincipal (kmatual, datarevisao, hora) VALUES(59000, '2014-11-25', '10:00');
 
 --Tabela FuncionarioRevisao
 INSERT INTO FuncionarioRevisao VALUES('90134578459', '2014-11-21', 1);
