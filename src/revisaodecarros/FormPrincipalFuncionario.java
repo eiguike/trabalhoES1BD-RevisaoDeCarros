@@ -411,7 +411,10 @@ public class FormPrincipalFuncionario extends javax.swing.JFrame {
         }
         else //mensagem de erro caso ele não tenha inserido as datas
         {
-            JOptionPane.showMessageDialog(this, "Você precisa inserir uma data!", "Erro!", JOptionPane.OK_OPTION);
+            if(response != JOptionPane.CANCEL_OPTION)
+            {
+                JOptionPane.showMessageDialog(this, "Você precisa inserir uma data!", "Erro!", JOptionPane.OK_OPTION);
+            }
         }
     }//GEN-LAST:event_buttonPesquisaActionPerformed
 

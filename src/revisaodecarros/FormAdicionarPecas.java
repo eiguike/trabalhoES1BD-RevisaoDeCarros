@@ -56,7 +56,7 @@ public class FormAdicionarPecas extends javax.swing.JFrame {
         tblPecas.setEnabled(true);
         
         i = 0;
-        pecas = pecaControl.getPecasRevisao(carro.getPlacaCarro(), quilometragem);
+        pecas = pecaControl.getPecasRevisao(quilometragem);
         while (i < pecas.size()) {
             Pecas aux = new Pecas();
             aux = pecas.get(i);
@@ -111,6 +111,11 @@ public class FormAdicionarPecas extends javax.swing.JFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Ações", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 10))); // NOI18N
 
         jbAdicionar.setText("Adicionar");
+        jbAdicionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbAdicionarActionPerformed(evt);
+            }
+        });
 
         jbRemover.setText("Remover");
 
@@ -248,7 +253,18 @@ public class FormAdicionarPecas extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbSalvarSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalvarSairActionPerformed
-        // TODO add your handling code here:
+        int n = JOptionPane.showConfirmDialog(
+            this,
+            "Você tem certeza que gostaria de sair sem salvar?",
+            "Sair",
+            JOptionPane.YES_NO_OPTION);
+        if(n==0){
+            //add mais coisas aqui antes de sair
+            // para retornar as pecas adicionadas
+            formPrincipal.setVisible(true);
+            clock.stop();
+            this.dispose();
+        } 
     }//GEN-LAST:event_jbSalvarSairActionPerformed
 
     private void jbSairSemSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSairSemSalvarActionPerformed
@@ -258,6 +274,10 @@ public class FormAdicionarPecas extends javax.swing.JFrame {
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         fecharFormulario();
     }//GEN-LAST:event_formWindowClosing
+
+    private void jbAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAdicionarActionPerformed
+        
+    }//GEN-LAST:event_jbAdicionarActionPerformed
 
     /**
      * @param args the command line arguments

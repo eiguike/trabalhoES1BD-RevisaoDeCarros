@@ -5,8 +5,15 @@
  */
 package revisaodecarros;
 
+import Control.AgendaControl;
+import Model.Agenda;
+import com.toedter.calendar.JDateChooser;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -14,6 +21,8 @@ import javax.swing.JOptionPane;
  */
 public class FormHistorico extends javax.swing.JFrame {
     ClockTest clock;
+    ArrayList<Agenda> agenda = new ArrayList<Agenda>();
+    AgendaControl conexao;
     
     public FormPrincipalFuncionario formPrincipal;
     
@@ -28,6 +37,48 @@ public class FormHistorico extends javax.swing.JFrame {
         initComponents();
         txtUser.setText(login);
         clock = new ClockTest(txtDate);
+        conexao = new AgendaControl();
+        
+        Date dataOntem = new Date();
+        Date dataMes = new Date();
+        
+        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat textBox = new SimpleDateFormat("dd-MM-yyyy");
+        
+        //AUIOEGHOIEHQOIWUERHIOQUWHIOERUHEQIUWR JAPONEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEIS
+        dataOntem.setDate(dataOntem.getDate()-1);
+        dataMes.setDate(dataMes.getDate()-30);
+        
+        String fim = textBox.format(dataOntem);
+        String inicio = textBox.format(dataMes);
+        
+        String fim_pesquisa = formato.format(dataOntem);
+        String inicio_pesquisa = formato.format(dataMes);    
+        
+        txtInicio.setText(inicio.replaceAll("[-]", ""));
+        txtFim.setText(fim.replaceAll("[-]", ""));
+        
+        Agenda agendinha = new Agenda();
+        agenda = conexao.getRevisaoPorPeriodo(inicio_pesquisa, fim_pesquisa);
+        
+        //Montagem da tabela
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("Data");
+        model.addColumn("Hora");
+        model.addColumn("Mecânico");
+        model.addColumn("Cliente");
+        model.addColumn("Carro");
+        
+        if(agenda != null)
+        {
+            Integer i=0;
+            while (i < agenda.size()) {
+                    agendinha = agenda.get(i);
+                    model.addRow(new Object[]{agendinha.getData().toString(),agendinha.getHora(),agendinha.getCpfMecanicos().get(0),agendinha.getCliente().getNome(),agendinha.getCarro().getModelo()});
+                    i++;
+            }
+        }
+        tableRevisao.setModel(model);
     }
 
     /**
@@ -41,11 +92,31 @@ public class FormHistorico extends javax.swing.JFrame {
 
         panelAcao = new javax.swing.JPanel();
         buttonSair2 = new javax.swing.JButton();
+        buttonPeriodo = new javax.swing.JButton();
         panelInfo = new javax.swing.JPanel();
         lblUser = new javax.swing.JLabel();
         txtUser = new javax.swing.JLabel();
         lblDate = new javax.swing.JLabel();
         txtDate = new javax.swing.JLabel();
+        panelRevisao = new javax.swing.JPanel();
+        scrRevisao = new javax.swing.JScrollPane();
+        tableRevisao = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        txtInicio = new javax.swing.JTextField();
+        try{  
+            javax.swing.text.MaskFormatter inicio = new javax.swing.text.MaskFormatter("##/##/####");
+            txtInicio = new javax.swing.JFormattedTextField(inicio);
+        }  
+        catch (Exception e){  
+        }
+        jLabel2 = new javax.swing.JLabel();
+        txtFim = new javax.swing.JTextField();
+        try{  
+            javax.swing.text.MaskFormatter fim = new javax.swing.text.MaskFormatter("##/##/####");
+            txtFim = new javax.swing.JFormattedTextField(fim);
+        }  
+        catch (Exception e){  
+        }
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -64,19 +135,30 @@ public class FormHistorico extends javax.swing.JFrame {
             }
         });
 
+        buttonPeriodo.setText("Período");
+        buttonPeriodo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonPeriodoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelAcaoLayout = new javax.swing.GroupLayout(panelAcao);
         panelAcao.setLayout(panelAcaoLayout);
         panelAcaoLayout.setHorizontalGroup(
             panelAcaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelAcaoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(buttonSair2, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
+                .addGroup(panelAcaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(buttonSair2, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
+                    .addComponent(buttonPeriodo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         panelAcaoLayout.setVerticalGroup(
             panelAcaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelAcaoLayout.createSequentialGroup()
-                .addContainerGap(378, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(buttonPeriodo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(buttonSair2)
                 .addContainerGap())
         );
@@ -114,6 +196,77 @@ public class FormHistorico extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        panelRevisao.setBorder(javax.swing.BorderFactory.createTitledBorder("Revisões Feitas"));
+        panelRevisao.setName(""); // NOI18N
+
+        tableRevisao.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        scrRevisao.setViewportView(tableRevisao);
+
+        jLabel1.setText("De:");
+        jLabel1.setFocusable(false);
+        jLabel1.setRequestFocusEnabled(false);
+        jLabel1.setVerifyInputWhenFocusTarget(false);
+
+        txtInicio.setEditable(false);
+        txtInicio.setAutoscrolls(false);
+        txtInicio.setFocusable(false);
+        txtInicio.setRequestFocusEnabled(false);
+        txtInicio.setVerifyInputWhenFocusTarget(false);
+
+        jLabel2.setText("Até:");
+        jLabel2.setFocusable(false);
+        jLabel2.setRequestFocusEnabled(false);
+        jLabel2.setVerifyInputWhenFocusTarget(false);
+
+        txtFim.setEditable(false);
+        txtFim.setAutoscrolls(false);
+        txtFim.setFocusable(false);
+        txtFim.setRequestFocusEnabled(false);
+        txtFim.setVerifyInputWhenFocusTarget(false);
+
+        javax.swing.GroupLayout panelRevisaoLayout = new javax.swing.GroupLayout(panelRevisao);
+        panelRevisao.setLayout(panelRevisaoLayout);
+        panelRevisaoLayout.setHorizontalGroup(
+            panelRevisaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelRevisaoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(scrRevisao, javax.swing.GroupLayout.DEFAULT_SIZE, 521, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRevisaoLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtFim, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(155, 155, 155))
+        );
+        panelRevisaoLayout.setVerticalGroup(
+            panelRevisaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRevisaoLayout.createSequentialGroup()
+                .addGap(6, 6, 6)
+                .addGroup(panelRevisaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(txtInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2)
+                    .addComponent(txtFim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(scrRevisao, javax.swing.GroupLayout.DEFAULT_SIZE, 364, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -121,20 +274,23 @@ public class FormHistorico extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 559, Short.MAX_VALUE)
-                        .addComponent(panelAcao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(panelInfo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(panelInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(panelRevisao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(panelAcao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(panelAcao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(panelAcao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelRevisao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addComponent(panelInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
         pack();
@@ -167,6 +323,83 @@ public class FormHistorico extends javax.swing.JFrame {
 
         }
     }//GEN-LAST:event_formWindowClosing
+
+    private void buttonPeriodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPeriodoActionPerformed
+        JDateChooser inicio = new JDateChooser();
+        JDateChooser fim = new JDateChooser();
+        ArrayList<Agenda> agenda = new ArrayList<Agenda>();
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+        Date today = new Date();
+               
+        //Criação da mensagem com o txtField
+        Object[] mensagem = {
+            "Data do Inicio do período: ", inicio,
+            "Data do Fim do período: ", fim,
+        };
+        
+        //Mostra o field
+        int response = JOptionPane.showConfirmDialog(null, mensagem, "Pesquisa", JOptionPane.OK_CANCEL_OPTION);
+        
+        //verifica se o usuário inseriu as datas
+        if(inicio.getDate() != null && fim.getDate() != null)
+        {
+            //Verifica se a data vêm antes da data de inicio
+            if(fim.getDate().before(inicio.getDate()))   
+            {
+                JOptionPane.showMessageDialog(this, "A data de início não pode ser uma data posterior à de fim!", "Erro!", JOptionPane.OK_OPTION);
+            }
+            else if(inicio.getDate().after(today) || fim.getDate().after(today))
+            {
+                JOptionPane.showMessageDialog(this, "Você não pode escolher uma data que seja anterior à hoje!", "Erro!", JOptionPane.OK_OPTION);
+            }
+            //caso a data seja maior que a de inicio
+            else
+            {
+                //caso o usuário tenha apertado ok
+                if(response == JOptionPane.OK_OPTION)
+                {
+                    String stringInicio, stringFim;
+
+                    stringInicio = formato.format(inicio.getDate());
+                    stringFim = formato.format(fim.getDate());
+
+                    agenda = conexao.getRevisaoPorPeriodo(stringInicio, stringFim);
+                    //caso a agenda não seja nulo, continua
+                    if(agenda != null)
+                    {
+                        //Montagem da tabela
+                        DefaultTableModel model = new DefaultTableModel();
+                        model.addColumn("Data");
+                        model.addColumn("Hora");
+                        model.addColumn("Mecânico");
+                        model.addColumn("Cliente");
+                        model.addColumn("Carro");
+
+                        Integer i=0;
+                        while (i < agenda.size()) {
+                                Agenda agendinha = new Agenda();
+
+                                agendinha = agenda.get(i);
+                                model.addRow(new Object[]{agendinha.getData().toString(),agendinha.getHora(),agendinha.getCpfMecanicos().get(0),agendinha.getCliente().getNome(),agendinha.getCarro().getModelo()});
+                                i++;
+                        }
+                        tableRevisao.setModel(model);
+
+                        txtInicio.setText(stringInicio.replaceAll("[/]", ""));
+                        txtFim.setText(stringFim.replaceAll("[/]", ""));
+                    }
+                    else //caso a agenda esteja nula, avisa
+                    {
+                        JOptionPane.showMessageDialog(this, "Não foram encontradas revisões no período informado!", "Erro!", JOptionPane.OK_OPTION);
+                    }
+                }
+            }
+        }
+        else //mensagem de erro caso ele não tenha inserido as datas
+        {
+            JOptionPane.showMessageDialog(this, "Você precisa inserir uma data!", "Erro!", JOptionPane.OK_OPTION);
+        }
+    }//GEN-LAST:event_buttonPeriodoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -204,12 +437,20 @@ public class FormHistorico extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton buttonPeriodo;
     private javax.swing.JButton buttonSair2;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel lblDate;
     private javax.swing.JLabel lblUser;
     private javax.swing.JPanel panelAcao;
     private javax.swing.JPanel panelInfo;
+    private javax.swing.JPanel panelRevisao;
+    private javax.swing.JScrollPane scrRevisao;
+    private javax.swing.JTable tableRevisao;
     private javax.swing.JLabel txtDate;
+    private javax.swing.JTextField txtFim;
+    private javax.swing.JTextField txtInicio;
     private javax.swing.JLabel txtUser;
     // End of variables declaration//GEN-END:variables
 }
