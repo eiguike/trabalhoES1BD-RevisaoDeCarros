@@ -1022,7 +1022,7 @@ public class FormControleCliente extends javax.swing.JFrame {
             aux.setChassi(txtChassi.getText());
             aux.setCor(txtCor.getText());
             aux.setModelo(txtModel.getText());
-            aux.setPlacaCarro(txtPlaca.getText().replaceAll("[(-.]",""));
+            aux.setPlacaCarro(txtPlaca.getText());
 
             buttonEditar.setEnabled(false);
 
