@@ -40,7 +40,7 @@ public class FormPrincipalMecanico extends javax.swing.JFrame {
             atualizarInstancia();
         }
     };
-    Timer timer = new Timer(10*1000, actListner);
+    Timer timer = new Timer(1*1000, actListner);
     /**
      * Creates new form FormPrincipalMecanico
      */
@@ -84,7 +84,16 @@ public class FormPrincipalMecanico extends javax.swing.JFrame {
                     }
                 }            
             }
-            if(data.getHours() >= 14 && data.getHours() < 16){
+            if(data.getHours() >= 10 && data.getHours() < 12){
+                for(i=0;i<lista.size();i++){
+                    if(parseInt(lista.get(i).getHora().substring(0, 2))==10){
+                        jLabel6.setText(lista.get(i).getCliente().getNome());
+                        instancia = lista.get(i);
+                        return;
+                    }
+                }            
+            }            
+            if(data.getHours() >= 12 && data.getHours() < 14){
                 for(i=0;i<lista.size();i++){
                     if(parseInt(lista.get(i).getHora().substring(0, 2))==12){
                         jLabel6.setText(lista.get(i).getCliente().getNome());
@@ -114,11 +123,12 @@ public class FormPrincipalMecanico extends javax.swing.JFrame {
         model.addColumn("Hora");
         model.addColumn("Nome do Cliente");
         model.addColumn("Placa do Carro");
+        model.addColumn("Tipo de Revisao");
            
         if(lista != null){
             Integer i=0;
             while (i < lista.size()) {
-                    model.addRow(new Object[]{lista.get(i).getData(),lista.get(i).getHora(),lista.get(i).getCliente().getNome(),lista.get(i).getCarro().getPlacaCarro()});
+                    model.addRow(new Object[]{lista.get(i).getData(),lista.get(i).getHora(),lista.get(i).getCliente().getNome(),lista.get(i).getCarro().getPlacaCarro(),lista.get(i).getQuilometragem()});
                     i++;
             }        
         }
@@ -217,6 +227,7 @@ public class FormPrincipalMecanico extends javax.swing.JFrame {
         });
 
         jToggleButton2.setText("Ir para outra Revisão (F4)");
+        jToggleButton2.setToolTipText("Realiza revisão para um outro carro");
         jToggleButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jToggleButton2ActionPerformed(evt);

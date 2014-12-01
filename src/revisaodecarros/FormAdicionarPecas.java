@@ -48,6 +48,7 @@ public class FormAdicionarPecas extends javax.swing.JFrame {
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         initComponents();
         clock = new ClockTest(lbdataHora);  
+        pecaControl = new PecasControl();
         nomeLogin.setText(nomeUsuario);
         
         // trata a tabela

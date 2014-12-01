@@ -79,7 +79,7 @@ public class PecasControl {
 
         ResultSet rs = null;
         String texto_consulta = "SELECT Peca.nome, Peca.vencimento FROM Peca, TipoRevisao \n" +
-                    " WHERE TipoRevisao.quilometragem = " + quilometragem;
+                    " WHERE peca.codpeca = tiporevisao.codpeca AND TipoRevisao.quilometragem = " + quilometragem;
         
         System.out.println(texto_consulta);
         
