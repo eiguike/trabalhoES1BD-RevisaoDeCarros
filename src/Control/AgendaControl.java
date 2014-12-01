@@ -9,6 +9,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.sql.*;
 import Model.Agenda;
+import Model.Carro;
+import Model.Cliente;
+import Model.Funcionario;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 /**
  *
@@ -191,5 +197,55 @@ public class AgendaControl {
           return null;
         }
         return horarioRet;        
+    }
+    
+    public ArrayList<Agenda> getRevisaoPorPeriodo(Date inicio, Date fim)
+    {
+        ArrayList<Agenda> Horarios = new ArrayList<Agenda>();
+        ArrayList<String> mecanico = new ArrayList<String>();
+        Agenda agenda = new Agenda();
+        Cliente cliente = new Cliente();
+        Carro carro = new Carro();
+        Funcionario func = new Funcionario();
+        ResultSet rs = null;  
+        String texto_consulta = null;
+        DateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+        Date string;
+        
+        texto_consulta = "SELECT RevisaoPrincipal.dataRevisao, RevisaoPrincipal.hora, Funcionario.CPF, Funcionario.nome, Cliente.CPF, Cliente.nome, Carro.placaCarro, Carro.modelo" +
+                "FROM Revisao, Funcionario, Cliente, Carro, RevisaoPrincipal" +
+                "WHERE RevisaoPrincipal.dataRevisao >= "+ inicio + " AND " +
+                "RevisaoPrincipal.dataRevisao <= "+ fim + " AND " +
+                "RevisaoPrincipal.codRevisao = Revisao.codRevisao AND "+
+                "Revisao.CPFMecanico = Funcionario.CPF AND "+
+                "Revisao.placaCarro = Carro.placaCarro AND "+
+                "Revisao.CPFCliente = Cliente.CPF";
+        
+        System.out.println(texto_consulta);
+        try{
+          con.st.execute(texto_consulta);
+          rs = con.st.getResultSet();
+          rs.next();
+          
+          while(rs.isAfterLast() == false)
+          {      
+            string = (Date)formato.parse(rs.getString(1));
+            agenda.setData(string);
+            agenda.setHora(rs.getString(2));
+            func.setCPF(rs.getString(3));
+            func.setNome(rs.getString(4));
+            cliente.setCPF(rs.getString(5));
+            cliente.setNome(rs.getString(6));
+            carro.setPlacaCarro(rs.getString(7));
+            carro.setModelo(rs.getString(8));
+            Horarios.add(agenda);
+            
+            rs.next();
+          }
+        }catch(SQLException e){
+          return null;
+        }
+        
+        return Horarios;
     }
 }

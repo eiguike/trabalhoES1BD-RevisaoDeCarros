@@ -4,8 +4,12 @@
  */
 package revisaodecarros;
 
+import Model.Agenda;
+import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import Control.AgendaControl;
 
 /**
  *
@@ -13,9 +17,9 @@ import javax.swing.JOptionPane;
  */
 public class FormPrincipalFuncionario extends javax.swing.JFrame {
     ClockTest clock;
-    /**
-     * Creates new form FormPrincipalFuncionario
-     */
+    ArrayList<Agenda> agenda = new ArrayList<Agenda>();
+    AgendaControl conexao;
+    
     public FormPrincipalFuncionario() {
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         initComponents();
@@ -24,7 +28,10 @@ public class FormPrincipalFuncionario extends javax.swing.JFrame {
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         initComponents();
         txtUser.setText(login);
-        clock = new ClockTest(txtDate); 
+        clock = new ClockTest(txtDate);
+        conexao = new AgendaControl();
+        Date data = new Date();
+        agenda = conexao.getRevisaoPorPeriodo(data, data);
     }
 
     /**
@@ -250,8 +257,7 @@ public class FormPrincipalFuncionario extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonRevisaoActionPerformed
 
     private void buttonPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPesquisaActionPerformed
-        new FormPesquisa(this, txtUser.getText()).setVisible(true);
-        this.setVisible(false);
+        
     }//GEN-LAST:event_buttonPesquisaActionPerformed
 
     private void buttonHistoricoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonHistoricoActionPerformed
