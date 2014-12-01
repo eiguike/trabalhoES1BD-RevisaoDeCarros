@@ -33,6 +33,8 @@ public class FormAdicionarPecas extends javax.swing.JFrame {
     
     Integer km;
     Integer num_pecas;
+    Carro carro;
+    Integer quilometragem;
     
     public FormPrincipalMecanico formPrincipal;
     /**
@@ -44,6 +46,8 @@ public class FormAdicionarPecas extends javax.swing.JFrame {
     }
     public FormAdicionarPecas(FormPrincipalMecanico form, Carro carro, Integer quilometragem, String nomeUsuario) {
         Integer i;
+        carro = carro;
+        quilometragem = quilometragem;
         formPrincipal = form;
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         initComponents();
@@ -305,6 +309,8 @@ public class FormAdicionarPecas extends javax.swing.JFrame {
                 }
                 listapecas.add(auxPeca);                
                 i++;
+                
+                pecaControl.setPecas(listapecas, quilometragem.toString(), carro);
             }
             formPrincipal.setVisible(true);
             clock.stop();

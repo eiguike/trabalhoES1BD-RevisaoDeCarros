@@ -30,22 +30,22 @@ public class ClockTest extends JFrame {
                 {
                     if(data.getHours() >= 0 && data.getHours() < 10)
                     {
-                        clock.setText("0"+data.getHours()+":0"+data.getMinutes()+":0"+data.getSeconds());
+                        clock.setText(data.getDay()+"/"+data.getMonth()+"/"+(data.getYear()+1900)+" "+"0"+data.getHours()+":0"+data.getMinutes()+":0"+data.getSeconds());
                     }
                     else
                     {
-                        clock.setText(data.getHours()+":0"+data.getMinutes()+":0"+data.getSeconds());
+                        clock.setText(data.getDay()+"/"+data.getMonth()+"/"+(data.getYear()+1900)+" "+data.getHours()+":0"+data.getMinutes()+":0"+data.getSeconds());
                     }
                 }
                 else
                 {
                     if(data.getHours() >= 0 && data.getHours() < 10)
                     {
-                        clock.setText("0"+data.getHours()+":"+data.getMinutes()+":0"+data.getSeconds());
+                        clock.setText(data.getDay()+"/"+data.getMonth()+"/"+(data.getYear()+1900)+" "+"0"+data.getHours()+":"+data.getMinutes()+":0"+data.getSeconds());
                     }
                     else
                     {
-                        clock.setText(data.getHours()+":"+data.getMinutes()+":0"+data.getSeconds());
+                        clock.setText(data.getDay()+"/"+data.getMonth()+"/"+(data.getYear()+1900)+" "+data.getHours()+":"+data.getMinutes()+":0"+data.getSeconds());
                     }
                 }
             }
@@ -55,22 +55,22 @@ public class ClockTest extends JFrame {
                 {
                     if(data.getHours() >= 0 && data.getHours() < 10)
                     {
-                        clock.setText("0"+data.getHours()+":0"+data.getMinutes()+":"+data.getSeconds());
+                        clock.setText(data.getDay()+"/"+data.getMonth()+"/"+(data.getYear()+1900)+" "+"0"+data.getHours()+":0"+data.getMinutes()+":"+data.getSeconds());
                     }
                     else
                     {
-                        clock.setText(data.getHours()+":0"+data.getMinutes()+":"+data.getSeconds());
+                        clock.setText(data.getDay()+"/"+data.getMonth()+"/"+(data.getYear()+1900)+" "+data.getHours()+":0"+data.getMinutes()+":"+data.getSeconds());
                     }
                 }
                 else
                 {
                     if(data.getHours() >= 0 && data.getHours() < 10)
                     {
-                        clock.setText("0"+data.getHours()+":"+data.getMinutes()+":"+data.getSeconds());
+                        clock.setText(data.getDay()+"/"+data.getMonth()+"/"+(data.getYear()+1900)+" "+"0"+data.getHours()+":"+data.getMinutes()+":"+data.getSeconds());
                     }
                     else
                     {
-                        clock.setText(data.getHours()+":"+data.getMinutes()+":"+data.getSeconds());
+                        clock.setText(data.getDay()+"/"+data.getMonth()+"/"+(data.getYear()+1900)+" "+data.getHours()+":"+data.getMinutes()+":"+data.getSeconds());
                     }
                 }
             }

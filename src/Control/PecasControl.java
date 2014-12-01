@@ -6,6 +6,7 @@
 package Control;
 import Model.Pecas;
 import Control.ConexaoBD;
+import Model.Carro;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -19,6 +20,24 @@ public class PecasControl {
     
     public PecasControl(){
         con = new ConexaoBD();
+    }
+    
+    public boolean setPecas(ArrayList<Pecas> lista, String quilometragem, Carro carro){
+        Integer i = 0;
+        String texto_consulta = "";
+        
+        
+        while(i<lista.size()){
+            texto_consulta+="INSERT INTO REVISAOPECA((SELECT CODPECA FROM PECA WHERE DESCRICAO='"+lista.get(i).getDescricao()+"'),(SELECT CODPECA FROM REVISAO WHERE REVISAO.PLACACARRO = '"+carro.getPlacaCarro()+"' AND "
+            + "QUILOMETRAGEM = '"+quilometragem+"'), 1);";            
+        }
+        
+        System.out.println(texto_consulta);
+        
+        return false;
+                
+                
+
     }
     
     public boolean setPeca(Pecas aux, Integer codigo){
