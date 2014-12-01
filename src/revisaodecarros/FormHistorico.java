@@ -79,6 +79,12 @@ public class FormHistorico extends javax.swing.JFrame {
             }
         }
         tableRevisao.setModel(model);
+        
+        lblDiaInicio.setText(fim);
+        lblDiaFim.setText(inicio);
+        Integer valor = conexao.getLucroPeriodo(inicio, fim);
+        System.out.println(valor);
+        lblValorModificavel.setText(valor.toString());
     }
 
     /**
@@ -117,6 +123,14 @@ public class FormHistorico extends javax.swing.JFrame {
         }  
         catch (Exception e){  
         }
+        jPanel1 = new javax.swing.JPanel();
+        lblValor = new javax.swing.JLabel();
+        lblValorModificavel = new javax.swing.JLabel();
+        lblEntre = new javax.swing.JLabel();
+        lblE = new javax.swing.JLabel();
+        lblDiaInicio = new javax.swing.JLabel();
+        lblDiaFim = new javax.swing.JLabel();
+        btnPeriodoLucro = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -158,7 +172,7 @@ public class FormHistorico extends javax.swing.JFrame {
             .addGroup(panelAcaoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(buttonPeriodo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 127, Short.MAX_VALUE)
                 .addComponent(buttonSair2)
                 .addContainerGap())
         );
@@ -267,6 +281,67 @@ public class FormHistorico extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Lucros"));
+
+        lblValor.setText("Valor:");
+
+        lblEntre.setText("Entre:");
+
+        lblE.setText("e:");
+
+        btnPeriodoLucro.setText("Período Lucro");
+        btnPeriodoLucro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPeriodoLucroActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnPeriodoLucro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(lblE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblDiaFim))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(lblValor)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(lblValorModificavel))
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(lblEntre)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(lblDiaInicio))))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblValor)
+                    .addComponent(lblValorModificavel))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblEntre)
+                    .addComponent(lblDiaInicio))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblE)
+                    .addComponent(lblDiaFim))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnPeriodoLucro)
+                .addContainerGap())
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -278,7 +353,9 @@ public class FormHistorico extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(panelRevisao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(panelAcao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(panelAcao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -286,11 +363,14 @@ public class FormHistorico extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(panelAcao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panelRevisao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                    .addComponent(panelRevisao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(panelAcao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -350,7 +430,7 @@ public class FormHistorico extends javax.swing.JFrame {
             }
             else if(inicio.getDate().after(today) || fim.getDate().after(today))
             {
-                JOptionPane.showMessageDialog(this, "Você não pode escolher uma data que seja anterior à hoje!", "Erro!", JOptionPane.OK_OPTION);
+                JOptionPane.showMessageDialog(this, "Você não pode escolher uma data que seja posterior à hoje!", "Erro!", JOptionPane.OK_OPTION);
             }
             //caso a data seja maior que a de inicio
             else
@@ -401,6 +481,67 @@ public class FormHistorico extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_buttonPeriodoActionPerformed
 
+    private void btnPeriodoLucroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPeriodoLucroActionPerformed
+        JDateChooser inicio = new JDateChooser();
+        JDateChooser fim = new JDateChooser();
+        Date today = new Date();
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+        
+        //Criação da mensagem com o txtField
+        Object[] mensagem = {
+            "Data do Inicio do período: ", inicio,
+            "Data do Fim do período: ", fim,
+        };
+        
+        //Mostra o field
+        int response = JOptionPane.showConfirmDialog(null, mensagem, "Pesquisa", JOptionPane.OK_CANCEL_OPTION);
+        
+        if(inicio.getDate() != null && fim.getDate() != null)
+        {
+            //Verifica se a data vêm antes da data de inicio
+            if(fim.getDate().before(inicio.getDate()))   
+            {
+                JOptionPane.showMessageDialog(this, "A data de início não pode ser uma data posterior à de fim!", "Erro!", JOptionPane.OK_OPTION);
+            }
+            else if(inicio.getDate().after(today) || fim.getDate().after(today))
+            {
+                JOptionPane.showMessageDialog(this, "Você não pode escolher uma data que seja posterior à hoje!", "Erro!", JOptionPane.OK_OPTION);
+            }
+            //caso a data seja maior que a de inicio
+            else
+            {
+                //caso o usuário tenha apertado ok
+                if(response == JOptionPane.OK_OPTION)
+                {
+                    String stringInicio, stringFim;
+
+                    stringInicio = formato.format(inicio.getDate());
+                    stringFim = formato.format(fim.getDate());
+                    
+                    Integer valor;
+
+                    valor = conexao.getLucroPeriodo(stringInicio, stringFim);
+                    //caso o valor não seja 0, continua
+                    if(valor > 0)
+                    {
+                        lblDiaInicio.setText(stringInicio);
+                        lblDiaFim.setText(stringFim);
+                        System.out.println(valor);
+                        lblValorModificavel.setText(valor.toString());
+                    }
+                    else //caso a agenda esteja nula, avisa
+                    {
+                        JOptionPane.showMessageDialog(this, "Não foram encontradas revisões no período informado!", "Erro!", JOptionPane.OK_OPTION);
+                    }
+                }
+            }
+        }
+        else //mensagem de erro caso ele não tenha inserido as datas
+        {
+            JOptionPane.showMessageDialog(this, "Você precisa inserir uma data!", "Erro!", JOptionPane.OK_OPTION);
+        }
+    }//GEN-LAST:event_btnPeriodoLucroActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -437,12 +578,20 @@ public class FormHistorico extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnPeriodoLucro;
     private javax.swing.JButton buttonPeriodo;
     private javax.swing.JButton buttonSair2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblDate;
+    private javax.swing.JLabel lblDiaFim;
+    private javax.swing.JLabel lblDiaInicio;
+    private javax.swing.JLabel lblE;
+    private javax.swing.JLabel lblEntre;
     private javax.swing.JLabel lblUser;
+    private javax.swing.JLabel lblValor;
+    private javax.swing.JLabel lblValorModificavel;
     private javax.swing.JPanel panelAcao;
     private javax.swing.JPanel panelInfo;
     private javax.swing.JPanel panelRevisao;

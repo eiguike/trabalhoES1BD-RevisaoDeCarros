@@ -52,8 +52,8 @@ create table Funcionario (
     mecanico boolean
 );
 
-create table Revisao2 (
-    codRevisao smallint PRIMARY KEY,
+create table RevisaoPrincipal (
+    codRevisao serial PRIMARY KEY,
     kmAtual    integer,
     dataRevisao date,
     hora       time  
@@ -64,10 +64,9 @@ create table FuncionarioRevisao (
     dataAgendamento    date,
     codRevisao smallint,
     FOREIGN KEY (CPF) REFERENCES Funcionario(CPF), --ON DELETE
-    FOREIGN KEY (codRevisao) REFERENCES Revisao2(codRevisao),
+    FOREIGN KEY (codRevisao) REFERENCES RevisaoPrincipal(codRevisao),
     CONSTRAINT codigoFuncionarioRevisao PRIMARY KEY (CPF, codRevisao)
 );
-
 
 create table TipoDeServico (
     codServico smallint PRIMARY KEY,
@@ -82,16 +81,13 @@ create table Peca (
     vencimento integer
 );
 
-create table RevisaoTipoDeServico (
-    codRevisao smallint,
-    codServico smallint,
+create table TipoRevisao (
     codPeca smallint,
-    quantidade smallint,
-    FOREIGN KEY (codRevisao) REFERENCES Revisao2(codRevisao), --ON DELETE
-    FOREIGN KEY (codServico) REFERENCES TipoDeServico(codServico), --ON DELETE
-    FOREIGN KEY (codPeca) REFERENCES Peca(codPeca), --ON DELETE
-    CONSTRAINT codigoRevisaoTipoDeServico PRIMARY KEY (codRevisao, codServico, codPeca)
-
+    codServico smallint,
+    quilometragem integer NOT NULL,
+    FOREIGN KEY (codPeca) REFERENCES Peca(codPeca),
+    FOREIGN KEY (codServico) REFERENCES TipoDeServico(codServico),
+    CONSTRAINT codigoTipoRevisao PRIMARY KEY (codPeca, codServico)
 );
 
 create table Revisao (
@@ -99,21 +95,20 @@ create table Revisao (
     CPFMecanico varchar(11),
     placaCarro  varchar(8),
     CPFCliente  varchar(11),
-    codServico smallint,
-    FOREIGN KEY (codRevisao) REFERENCES Revisao2(codRevisao), --ON DELETE
-    FOREIGN KEY (codServico) REFERENCES TipoDeServico(codServico), --ON DELETE
+    quilometragem integer,
+    FOREIGN KEY (codRevisao) REFERENCES RevisaoPrincipal(codRevisao), --ON DELETE
     FOREIGN KEY (CPFMecanico) REFERENCES Funcionario(CPF), --ON DELETE
     FOREIGN KEY (CPFCliente, placaCarro) REFERENCES Carro(CPF, placaCarro), --ON DELETE
-    CONSTRAINT ordemDeServico PRIMARY KEY (codRevisao, CPFMecanico, placaCarro, CPFCliente, codServico)
+    CONSTRAINT ordemDeServico PRIMARY KEY (codRevisao, CPFMecanico, placaCarro, CPFCliente)
 );
 
-create table TipoRevisao (
-    codPeca smallint,
-    codServico smallint,
-    quilometragem integer,
+create table RevisaoPeca(
+    codPeca      smallint,
+    codRevisao   smallint,
+    quantidade   smallint NOT NULL,
     FOREIGN KEY (codPeca) REFERENCES Peca(codPeca),
-    FOREIGN KEY (codServico) REFERENCES TipoDeServico(codServico),
-    CONSTRAINT codTipoRevisao PRIMARY KEY (codPeca, codServico)
+    FOREIGN KEY (codRevisao) REFERENCES RevisaoPrincipal(codRevisao),
+    CONSTRAINT codigoRevisaoPeca PRIMARY KEY (codPeca, codRevisao, quantidade)
 );
 
 ------------------------------------------
@@ -158,18 +153,18 @@ INSERT INTO CarroGarantia VALUES('08111639708', 'ALC-4020', '4');
 INSERT INTO CarroGarantia VALUES('24391956853', 'GAY-2424', '5'); 
 
 --Tabela Funcionario
-INSERT INTO Funcionario VALUES('34512343990','Marcello','1234','caco',true);
-INSERT INTO Funcionario VALUES('12345678941','Henrique','1234','snd',true);
-INSERT INTO Funcionario VALUES('90134578459','Joao','4321','estrela',false); 
-INSERT INTO Funcionario VALUES('42312309878','Gustavo','2341','scarface',false);
+INSERT INTO Funcionario VALUES('34512343990','Marcello','1111','caco',true);
+INSERT INTO Funcionario VALUES('12345678941','Henrique','1111','snd',true);
+INSERT INTO Funcionario VALUES('90134578459','Joao','1111','estrela',false); 
+INSERT INTO Funcionario VALUES('42312309878','Gustavo','1111','scarface',false);
 
---Tabela Revisao2
-INSERT INTO Revisao2 VALUES(1, 11534, '2014-11-25', '8:00');
-INSERT INTO Revisao2 VALUES(2, 15334, '2014-11-26', '8:00');
-INSERT INTO Revisao2 VALUES(3, 38999, '2014-11-25', '10:00');
-INSERT INTO Revisao2 VALUES(4, 44098, '2014-11-26', '10:00');
-INSERT INTO Revisao2 VALUES(5, 12300, '2014-11-26', '8:00');
-INSERT INTO Revisao2 VALUES(6, 59000, '2014-11-25', '10:00');
+--Tabela RevisaoPrincipal
+INSERT INTO RevisaoPrincipal (kmatual, datarevisao, hora) VALUES(11534, '2014-11-25', '8:00');
+INSERT INTO RevisaoPrincipal (kmatual, datarevisao, hora) VALUES(20334, '2014-11-26', '8:00');
+INSERT INTO RevisaoPrincipal (kmatual, datarevisao, hora) VALUES(38999, '2014-11-25', '10:00');
+INSERT INTO RevisaoPrincipal (kmatual, datarevisao, hora) VALUES(44098, '2014-11-26', '10:00');
+INSERT INTO RevisaoPrincipal (kmatual, datarevisao, hora) VALUES(10300, '2014-11-26', '8:00');
+INSERT INTO RevisaoPrincipal (kmatual, datarevisao, hora) VALUES(59000, '2014-11-25', '10:00');
 
 --Tabela FuncionarioRevisao
 INSERT INTO FuncionarioRevisao VALUES('90134578459', '2014-11-21', 1);
@@ -177,7 +172,7 @@ INSERT INTO FuncionarioRevisao VALUES('90134578459', '2014-11-22', 2);
 INSERT INTO FuncionarioRevisao VALUES('42312309878', '2014-11-21', 3);
 INSERT INTO FuncionarioRevisao VALUES('42312309878', '2014-11-22', 4);
 INSERT INTO FuncionarioRevisao VALUES('90134578459', '2014-11-22', 5);
-INSERT INTO FuncionarioRevisao VALUES('90134578459', '2014-11-23', 6);
+INSERT INTO FuncionarioRevisao VALUES('90134578459', '2014-11-23', 6); 
 
 --Tabela TipoDeServico
 INSERT INTO TipoDeServico VALUES(1, 'troca de oleo', 100.00, 100);
@@ -195,19 +190,12 @@ INSERT INTO Peca VALUES(4, 'vela', 90);
 INSERT INTO Peca VALUES(5, 'catalisador', 60);
 INSERT INTO Peca VALUES(6, 'filtro de oleo', 60);
 
---Tabela RevisaoTipoDeServico
-INSERT INTO RevisaoTipoDeServico VALUES(1, 4, 1, 1);
-INSERT INTO RevisaoTipoDeServico VALUES(2, 1, 6, 1);
-INSERT INTO RevisaoTipoDeServico VALUES(3, 2, 3, 1);
-INSERT INTO RevisaoTipoDeServico VALUES(4, 6, 4, 4);
-INSERT INTO RevisaoTipoDeServico VALUES(5, 6, 1, 1);
-
 --Tabela Revisao
-INSERT INTO Revisao VALUES(1, '34512343990', 'VAC-2014', '08111639708', 1);
-INSERT INTO Revisao VALUES(2, '12345678941', 'URR-2011', '59372476633', 2);
-INSERT INTO Revisao VALUES(3, '12345678941', 'GAY-2424', '24391956853', 3);
-INSERT INTO Revisao VALUES(4, '34512343990', 'DOM-2586', '15898450998', 4);
-INSERT INTO Revisao VALUES(5, '34512343990', 'DOM-2586', '15898450998', 5);
+INSERT INTO Revisao VALUES(1, '34512343990', 'VAC-2014', '08111639708', 10000);
+INSERT INTO Revisao VALUES(2, '12345678941', 'URR-2011', '59372476633', 20000);
+INSERT INTO Revisao VALUES(3, '12345678941', 'GAY-2424', '24391956853', 40000);
+INSERT INTO Revisao VALUES(4, '34512343990', 'DOM-2586', '15898450998', 10000);
+INSERT INTO Revisao VALUES(5, '34512343990', 'DOM-2586', '15898450998', 60000);
 
 --Tabela TipoRevisao
 INSERT INTO TipoRevisao VALUES(1, 5, 10000);
@@ -215,4 +203,3 @@ INSERT INTO TipoRevisao VALUES(4, 1, 60000);
 INSERT INTO TipoRevisao VALUES(2, 3, 10000);
 INSERT INTO TipoRevisao VALUES(3, 2, 30000);
 INSERT INTO TipoRevisao VALUES(6, 4, 40000);
-
