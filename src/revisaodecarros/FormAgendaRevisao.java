@@ -64,15 +64,17 @@ public class FormAgendaRevisao extends javax.swing.JFrame {
 
         jCalendar1.addPropertyChangeListener("calendar", new PropertyChangeListener() {
             public void propertyChange(PropertyChangeEvent e) {
-                Calendar cal = Calendar.getInstance();
-                cal.setTime(new Date());
-                cal.add(Calendar.DATE,-2);
-                System.out.println(cal.toString());
                 
-                Date data = cal.getTime();
+                Date data = new Date();
+                data.setDate(data.getDate()-1);
                 
                 if (jCalendar1.getDate().before(data)) {
                     jCalendar1.setDate(data);
+                    DefaultTableModel model = new DefaultTableModel();
+                    model.addColumn("Horários");
+
+                    jTable1.setModel(model);
+                    jTable1.setEnabled(true);                    
                 } else {
                     Integer i;
                     Integer numMecanicos = agendaControl.getNumMecanicos();

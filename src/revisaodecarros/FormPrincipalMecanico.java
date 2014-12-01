@@ -18,6 +18,8 @@ import static java.lang.Integer.parseInt;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import javax.swing.JComboBox;
+import javax.swing.JTextField;
 import javax.swing.Timer;
 import javax.swing.table.DefaultTableModel;
 
@@ -30,6 +32,7 @@ public class FormPrincipalMecanico extends javax.swing.JFrame {
     MecanicoControl mecanicoControl;
     ArrayList<AgendaMecanico> lista;
     AgendaMecanico instancia;
+    AgendaMecanico instanciaAux;
   
     ActionListener actListner = new ActionListener() {
         @Override
@@ -157,6 +160,7 @@ public class FormPrincipalMecanico extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
+        jToggleButton2 = new javax.swing.JToggleButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -212,17 +216,25 @@ public class FormPrincipalMecanico extends javax.swing.JFrame {
             }
         });
 
+        jToggleButton2.setText("Ir para outra Revisão (F4)");
+        jToggleButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jToggleButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -234,7 +246,9 @@ public class FormPrincipalMecanico extends javax.swing.JFrame {
                 .addComponent(jButton2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 320, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jToggleButton2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 288, Short.MAX_VALUE)
                 .addComponent(jButton4)
                 .addContainerGap())
         );
@@ -271,7 +285,7 @@ public class FormPrincipalMecanico extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 540, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 517, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -403,6 +417,49 @@ public class FormPrincipalMecanico extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTable2ComponentHidden
 
+    private void jToggleButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton2ActionPerformed
+        if(jToggleButton2.isSelected()){
+            jToggleButton2.setText("Ir para Revisão Original (F4)");
+            JComboBox quilometragem = new JComboBox();
+            quilometragem.addItem("10000 km");
+            quilometragem.addItem("20000 km");
+            quilometragem.addItem("30000 km");
+            quilometragem.addItem("40000 km");
+            quilometragem.addItem("50000 km");
+            quilometragem.addItem("60000 km");
+            JTextField carro = new JTextField();
+
+            //Criação da mensagem com o txtField
+            Object[] mensagem = {
+                "Tipo de Revisão: ", quilometragem,
+                "Placa do Carro: ", carro,
+            };
+
+            int response = JOptionPane.showConfirmDialog(null, mensagem, "Pesquisa", JOptionPane.OK_CANCEL_OPTION);    
+            if(response == 0){
+                instanciaAux = instancia;
+                instancia = mecanicoControl.getRevisao(jLabel3.getText(), carro.getText(), quilometragem.getSelectedItem().toString().substring(0, 5));
+                if(instancia == null){
+                    JOptionPane.showMessageDialog(this, "Não foi encontrado nenhum carro com este tipo de revisão!", "Erro!", JOptionPane.OK_OPTION);
+                    jToggleButton2.setText("Ir para outra Revisão (F4)");
+                    jToggleButton2.setSelected(false);
+                    instancia = instanciaAux;
+                }else{
+                    timer.stop();
+                    jLabel6.setText(instancia.getCliente().getNome());
+                }
+            }else{
+                timer.start();
+                jToggleButton2.setText("Ir para outra Revisão (F4)");
+                jToggleButton2.setSelected(false);
+            }
+
+        }else{
+            timer.start();
+            jToggleButton2.setText("Ir para outra Revisão (F4)");
+        }
+    }//GEN-LAST:event_jToggleButton2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -452,6 +509,7 @@ public class FormPrincipalMecanico extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable2;
+    private javax.swing.JToggleButton jToggleButton2;
     private javax.swing.JLabel relogio;
     // End of variables declaration//GEN-END:variables
 }

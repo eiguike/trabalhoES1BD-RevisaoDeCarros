@@ -368,6 +368,11 @@ public class FormControleCliente extends javax.swing.JFrame {
         }  
         catch (Exception e){  
         }
+        txtCelular.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCelularActionPerformed(evt);
+            }
+        });
         txtCelular.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtCelularFocusGained(evt);
@@ -1333,6 +1338,10 @@ public class FormControleCliente extends javax.swing.JFrame {
     private void tblCarroFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tblCarroFocusLost
 
     }//GEN-LAST:event_tblCarroFocusLost
+
+    private void txtCelularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCelularActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCelularActionPerformed
     
     private String checkCliente()
     {
