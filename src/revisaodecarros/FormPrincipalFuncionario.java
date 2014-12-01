@@ -6,6 +6,7 @@ package revisaodecarros;
 
 import Control.AgendaControl;
 import Model.Agenda;
+import com.toedter.calendar.JDateChooser;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -340,34 +341,76 @@ public class FormPrincipalFuncionario extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonRevisaoActionPerformed
 
     private void buttonPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPesquisaActionPerformed
-        JTextField inicio = new JTextField();
-        JTextField fim = new JTextField();
-        try{  
-            javax.swing.text.MaskFormatter data = new javax.swing.text.MaskFormatter("##/##/####");  
-            inicio = new javax.swing.JFormattedTextField(data);
-            fim = new javax.swing.JFormattedTextField(data);
-        }  
-        catch (Exception e){  
-        }
-        //agenda = conexao.getRevisaoPorPeriodo(data, data);
+        JDateChooser inicio = new JDateChooser();
+        JDateChooser fim = new JDateChooser();
+        ArrayList<Agenda> agenda = new ArrayList<Agenda>();
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+               
+        //Criação da mensagem com o txtField
+        Object[] mensagem = {
+            "Data do Inicio do período: ", inicio,
+            "Data do Fim do período: ", fim,
+        };
         
-        //Montagem da tabela
-        DefaultTableModel model = new DefaultTableModel();
-        model.addColumn("Data");
-        model.addColumn("Hora");
-        model.addColumn("Mecânico");
-        model.addColumn("Cliente");
-        model.addColumn("Carro");
-            
-        Integer i=0;
-        while (i < agenda.size()) {
-                Agenda agendinha = new Agenda();
-                
-                agendinha = agenda.get(i);
-                model.addRow(new Object[]{agendinha.getData().toString(),agendinha.getHora(),agendinha.getCpfMecanicos().get(0),agendinha.getCliente().getNome(),agendinha.getCarro().getModelo()});
-                i++;
+        //Mostra o field
+        int response = JOptionPane.showConfirmDialog(null, mensagem, "Pesquisa", JOptionPane.OK_CANCEL_OPTION);
+        
+        if(inicio.getDate() != null && fim.getDate() != null)
+        {
+            //Verifica se a data vêm antes da data de inicio
+            if(fim.getDate().before(inicio.getDate()))   
+            {
+                //mensagem de erro caso verdadeira
+            }
+            //verifica se a data é igual a de inicio
+            else if (fim.getDate().equals(inicio.getDate()))
+            {
+
+            }
+            //caso a data seja maior que a de inicio
+            else
+            {
+                if(response == JOptionPane.OK_OPTION)
+                {
+                    String stringInicio, stringFim;
+
+                    stringInicio = formato.format(inicio.getDate());
+                    stringFim = formato.format(fim.getDate());
+
+                    agenda = conexao.getRevisaoPorPeriodo(stringInicio, stringFim);
+                    if(agenda != null)
+                    {
+                        //Montagem da tabela
+                        DefaultTableModel model = new DefaultTableModel();
+                        model.addColumn("Data");
+                        model.addColumn("Hora");
+                        model.addColumn("Mecânico");
+                        model.addColumn("Cliente");
+                        model.addColumn("Carro");
+
+                        Integer i=0;
+                        while (i < agenda.size()) {
+                                Agenda agendinha = new Agenda();
+
+                                agendinha = agenda.get(i);
+                                model.addRow(new Object[]{agendinha.getData().toString(),agendinha.getHora(),agendinha.getCpfMecanicos().get(0),agendinha.getCliente().getNome(),agendinha.getCarro().getModelo()});
+                                i++;
+                        }
+                        tableRevisao.setModel(model);
+
+                        txtInicio.setText(stringInicio.replaceAll("[/]", ""));
+                        txtFim.setText(stringFim.replaceAll("[/]", ""));
+                    }
+                    else
+                    {
+
+                    }
+                }
+            }
         }
-        //Muda as textBoxes
+        else
+        {
+        }
     }//GEN-LAST:event_buttonPesquisaActionPerformed
 
     private void buttonHistoricoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonHistoricoActionPerformed
