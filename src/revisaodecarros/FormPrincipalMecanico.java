@@ -29,6 +29,7 @@ public class FormPrincipalMecanico extends javax.swing.JFrame {
     ClockTest clock;
     MecanicoControl mecanicoControl;
     ArrayList<AgendaMecanico> lista;
+    AgendaMecanico instancia;
   
     ActionListener actListner = new ActionListener() {
         @Override
@@ -36,7 +37,7 @@ public class FormPrincipalMecanico extends javax.swing.JFrame {
             atualizarInstancia();
         }
     };
-    Timer timer = new Timer(5*1000, actListner);
+    Timer timer = new Timer(10*1000, actListner);
     /**
      * Creates new form FormPrincipalMecanico
      */
@@ -66,6 +67,7 @@ public class FormPrincipalMecanico extends javax.swing.JFrame {
                 for(i=0;i<lista.size();i++){
                     if(parseInt(lista.get(i).getHora().substring(0, 2))==8){
                         jLabel6.setText(lista.get(i).getCliente().getNome());
+                        instancia = lista.get(i);
                         return;
                     }
                 }
@@ -74,6 +76,7 @@ public class FormPrincipalMecanico extends javax.swing.JFrame {
                 for(i=0;i<lista.size();i++){
                     if(parseInt(lista.get(i).getHora().substring(0, 2))==10){
                         jLabel6.setText(lista.get(i).getCliente().getNome());
+                        instancia = lista.get(i);
                         return;
                     }
                 }            
@@ -82,6 +85,7 @@ public class FormPrincipalMecanico extends javax.swing.JFrame {
                 for(i=0;i<lista.size();i++){
                     if(parseInt(lista.get(i).getHora().substring(0, 2))==12){
                         jLabel6.setText(lista.get(i).getCliente().getNome());
+                        instancia = lista.get(i);
                         return;
                     }
                 }            
@@ -90,11 +94,13 @@ public class FormPrincipalMecanico extends javax.swing.JFrame {
                 for(i=0;i<lista.size();i++){
                     if(parseInt(lista.get(i).getHora().substring(0, 2))==16){
                         jLabel6.setText(lista.get(i).getCliente().getNome());
+                        instancia = lista.get(i);
                         return;
                     }
                 }            
             }
         }
+        instancia = null;
         jLabel6.setText("Nenhum agendamento");
    
     }
@@ -369,7 +375,9 @@ public class FormPrincipalMecanico extends javax.swing.JFrame {
         
         //Mostra o field
         int response = JOptionPane.showConfirmDialog(null, mensagem, "Pesquisa", JOptionPane.OK_CANCEL_OPTION);
-        atualizarTabela(inicio.getDate(),fim.getDate());
+        if(response == 0)
+            atualizarTabela(inicio.getDate(),fim.getDate());
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -382,8 +390,12 @@ public class FormPrincipalMecanico extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosing
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        new FormAdicionarPecas(this, jLabel3.getText()).setVisible(true);
-        this.setVisible(false);
+        if(instancia == null){
+            JOptionPane.showMessageDialog(this, "Nenhuma manutenção está sendo realizado no momento!", "Erro!", JOptionPane.OK_OPTION);
+        }else{
+            new FormAdicionarPecas(this, jLabel3.getText()).setVisible(true);
+            this.setVisible(false);
+        }                
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jTable2ComponentHidden(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jTable2ComponentHidden

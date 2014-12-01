@@ -18,6 +18,7 @@ public class AgendaMecanico {
     private Date data;
     private String hora;
     private ArrayList<Pecas> peca;
+    private String quilometragem;
 
     public String getHora() {
         return hora;
