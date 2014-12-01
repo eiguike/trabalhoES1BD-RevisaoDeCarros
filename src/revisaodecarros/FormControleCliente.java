@@ -349,6 +349,13 @@ public class FormControleCliente extends javax.swing.JFrame {
         });
 
         try{  
+            javax.swing.text.MaskFormatter chassi = new javax.swing.text.MaskFormatter("AAAAAAAAAAAAAAAAA");  
+            txtChassi = new javax.swing.JFormattedTextField(chassi);                    
+        }  
+        catch (Exception e){  
+        }
+
+        try{  
             javax.swing.text.MaskFormatter ano = new javax.swing.text.MaskFormatter("####");  
             txtAno = new javax.swing.JFormattedTextField(ano);  
         }  
