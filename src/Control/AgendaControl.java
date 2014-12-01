@@ -250,26 +250,21 @@ public class AgendaControl {
         return horarioRet;        
     }
     
-    public ArrayList<Agenda> getRevisaoPorPeriodo(Date inicio, Date fim)
+    public ArrayList<Agenda> getRevisaoPorPeriodo(String inicio, String fim)
     {
         ArrayList<Agenda> Horarios = new ArrayList<Agenda>();
-        ArrayList<String> mecanico = new ArrayList<String>();
-        Agenda agenda = new Agenda();
-        Cliente cliente = new Cliente();
-        Carro carro = new Carro();
         ResultSet rs = null;  
         String texto_consulta = null;
-        DateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
-        Date string;
-        
-        texto_consulta = "SELECT RevisaoPrincipal.dataRevisao, RevisaoPrincipal.hora, Funcionario.nome, Cliente.CPF, Cliente.nome, Carro.placaCarro, Carro.modelo" +
-                "FROM Revisao, Funcionario, Cliente, Carro, RevisaoPrincipal" +
-                "WHERE RevisaoPrincipal.dataRevisao >= "+ inicio + " AND " +
-                "RevisaoPrincipal.dataRevisao <= "+ fim + " AND " +
+             
+        texto_consulta = "SELECT RevisaoPrincipal.dataRevisao, RevisaoPrincipal.hora, Funcionario.nome, Cliente.CPF, Cliente.nome, Carro.placaCarro, Carro.modelo " +
+                "FROM Revisao, Funcionario, Cliente, Carro, RevisaoPrincipal " +
+                "WHERE RevisaoPrincipal.dataRevisao >= '"+ inicio +"' AND " +
+                "RevisaoPrincipal.dataRevisao <= '"+ fim +"' AND " +
                 "RevisaoPrincipal.codRevisao = Revisao.codRevisao AND "+
                 "Revisao.CPFMecanico = Funcionario.CPF AND "+
                 "Revisao.placaCarro = Carro.placaCarro AND "+
-                "Revisao.CPFCliente = Cliente.CPF";
+                "Revisao.CPFCliente = Cliente.CPF "+
+                "ORDER BY RevisaoPrincipal.dataRevisao ASC, RevisaoPrincipal.hora ASC";
         
         System.out.println(texto_consulta);
         try{
@@ -279,8 +274,12 @@ public class AgendaControl {
           
           while(rs.isAfterLast() == false)
           {      
-            string = (Date)formato.parse(rs.getString(1));
-            agenda.setData(string);
+            ArrayList<String> mecanico = new ArrayList<String>();
+            Agenda agenda = new Agenda();
+            Cliente cliente = new Cliente();
+            Carro carro = new Carro();
+            
+            agenda.setData(rs.getDate(1));
             agenda.setHora(rs.getString(2));
             mecanico.add(rs.getString(3));
             agenda.setCpfMecanicos(mecanico);
@@ -290,8 +289,8 @@ public class AgendaControl {
             carro.setPlacaCarro(rs.getString(6));
             carro.setModelo(rs.getString(7));
             agenda.setCarro(carro);
-            Horarios.add(agenda);
             
+            Horarios.add(agenda);
             rs.next();
           }
         }catch(SQLException e){

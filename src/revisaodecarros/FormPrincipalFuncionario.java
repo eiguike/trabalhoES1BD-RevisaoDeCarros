@@ -4,12 +4,14 @@
  */
 package revisaodecarros;
 
+import Control.AgendaControl;
 import Model.Agenda;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import Control.AgendaControl;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -31,8 +33,19 @@ public class FormPrincipalFuncionario extends javax.swing.JFrame {
         txtUser.setText(login);
         clock = new ClockTest(txtDate);
         conexao = new AgendaControl();
+        
         Date data = new Date();
-        agenda = conexao.getRevisaoPorPeriodo(data, data);
+        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat textBox = new SimpleDateFormat("dd-MM-yyyy");
+        String dia = formato.format(data);
+        String txt = textBox.format(data);
+        
+        txtInicio.setText(txt.replaceAll("[-]", ""));
+        txtFim.setText(txt.replaceAll("[-]", ""));
+        
+        Agenda agendinha = new Agenda();
+        System.out.println(dia);
+        agenda = conexao.getRevisaoPorPeriodo(dia, dia);
         
         //Montagem da tabela
         DefaultTableModel model = new DefaultTableModel();
@@ -41,17 +54,17 @@ public class FormPrincipalFuncionario extends javax.swing.JFrame {
         model.addColumn("Mecânico");
         model.addColumn("Cliente");
         model.addColumn("Carro");
-            
-        Integer i=0;
-        while (i < agenda.size()) {
-                Agenda agendinha = new Agenda();
-                
-                agendinha = agenda.get(i);
-                model.addRow(new Object[]{agendinha.getData().toString(),agendinha.getHora(),agendinha.getCpfMecanicos().get(0),agendinha.getCliente().getNome(),agendinha.getCarro().getModelo()});
-                i++;
-        }
         
-        //código que completará as textboxes
+        if(agenda != null)
+        {
+            Integer i=0;
+            while (i < agenda.size()) {
+                    agendinha = agenda.get(i);
+                    model.addRow(new Object[]{agendinha.getData().toString(),agendinha.getHora(),agendinha.getCpfMecanicos().get(0),agendinha.getCliente().getNome(),agendinha.getCarro().getModelo()});
+                    i++;
+            }
+        }
+        tableRevisao.setModel(model);
     }
     
     @SuppressWarnings("unchecked")
@@ -145,14 +158,14 @@ public class FormPrincipalFuncionario extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(scrRevisao, javax.swing.GroupLayout.PREFERRED_SIZE, 441, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panelRevisaoLayout.createSequentialGroup()
-                        .addGap(122, 122, 122)
+                        .addGap(112, 112, 112)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtFim, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtFim, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelRevisaoLayout.setVerticalGroup(
@@ -327,7 +340,15 @@ public class FormPrincipalFuncionario extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonRevisaoActionPerformed
 
     private void buttonPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPesquisaActionPerformed
-        //Abre uma janela que recebe as duas datas
+        JTextField inicio = new JTextField();
+        JTextField fim = new JTextField();
+        try{  
+            javax.swing.text.MaskFormatter data = new javax.swing.text.MaskFormatter("##/##/####");  
+            inicio = new javax.swing.JFormattedTextField(data);
+            fim = new javax.swing.JFormattedTextField(data);
+        }  
+        catch (Exception e){  
+        }
         //agenda = conexao.getRevisaoPorPeriodo(data, data);
         
         //Montagem da tabela
