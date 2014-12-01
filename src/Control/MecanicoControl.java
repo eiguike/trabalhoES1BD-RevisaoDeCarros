@@ -26,8 +26,8 @@ public class MecanicoControl {
     public ArrayList<AgendaMecanico> getCarrosSemana(String login, Date dataAtual, Date fim){
         System.out.println(dataAtual);
         String texto_consulta = 
-        " SELECT REVISAOPRINCIPAL.DATAREVISAO, REVISAOPRINCIPAL.HORA, AUX.NOME, AUX.PLACACARRO\n" +
-        " FROM REVISAOPRINCIPAL, (SELECT MEC.CPFMECANICO,CODREVISAO, CLIENTE.NOME, REVISAO.PLACACARRO FROM \n" +
+        " SELECT REVISAOPRINCIPAL.DATAREVISAO, REVISAOPRINCIPAL.HORA, AUX.NOME, AUX.PLACACARRO, AUX.QUILOMETRAGEM\n" +
+        " FROM REVISAOPRINCIPAL, (SELECT MEC.CPFMECANICO,CODREVISAO, CLIENTE.NOME, REVISAO.PLACACARRO, REVISAO.QUILOMETRAGEM FROM \n" +
         " REVISAO, CLIENTE, (SELECT CPF AS CPFMECANICO FROM FUNCIONARIO WHERE LOGIN ='"+login+"') AS MEC \n" +
         " WHERE CLIENTE.CPF = REVISAO.CPFCLIENTE AND REVISAO.CPFMECANICO = MEC.CPFMECANICO) AS AUX\n" +
         " WHERE AUX.CODREVISAO = REVISAOPRINCIPAL.CODREVISAO AND\n" +
@@ -52,6 +52,7 @@ public class MecanicoControl {
                 aux.getCliente().setNome(rs.getString(3));
                 aux.getCliente().setCPF(rs.getString(4));
                 aux.getCarro().setPlacaCarro(rs.getString(4));
+                aux.setQuilometragem(rs.getString(5));
                 agendaMecanico.add(aux);
                 rs.next();
             }

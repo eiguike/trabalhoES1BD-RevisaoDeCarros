@@ -20,6 +20,14 @@ public class AgendaMecanico {
     private ArrayList<Pecas> peca;
     private String quilometragem;
 
+    public String getQuilometragem() {
+        return quilometragem;
+    }
+
+    public void setQuilometragem(String quilometragem) {
+        this.quilometragem = quilometragem;
+    }
+
     public String getHora() {
         return hora;
     }
