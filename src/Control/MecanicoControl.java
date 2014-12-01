@@ -60,8 +60,8 @@ public class MecanicoControl {
         " REVISAO, CLIENTE, (SELECT CPF AS CPFMECANICO FROM FUNCIONARIO WHERE LOGIN ='"+login+"') AS MEC \n" +
         " WHERE CLIENTE.CPF = REVISAO.CPFCLIENTE AND REVISAO.CPFMECANICO = MEC.CPFMECANICO) AS AUX\n" +
         " WHERE AUX.CODREVISAO = REVISAOPRINCIPAL.CODREVISAO AND\n" +
-        " REVISAOPRINCIPAL.DATAREVISAO >= '"+(dataAtual.getYear()+1900)+"-"+dataAtual.getMonth()+"-"+dataAtual.getDay()+"' "
-        + "AND REVISAOPRINCIPAL.DATAREVISAO < DATE '"+(fim.getYear()+1900)+"-"+fim.getMonth()+"-"+fim.getDay()+"' + INTEGER'1'\n" +
+        " REVISAOPRINCIPAL.DATAREVISAO >= '"+(dataAtual.getYear()+1900)+"-"+(dataAtual.getMonth()+1)+"-"+dataAtual.getDay()+"' "
+        + "AND REVISAOPRINCIPAL.DATAREVISAO < DATE '"+(fim.getYear()+1900)+"-"+(fim.getMonth()+1)+"-"+fim.getDay()+"' + INTEGER'1'\n" +
         " ORDER BY REVISAOPRINCIPAL.DATAREVISAO ASC, REVISAOPRINCIPAL.HORA";
         
         System.out.println(texto_consulta);
