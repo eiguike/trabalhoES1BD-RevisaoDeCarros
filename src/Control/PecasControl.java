@@ -37,12 +37,12 @@ public class PecasControl {
         return true;        
     }
     
-    public ArrayList getPecas(){
+    public ArrayList getPecas(String placaCarro, Integer quilometragem){
         ArrayList<Pecas> pecas = new ArrayList<Pecas>();
         Pecas aux;
 
         ResultSet rs = null;
-        String texto_consulta = "SELECT NOME, VENCIMENTO FROM PECA" ;
+        String texto_consulta = "select nome, vencimento from peca, revisaotipodeservico, revisao where revisao.placaCarro = '" + placaCarro + "' and revisaotipodeservico.codservico = revisao.codservico and peca.codpeca = revisaotipodeservico.codpeca and tiporevisao.quilometragem = " + quilometragem + ";" ;
         
         System.out.println(texto_consulta);
         
