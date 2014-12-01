@@ -257,13 +257,12 @@ public class AgendaControl {
         Agenda agenda = new Agenda();
         Cliente cliente = new Cliente();
         Carro carro = new Carro();
-        Funcionario func = new Funcionario();
         ResultSet rs = null;  
         String texto_consulta = null;
         DateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
         Date string;
         
-        texto_consulta = "SELECT RevisaoPrincipal.dataRevisao, RevisaoPrincipal.hora, Funcionario.CPF, Funcionario.nome, Cliente.CPF, Cliente.nome, Carro.placaCarro, Carro.modelo" +
+        texto_consulta = "SELECT RevisaoPrincipal.dataRevisao, RevisaoPrincipal.hora, Funcionario.nome, Cliente.CPF, Cliente.nome, Carro.placaCarro, Carro.modelo" +
                 "FROM Revisao, Funcionario, Cliente, Carro, RevisaoPrincipal" +
                 "WHERE RevisaoPrincipal.dataRevisao >= "+ inicio + " AND " +
                 "RevisaoPrincipal.dataRevisao <= "+ fim + " AND " +
@@ -283,12 +282,14 @@ public class AgendaControl {
             string = (Date)formato.parse(rs.getString(1));
             agenda.setData(string);
             agenda.setHora(rs.getString(2));
-            func.setCPF(rs.getString(3));
-            func.setNome(rs.getString(4));
-            cliente.setCPF(rs.getString(5));
-            cliente.setNome(rs.getString(6));
-            carro.setPlacaCarro(rs.getString(7));
-            carro.setModelo(rs.getString(8));
+            mecanico.add(rs.getString(3));
+            agenda.setCpfMecanicos(mecanico);
+            cliente.setCPF(rs.getString(4));
+            cliente.setNome(rs.getString(5));
+            agenda.setCliente(cliente);
+            carro.setPlacaCarro(rs.getString(6));
+            carro.setModelo(rs.getString(7));
+            agenda.setCarro(carro);
             Horarios.add(agenda);
             
             rs.next();
