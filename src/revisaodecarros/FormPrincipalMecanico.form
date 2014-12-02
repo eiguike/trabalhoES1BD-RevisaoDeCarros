@@ -151,6 +151,7 @@
         <Component class="javax.swing.JToggleButton" name="jToggleButton2">
           <Properties>
             <Property name="text" type="java.lang.String" value="Ir para outra Revis&#xe3;o (F4)"/>
+            <Property name="toolTipText" type="java.lang.String" value="Realiza revis&#xe3;o para um outro carro"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jToggleButton2ActionPerformed"/>

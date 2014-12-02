@@ -9,6 +9,7 @@ import Control.ConexaoBD;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  *
@@ -24,9 +25,14 @@ public class CarroControl {
     
     public boolean setCarro(Carro aux){
         ResultSet rs = null;
+        Date data = new Date();
+        Date datafinal = new Date();
+        datafinal.setDate(data.getDate()+1825);
         String texto_consulta = "INSERT INTO Carro VALUES('"
                 + aux.getCPF() + "','" + aux.getPlacaCarro()+ "','" + aux.getChassi() +"','"
                 + aux.getCor() +"', " + aux.getAno()+ ",'" + aux.getModelo()+"','f');";
+        texto_consulta+= "INSERT INTO Garantia VALUES((SELECT MAX(CODGARANTIA) FROM GARANTIA)+1, '"+data+"','"+datafinal+"');";
+        texto_consulta+= "INSERT INTO CarroGarantia VALUES ('"+aux.getCPF()+"','"+aux.getPlacaCarro()+"',(SELECT MAX(CODGARANTIA) FROM GARANTIA));";
                 
         System.out.println(texto_consulta);
         

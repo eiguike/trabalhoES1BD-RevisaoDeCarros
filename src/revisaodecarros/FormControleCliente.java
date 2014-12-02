@@ -138,7 +138,6 @@ public class FormControleCliente extends javax.swing.JFrame {
         txtRua = new javax.swing.JTextField();
         txtBairro = new javax.swing.JTextField();
         txtComplemento = new javax.swing.JTextField();
-        txtNumero = new javax.swing.JTextField();
         txtCidade = new javax.swing.JTextField();
         cmbEstado = new javax.swing.JComboBox();
         txtPlaca = new javax.swing.JTextField();
@@ -167,6 +166,7 @@ public class FormControleCliente extends javax.swing.JFrame {
         lblExemploTelefone = new javax.swing.JLabel();
         lblExemploPlaca = new javax.swing.JLabel();
         buttonADD1 = new javax.swing.JButton();
+        txtNumero = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -204,7 +204,6 @@ public class FormControleCliente extends javax.swing.JFrame {
         buttonEditar.setText("Editar Cliente");
         buttonEditar.setActionCommand("");
         buttonEditar.setEnabled(false);
-        buttonEditar.setRolloverEnabled(false);
         buttonEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonEditarActionPerformed(evt);
@@ -480,6 +479,8 @@ public class FormControleCliente extends javax.swing.JFrame {
                 buttonADD1ActionPerformed(evt);
             }
         });
+
+        txtNumero.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -1021,7 +1022,7 @@ public class FormControleCliente extends javax.swing.JFrame {
             aux.setChassi(txtChassi.getText());
             aux.setCor(txtCor.getText());
             aux.setModelo(txtModel.getText());
-            aux.setPlacaCarro(txtPlaca.getText().replaceAll("[(-.]",""));
+            aux.setPlacaCarro(txtPlaca.getText());
 
             buttonEditar.setEnabled(false);
 
@@ -1600,7 +1601,7 @@ public class FormControleCliente extends javax.swing.JFrame {
     private javax.swing.JTextField txtEmp;
     private javax.swing.JTextField txtModel;
     private javax.swing.JTextField txtNome;
-    private javax.swing.JTextField txtNumero;
+    private javax.swing.JFormattedTextField txtNumero;
     private javax.swing.JTextField txtPlaca;
     private javax.swing.JTextField txtRua;
     private javax.swing.JTextField txtTelefone;
