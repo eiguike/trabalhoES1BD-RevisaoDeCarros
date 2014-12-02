@@ -299,4 +299,38 @@ public class AgendaControl {
         
         return Horarios;
     }
+    
+    public Integer getLucroPeriodo(String inicio, String fim)
+    {
+        Integer valor_total;
+        
+        ResultSet rs = null;  
+        String texto_consulta = null;
+        
+        texto_consulta = "SELECT SUM(R2.preco) FROM ("+
+                "SELECT preco FROM  REVISAO, TipoRevisao, TipoDeServico, ("+
+                "SELECT Revisao.codRevisao FROM "+
+                "Revisao, RevisaoPrincipal "+
+                "WHERE Revisao.codRevisao = RevisaoPrincipal.codRevisao AND RevisaoPrincipal.dataRevisao >= '"+inicio+"' "+
+                "AND RevisaoPrincipal.dataRevisao < '"+fim+"'"+
+                ") AS R1 "+
+                "WHERE R1.codRevisao = Revisao.codRevisao "+
+                "AND Revisao.quilometragem = TipoRevisao.quilometragem "+
+                "AND TipoRevisao.codServico = TipoDeServico.codServico"+
+                ") AS R2";
+        
+        System.out.println(texto_consulta);
+        
+        try{
+          con.st.execute(texto_consulta);
+          rs = con.st.getResultSet();
+          rs.next();
+          
+          valor_total = Integer.parseInt(rs.getString(1));
+        }catch(SQLException e){
+          return null;
+        }
+        
+        return valor_total;
+    }
 }
