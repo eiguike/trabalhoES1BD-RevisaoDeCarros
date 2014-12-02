@@ -285,7 +285,7 @@ public class FormAdicionarPecas extends javax.swing.JFrame {
             // para retornar as pecas adicionadas
             ArrayList<Pecas> listapecas = new ArrayList<Pecas>();
             Pecas auxPeca = null;
-            Integer i=numpecas;
+            Integer i= numpecas;
             Integer j =0;
             while(i<tblPecas.getRowCount()){
                 auxPeca = new Pecas();
