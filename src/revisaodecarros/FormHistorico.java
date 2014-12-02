@@ -430,7 +430,7 @@ public class FormHistorico extends javax.swing.JFrame {
             }
             else if(inicio.getDate().after(today) || fim.getDate().after(today))
             {
-                JOptionPane.showMessageDialog(this, "Você não pode escolher uma data que seja anterior à hoje!", "Erro!", JOptionPane.OK_OPTION);
+                JOptionPane.showMessageDialog(this, "Você não pode escolher uma data que seja posterior à hoje!", "Erro!", JOptionPane.OK_OPTION);
             }
             //caso a data seja maior que a de inicio
             else
@@ -505,7 +505,7 @@ public class FormHistorico extends javax.swing.JFrame {
             }
             else if(inicio.getDate().after(today) || fim.getDate().after(today))
             {
-                JOptionPane.showMessageDialog(this, "Você não pode escolher uma data que seja anterior à hoje!", "Erro!", JOptionPane.OK_OPTION);
+                JOptionPane.showMessageDialog(this, "Você não pode escolher uma data que seja posterior à hoje!", "Erro!", JOptionPane.OK_OPTION);
             }
             //caso a data seja maior que a de inicio
             else
