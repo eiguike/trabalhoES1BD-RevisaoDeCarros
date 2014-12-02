@@ -851,7 +851,7 @@ public class FormControleCliente extends javax.swing.JFrame {
             tblCarro.setModel(model);
             tblCarro.setEnabled(true);
         } else {
-            JOptionPane.showMessageDialog(this, "Cliente não encontrado.", "Erro!", JOptionPane.OK_OPTION);
+            JOptionPane.showMessageDialog(this, "Cliente não encontrado.", "Erro: Procura do Cliente", JOptionPane.OK_OPTION);
         }
     }//GEN-LAST:event_buttonProcuraActionPerformed
 
@@ -905,7 +905,7 @@ public class FormControleCliente extends javax.swing.JFrame {
                 cliente.setComplemento(txtComplemento.getText());
 
                 if (conexao_cliente.updateCliente(cliente)) {
-                    JOptionPane.showMessageDialog(this, "Edição feita com êxito!");
+                    JOptionPane.showMessageDialog(this, "Edição feita com êxito!","Sucesso: Edição de Cliente", JOptionPane.OK_OPTION);
                     buttonEditar.setText("Editar Cliente");
                     buttonAdicionar.setEnabled(true);
                     buttonProcura.setEnabled(true);
@@ -929,12 +929,12 @@ public class FormControleCliente extends javax.swing.JFrame {
                     buttonAdicionar.setEnabled(true);
                     edicao = 0;
                 } else {
-                    JOptionPane.showMessageDialog(this, "Não foi possível a edição do cliente.", "Erro!", JOptionPane.OK_OPTION);
+                    JOptionPane.showMessageDialog(this, "Não foi possível a edição do cliente. Tente novamente.", "Erro: Edição de Cliente", JOptionPane.OK_OPTION);
                 }
             }
             else
             {
-                JOptionPane.showMessageDialog(this, "Você precisa completar o(s) seguinte(s) campo(s):\n\n" + mensagem, "Erro!", JOptionPane.OK_OPTION);
+                JOptionPane.showMessageDialog(this, "Você precisa completar o(s) seguinte(s) campo(s):\n\n" + mensagem, "Erro: Campos Incompletos", JOptionPane.OK_OPTION);
             }
         }
     }//GEN-LAST:event_buttonEditarActionPerformed
@@ -1034,7 +1034,7 @@ public class FormControleCliente extends javax.swing.JFrame {
             model.addColumn("Cor");
             model.addColumn("Ano");
             if(carroControl.setCarro(aux)){
-                JOptionPane.showMessageDialog(this, "Cadastro de Carro feito com sucesso!", "", JOptionPane.OK_OPTION);
+                JOptionPane.showMessageDialog(this, "Cadastro de Carro feito com sucesso!", "Sucesso: Cadastro de Carro", JOptionPane.OK_OPTION);
                 txtPlaca.setEnabled(false);
                 txtChassi.setEnabled(false);
                 txtAno.setEnabled(false);
@@ -1064,13 +1064,13 @@ public class FormControleCliente extends javax.swing.JFrame {
 
                 tblCarro.setModel(model);            
             }else{
-                JOptionPane.showMessageDialog(this, "Não foi possível cadastar o carro! Tente novamente.", "Erro!", JOptionPane.OK_OPTION);
+                JOptionPane.showMessageDialog(this, "Não foi possível cadastar o carro! Tente novamente.", "Erro: Cadastro de Carro", JOptionPane.OK_OPTION);
 
             }
         }
         else
         {
-            JOptionPane.showMessageDialog(this, "Você precisa completar o(s) seguinte(s) campo(s):\n\n" + mensagem, "Erro!", JOptionPane.OK_OPTION);    
+            JOptionPane.showMessageDialog(this, "Você precisa completar o(s) seguinte(s) campo(s):\n\n" + mensagem, "Erro: Campos Incompletos", JOptionPane.OK_OPTION);    
         }
     }//GEN-LAST:event_buttonADDActionPerformed
 
@@ -1092,13 +1092,13 @@ public class FormControleCliente extends javax.swing.JFrame {
                 tblCarro.setValueAt(txtModel.getText(), i, 2);
                 tblCarro.setValueAt(txtCor.getText(), i, 3);
                 tblCarro.setValueAt(txtAno.getText(), i, 4);
-                JOptionPane.showMessageDialog(this, "Edição feito com sucesso!", "Sucesso!", JOptionPane.OK_OPTION);
+                JOptionPane.showMessageDialog(this, "Edição feito com sucesso!", "Sucesso: Edição do Carro", JOptionPane.OK_OPTION);
             } else {
-                JOptionPane.showMessageDialog(this, "Não foi possível editar!", "ERRO!", JOptionPane.OK_OPTION);
+                JOptionPane.showMessageDialog(this, "Não foi possível editar! Tente novamente.", "Erro: Edição do Carro", JOptionPane.OK_OPTION);
             }
             buttonLimpar.setEnabled(true);
         } else {
-            JOptionPane.showMessageDialog(this, "Você precisa completar o(s) seguinte(s) campo(s):\n\n" + mensagem, "Erro!", JOptionPane.OK_OPTION);
+            JOptionPane.showMessageDialog(this, "Você precisa completar o(s) seguinte(s) campo(s):\n\n" + mensagem, "Erro: Campos Incompletos", JOptionPane.OK_OPTION);
         }
     }//GEN-LAST:event_buttonEDITActionPerformed
 
@@ -1113,7 +1113,7 @@ public class FormControleCliente extends javax.swing.JFrame {
         if (n == 0) {
             Carro carro = listaCarros.get(tblCarro.getSelectedRow());
             if (carroControl.deleteCarro(carro)) {
-                JOptionPane.showMessageDialog(this, "Carro excluido com sucesso!", "", JOptionPane.OK_OPTION);
+                JOptionPane.showMessageDialog(this, "Carro excluido com sucesso!", "Sucesso: Exclusão de Carro", JOptionPane.OK_OPTION);
                 i = 0;
                 
                 DefaultTableModel model = new DefaultTableModel();
@@ -1136,7 +1136,7 @@ public class FormControleCliente extends javax.swing.JFrame {
                 tblCarro.setModel(model);
 
             } else {
-                JOptionPane.showMessageDialog(this, "Não foi possível excluir o carro!", "Erro!", JOptionPane.OK_OPTION);
+                JOptionPane.showMessageDialog(this, "Não foi possível excluir o carro! Tente novamente.", "Erro: Exclusão", JOptionPane.OK_OPTION);
             }
         }        
     }//GEN-LAST:event_buttonDELActionPerformed
@@ -1151,7 +1151,7 @@ public class FormControleCliente extends javax.swing.JFrame {
     private void txtCPFFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCPFFocusGained
         if(txtCPF.isEditable())
         {
-            lblExemploCPF.setText("Ex.: 421.110.688-02");
+            lblExemploCPF.setText("Ex.: 421.110.688-02 - Utilize apenas números");
         }
     }//GEN-LAST:event_txtCPFFocusGained
 
@@ -1249,7 +1249,7 @@ public class FormControleCliente extends javax.swing.JFrame {
             if (salvar != 0) {
                 String mensagem = checkCliente();
                 if (!(mensagem.compareTo("") == 0)) {
-                    JOptionPane.showMessageDialog(this, "Você precisa completar o(s) seguinte(s) campo(s):\n\n" + mensagem, "Erro!", JOptionPane.OK_OPTION);
+                    JOptionPane.showMessageDialog(this, "Você precisa completar o(s) seguinte(s) campo(s):\n\n" + mensagem, "Erro: Campos Incompletos", JOptionPane.OK_OPTION);
                 } else {
                     Cliente aux = new Cliente();
                     aux.setNome(txtNome.getText());
@@ -1299,7 +1299,7 @@ public class FormControleCliente extends javax.swing.JFrame {
                         cmbEstado.setSelectedIndex(0);
                         salvar = 0;
                     } else {
-                        JOptionPane.showMessageDialog(this, "ERRO!", "Não foi possível cadastrar o cliente!", JOptionPane.OK_OPTION);
+                        JOptionPane.showMessageDialog(this, "Não foi possível cadastrar o cliente! Tente novamente.", "Erro: Cadastro de Cliente", JOptionPane.OK_OPTION);
                     }
                 }
             }
